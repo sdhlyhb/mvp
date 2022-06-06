@@ -9,7 +9,7 @@ class App extends React.Component {
     return(
 
       <div>
-        <h1>Job Application Maintainer</h1>
+        <h1>Job Application Tracker</h1>
 
         <div>
           <JobWebsites />

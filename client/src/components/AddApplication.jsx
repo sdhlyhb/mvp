@@ -7,16 +7,25 @@ class AddApplication extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      startDate: new Date()
+      startDate: new Date(),
+      selectedOption: ''
     };
     this.handleDateSelect = this.handleDateSelect.bind(this);
+    this.onValueChange = this.onValueChange.bind(this);
 
   }
 
   handleDateSelect(date) {
     this.setState({
-      startDate: date
+      startDate: date,
+
     })
+  }
+
+  onValueChange(event) {
+    this.setState({
+      selectedOption: event.target.value
+    });
   }
 
 
@@ -39,6 +48,19 @@ class AddApplication extends React.Component {
             onSelect={this.handleDateSelect} //when day is clicked
 
           />
+          <label>Job type</label>
+          <div >
+            <input type="radio" value="Full-Time" name="jobtype" checked={this.state.selectedOption === "Full-Time"} onChange={this.onValueChange}/> Full-Time
+            <input type="radio" value="Part-Time" name="jobtype" checked={this.state.selectedOption === "Part-Time"} onChange={this.onValueChange}/> Part-time
+            <input type="radio" value="Contract" name="jobtype" checked={this.state.selectedOption === "Contract"} onChange={this.onValueChange}/> Contract
+          </div>
+
+          <label>Job Post URL</label>
+          <input type="text" name="jobPostUrl"></input>
+          <br></br>
+
+          <label>Notes</label>
+          <input type="text" name="notes"></input>
 
           <input type="submit" value="Submit" />
 
