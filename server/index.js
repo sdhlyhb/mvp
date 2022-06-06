@@ -9,7 +9,7 @@ app.use(express.static(__dirname + '/../client/dist'));
 
 
 
-app.get('/api/allAppplications', (req, res) => {
+app.get('/api/allApplications', (req, res) => {
   return db.showAll()
     .then(jobs => {
       console.log('all job applicaitons:', jobs);
