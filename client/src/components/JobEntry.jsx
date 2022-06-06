@@ -2,7 +2,7 @@ import React from 'react';
 
 const JobEntry = (props) => {
   return (
-    <li><a>job application</a></li>
+    <li><a>{props.jobApp.job_title}</a></li>
 
   )
 }
