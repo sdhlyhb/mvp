@@ -1,7 +1,8 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFilePen } from '@fortawesome/free-solid-svg-icons'
-import { faHeartBroken} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFilePen } from '@fortawesome/free-solid-svg-icons';
+import { faHeartBroken} from '@fortawesome/free-solid-svg-icons';
+import { faForwardStep} from '@fortawesome/free-solid-svg-icons';
 
 const ApplicationDetails = (props) => {
   var jobUrl = props.clickedJob.job_url;
@@ -18,8 +19,8 @@ const ApplicationDetails = (props) => {
       <div>Status: {props.clickedJob.status}</div>
       <div>Notes: {props.clickedJob.notes}</div>
       <button><FontAwesomeIcon icon={faFilePen} /></button>
-      <button>Got interview</button>
-      <button><FontAwesomeIcon icon={faHeartBroken} /></button>
+      <button><FontAwesomeIcon icon={faForwardStep} /> interview</button>
+      <button><FontAwesomeIcon icon={faHeartBroken} />Rej</button>
     </div>
   )
 }

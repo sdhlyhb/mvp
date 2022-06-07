@@ -26,5 +26,12 @@ let showAll = () => {
   return Application.find({});
 }
 
+let deleteOneApplication = (obj) => {
+  return Application.deleteOne(obj);
+
+
+}
+
 module.exports.saveOneApplication = saveOneApplication;
 module.exports.showAll = showAll;
+module.exports.deleteOneApplication = deleteOneApplication;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {component} from 'react';
 import ReactDOM from 'react-dom';
 import JobWebsites from './Components/JobWebsites.jsx';
 import AddApplication from './Components/AddApplication.jsx';
@@ -51,6 +51,19 @@ class App extends React.Component {
   };
 
 
+  deleteOne(applicationObj) {
+    let _id = applicationObj._id;
+    console.log('this is _id:', _id);
+    axios.delete(`/api/allApplications`, {data:{_id: `${_id}`}})
+      .then(res => {
+        console.log('Success Deleted current application!');
+      })
+      .then(() => this.displayApplications())
+      .catch(err => console.log('Err Deleting!', err))
+
+  }
+
+
 
 
 
@@ -82,7 +95,11 @@ class App extends React.Component {
         </div>
         <AddApplication handleAddition = {this.addNewApplication.bind(this)}/>
 
-        <AppliedList jobApps = {this.state.allApplications} popDetails = {this.clickApplication.bind(this)}/>
+        <AppliedList
+          jobApps={this.state.allApplications}
+          popDetails={this.clickApplication.bind(this)}
+          delete = {this.deleteOne.bind(this)}
+        />
 
         {this.state.detailPopSeen? <ApplicationDetails clickedJob = {this.state.curJob}/> : null}
 

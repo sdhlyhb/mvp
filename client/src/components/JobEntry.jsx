@@ -13,7 +13,7 @@ const JobEntry = (props) => {
       <span>{props.jobApp.status}</span>
       {"    "}
       <button onClick = {e => {props.clickAndPopDetails(curjobTitle, curJobCompany)}}> <FontAwesomeIcon icon={faEye} /></button>
-      <button><FontAwesomeIcon icon={faTrashCan} /></button>
+      <button onClick = {e => {props.deleteApp(props.jobApp)}}><FontAwesomeIcon icon={faTrashCan} /></button>
 
       </div>
 

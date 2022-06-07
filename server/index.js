@@ -20,7 +20,7 @@ app.get('/api/allApplications', (req, res) => {
       res.status(404).send(err);
     })
 
-})
+});
 
 app.post('/api/allApplications', (req, res) => {
   console.log('this is the req.body:', req.body);
@@ -29,6 +29,22 @@ app.post('/api/allApplications', (req, res) => {
     .then((response) => {
       console.log('Sucess post an application!');
       res.status(201).send('Success Posting!');
+    })
+});
+
+app.delete('/api/allApplications', (req, res) => {
+  console.log('This is req.body in DELETE:', req.body);
+  console.log('This is req.params in DELETE:', req.params);
+  let objToDelete = req.body;
+  db.deleteOneApplication(objToDelete)
+    .then((response) => {
+      console.log('Success deleted one application!');
+      return db.showAll();
+    })
+    .then((result) => res.status(200).send(result))
+    .catch(err => {
+      console.log('Err Deleting one application!', err);
+      res.status(422).send(err); //422: unprocessable entity
     })
 })
 
