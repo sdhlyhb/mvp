@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import JobWebsites from './Components/JobWebsites.jsx';
 import AddApplication from './Components/AddApplication.jsx';
 import AppliedList from './Components/AppliedList.jsx';
+import ApplicationDetails from './Components/ApplicationDetails.jsx'
 import axios from 'axios';
 
 
@@ -12,7 +13,9 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      allApplications: []
+      allApplications: [],
+      curJob: null,
+      detailPopSeen: false
 
     }
   }
@@ -34,7 +37,38 @@ class App extends React.Component {
         this.setState({allApplications: allJobs.data});
       })
       .catch(err => console.log('Err updating the status!', err));
-  }
+  };
+
+
+  addNewApplication(newAppData) {
+    axios.post('/api/allApplications', newAppData)
+      .then(response => {
+        console.log('Sucess adding a new application!');
+        this.displayApplications();
+    })
+      .catch(err => console.log('Err adding a new application!'))
+
+  };
+
+
+
+
+
+
+
+
+  clickApplication(jobTile, company) {
+    let matched = this.state.allApplications.filter(ele => {
+      return (ele.job_title === jobTile && ele.company_name === company );
+    })
+    this.setState({
+      curJob: matched[0],
+      detailPopSeen:!this.state.detailPopSeen
+    })
+
+
+  };
+
 
 
   render() {
@@ -46,8 +80,11 @@ class App extends React.Component {
         <div>
           <JobWebsites />
         </div>
-        <AddApplication />
-        <AppliedList jobApps = {this.state.allApplications}/>
+        <AddApplication handleAddition = {this.addNewApplication.bind(this)}/>
+
+        <AppliedList jobApps = {this.state.allApplications} popDetails = {this.clickApplication.bind(this)}/>
+
+        {this.state.detailPopSeen? <ApplicationDetails clickedJob = {this.state.curJob}/> : null}
 
       </div>
 

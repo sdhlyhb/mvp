@@ -7,25 +7,86 @@ class AddApplication extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      jobTitle: null,
+      companyName: null,
       startDate: new Date(),
-      selectedOption: ''
+      selectedOption: '', //job type
+      locType: "On-site", //default
+      postUrl: null,
+      notes: null
     };
+    this.handleTitleInput = this.handleTitleInput.bind(this);
+    this.handleCompanyNameInput = this.handleCompanyNameInput.bind(this);
     this.handleDateSelect = this.handleDateSelect.bind(this);
     this.onValueChange = this.onValueChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleLocTypeInputChange = this.handleLocTypeInputChange.bind(this);
+    this.handlePostUrlInputChange = this.handlePostUrlInputChange.bind(this);
+    this.handleNotesInputChange = this.handleNotesInputChange.bind(this);
 
+  }
+
+  handleTitleInput(e) {
+    this.setState({
+      jobTitle: e.target.value
+    })
+  }
+
+  handleCompanyNameInput(e) {
+    this.setState({
+      companyName: e.target.value
+    })
   }
 
   handleDateSelect(date) {
     this.setState({
-      startDate: date,
+      startDate: date
 
     })
   }
 
-  onValueChange(event) {
+  onValueChange(e) {
     this.setState({
-      selectedOption: event.target.value
+      selectedOption: e.target.value
     });
+  }
+
+  handleLocTypeInputChange(e) {
+    this.setState({
+      locType: e.target.value
+
+    })
+  }
+
+
+  handlePostUrlInputChange(e) {
+    this.setState({
+      postUrl: e.target.value
+
+    })
+  }
+
+  handleNotesInputChange(e) {
+    this.setState({
+      notes: e.target.value
+
+    })
+  }
+
+
+
+  handleSubmit(e) {
+    e.preventDefault();
+    var data = {
+      "job_title": this.state.jobTitle,
+      "company_name": this.state.companyName,
+      "application_date": this.state.startDate,
+      "job_type": this.state.selectedOption,
+      "location_type": this.state.locType,
+      "job_url": this.state.postUrl,
+      "notes": this.state.notes
+    }
+    this.props.handleAddition(data);
   }
 
 
@@ -37,10 +98,10 @@ class AddApplication extends React.Component {
         <h3>This is the add new job Application part</h3>
         <form>
           <label>Job Title</label>
-          <input type="text" name="jobTitle" />
+          <input type="text" name="jobTitle" onChange = {this.handleTitleInput}/>
           <br></br>
           <label>Company</label>
-          <input type="text" name="Company" />
+          <input type="text" name="Company" onChange = {this.handleCompanyNameInput}/>
           <br></br>
           <label>Application Date</label>
           <DatePicker
@@ -55,14 +116,27 @@ class AddApplication extends React.Component {
             <input type="radio" value="Contract" name="jobtype" checked={this.state.selectedOption === "Contract"} onChange={this.onValueChange}/> Contract
           </div>
 
+          <label>Location type ("on-site" by default)</label>
+          <div >
+            <input
+              type="checkbox"
+              id="locationType"
+              name="locType"
+              onChange={this.handleLocTypeInputChange}
+               checked={this.state.locType === "Remote"}
+            /> Remote
+
+
+          </div>
+
           <label>Job Post URL</label>
-          <input type="text" name="jobPostUrl"></input>
+          <input type="text" name="jobPostUrl" onChange = {this.handlePostUrlInputChange}/>
           <br></br>
 
           <label>Notes</label>
-          <input type="text" name="notes"></input>
+          <input type="text" name="notes" onChange = {this.handleNotesInputChange}/>
 
-          <input type="submit" value="Submit" />
+          <input type="submit" value="Add New Application" onClick = {this.handleSubmit}/>
 
         </form>
 
