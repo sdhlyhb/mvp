@@ -118,13 +118,27 @@ class AddApplication extends React.Component {
 
           <label>Location type ("on-site" by default)</label>
           <div >
+          <input
+              type="checkbox"
+              value="On-site"
+              name="locType"
+              onChange={this.handleLocTypeInputChange}
+               checked={this.state.locType === "On-site"}
+            /> On-site
             <input
               type="checkbox"
-              id="locationType"
+              value="Remote"
               name="locType"
               onChange={this.handleLocTypeInputChange}
                checked={this.state.locType === "Remote"}
             /> Remote
+            <input
+              type="checkbox"
+              value="Hybrid"
+              name="locType"
+              onChange={this.handleLocTypeInputChange}
+               checked={this.state.locType === "Hybrid"}
+            /> Hybrid
 
 
           </div>
