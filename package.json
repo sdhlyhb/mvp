@@ -20,6 +20,9 @@
   },
   "homepage": "https://github.com/sdhlyhb/hr-rpp36-mvp#readme",
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.1.1",
+    "@fortawesome/free-solid-svg-icons": "^6.1.1",
+    "@fortawesome/react-fontawesome": "^0.1.18",
     "axios": "^0.27.2",
     "body-parser": "^1.20.0",
     "express": "^4.18.1",
