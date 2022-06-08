@@ -163,6 +163,7 @@ class App extends React.Component {
       .then(()=> {
 
         document.getElementById(_id+'-listDiv').classList.add('crossed-line');
+        document.getElementById(_id+'-listDiv').classList.remove('highlight');
         this.displayInterviews();
 
 
@@ -181,6 +182,7 @@ class App extends React.Component {
       .then(response => {
         console.log('Sucess update the status to interviewing!');
         document.getElementById(_id+'-listDiv').classList.remove('crossed-line');
+        document.getElementById(_id+'-listDiv').classList.add('highlight');
 
       })
       .then(
