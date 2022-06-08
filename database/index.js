@@ -34,6 +34,11 @@ let updateNotes = (notesString, _id) => {
   return Application.findOneAndUpdate({'_id': _id}, {$set:{notes: notesString}},{upsert: true} );
 }
 
+let updateStatus = (newStatus, _id) => {
+  return Application.findOneAndUpdate({'_id': _id}, {$set:{status: newStatus}},{upsert: true} );
+
+}
+
 module.exports.saveOneApplication = saveOneApplication;
 module.exports.showAll = showAll;
 module.exports.deleteOneApplication = deleteOneApplication;

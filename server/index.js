@@ -37,9 +37,8 @@ app.post('/api/allApplications', (req, res) => {
     })
 });
 
-app.patch('/api/allApplications', (req, res) => {
+app.patch('/api/allApplications/:_id', (req, res) => {
   console.log('This is the PATCH req.body:', req.body);
-  console.log('This is req.params in PATCH:', req.params);
   let newNotes = req.body.newNotes;
   let _id = req.body._id;
   return db.updateNotes(newNotes, _id)
@@ -55,7 +54,6 @@ app.patch('/api/allApplications', (req, res) => {
 
 app.delete('/api/allApplications', (req, res) => {
   console.log('This is req.body in DELETE:', req.body);
-  console.log('This is req.params in DELETE:', req.params);
   let objToDelete = req.body;
   db.deleteOneApplication(objToDelete)
     .then((response) => {

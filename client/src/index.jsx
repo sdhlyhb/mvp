@@ -19,7 +19,8 @@ class App extends React.Component {
       detailPopSeen: false,
       updatePopSeen: false,
       appToUpdate:null,
-      appToUpdate_id: null
+      appToUpdate_id: null,
+      rejected:[]
 
     }
   }
@@ -81,7 +82,7 @@ class App extends React.Component {
 
   updateNotes(_id, newNotes) {
     let updateData = {_id: `${_id}`, newNotes: newNotes};
-    axios.patch('/api/allApplications', updateData)
+    axios.patch(`/api/allApplications/:${_id}`, updateData)
       .then(response => {
         console.log('Sucess updating the notes!', response); //reponse empty
         let updated = this.state.allApplications.filter(ele=> ele._id ===_id)[0];
@@ -121,6 +122,10 @@ class App extends React.Component {
     this.setState({
       updatePopSeen: false
     })
+  }
+
+  clickRejBtn(e) {
+
   }
 
 
