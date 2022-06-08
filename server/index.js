@@ -37,7 +37,7 @@ app.post('/api/allApplications', (req, res) => {
     })
 });
 
-app.patch('/api/allApplications/:_id', (req, res) => {
+app.patch('/api/allApplications/:_id/notes', (req, res) => {
   console.log('This is the PATCH req.body:', req.body);
   let newNotes = req.body.newNotes;
   let _id = req.body._id;
@@ -52,7 +52,25 @@ app.patch('/api/allApplications/:_id', (req, res) => {
     })
 })
 
-app.delete('/api/allApplications', (req, res) => {
+app.patch('/api/allApplications/:_id/status', (req, res) => {
+  console.log('This is the PATCH req.body:', req.body);
+  let newStatus = req.body.newStatus;
+  let _id = req.body._id;
+  return db.updateStatus(newStatus, _id)
+    .then(response => {
+      console.log('Success Update status!');
+      res.status(201).send(response);
+    })
+    .catch(err => {
+      console.log('Err updating status', err);
+      res.status(501).send(err);
+    })
+})
+
+
+
+
+app.delete('/api/allApplications/:_id', (req, res) => {
   console.log('This is req.body in DELETE:', req.body);
   let objToDelete = req.body;
   db.deleteOneApplication(objToDelete)

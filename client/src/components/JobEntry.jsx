@@ -11,15 +11,15 @@ const JobEntry = (props) => {
   // console.log(today, applicationDate);
   var days = Math.ceil((today - applicationDate) /(1000*60*60*24));
   return (
-    <div >
+    <div id={props.jobApp._id +"-listDiv"}>
       {props.jobApp.job_title} @ {props.jobApp.company_name}
       {" "}
       <span>{props.jobApp.status}</span>
       {"    "}
       <span> Applied {days} days ago</span>
       {"    "}
-      <button onClick = {e => {props.clickAndPopDetails(curjobTitle, curJobCompany)}}> <FontAwesomeIcon icon={faEye} /></button>
-      <button onClick = {e => {props.deleteApp(props.jobApp)}}><FontAwesomeIcon icon={faTrashCan} /></button>
+      <button className="view-btn" onClick = {e => {props.clickAndPopDetails(curjobTitle, curJobCompany)}}> <FontAwesomeIcon icon={faEye} className="fa-icon"/></button>
+      <button className="trash-btn" onClick = {e => {props.deleteApp(props.jobApp)}}><FontAwesomeIcon icon={faTrashCan} className="fa-icon"/></button>
 
       </div>
 

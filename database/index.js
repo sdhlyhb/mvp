@@ -43,3 +43,4 @@ module.exports.saveOneApplication = saveOneApplication;
 module.exports.showAll = showAll;
 module.exports.deleteOneApplication = deleteOneApplication;
 module.exports.updateNotes = updateNotes;
+module.exports.updateStatus = updateStatus;

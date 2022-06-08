@@ -8,10 +8,10 @@ const JobWebsites = (props) => {
   return (
     <div>
       <h3>Searching websites</h3>
-      <li><a href={LinkedInUrl} target='popup'>LinkedIn</a></li>
-      <li><a href={IndeedUrl} target='popup'>Indeed</a></li>
-      <li><a href={GoogleUrl} target='popup'>Google Careers</a></li>
-      <li><a href={DiceUrl} target='popup'>Dice</a></li>
+      <span><a href={LinkedInUrl} target='popup'>LinkedIn</a></span> {"   "}
+      <span><a href={IndeedUrl} target='popup'>Indeed</a></span>{"   "}
+      <span><a href={GoogleUrl} target='popup'>Google Careers</a></span>{"   "}
+      <span><a href={DiceUrl} target='popup'>Dice</a></span>
 
 
     </div>

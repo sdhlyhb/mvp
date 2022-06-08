@@ -59,7 +59,7 @@ class App extends React.Component {
   deleteOne(applicationObj) {
     let _id = applicationObj._id;
     console.log('this is _id:', _id);
-    axios.delete(`/api/allApplications`, {data:{_id: `${_id}`}})
+    axios.delete(`/api/allApplications/;${_id}`, {data:{_id: `${_id}`}})
       .then(res => {
         console.log('Success Deleted current application!');
       })
@@ -82,7 +82,7 @@ class App extends React.Component {
 
   updateNotes(_id, newNotes) {
     let updateData = {_id: `${_id}`, newNotes: newNotes};
-    axios.patch(`/api/allApplications/:${_id}`, updateData)
+    axios.patch(`/api/allApplications/:${_id}/notes`, updateData)
       .then(response => {
         console.log('Sucess updating the notes!', response); //reponse empty
         let updated = this.state.allApplications.filter(ele=> ele._id ===_id)[0];
@@ -125,8 +125,25 @@ class App extends React.Component {
   }
 
   clickRejBtn(e) {
+    var _id = e.currentTarget.id.split('-')[0];
+    let updateStatusData = {_id: `${_id}`, newStatus: "Rejected"};
+    axios.patch(`/api/allApplications/:${_id}/status`, updateStatusData)
+      .then(response => {
+        console.log('Sucess update the status to rejected!');
+      })
+      .then(()=> {
+
+        document.getElementById(_id+'-listDiv').classList.add('crossed-line');
+
+
+        this.displayApplications();
+
+      })
+      .catch(err => console.log("err updating status to rejected!", err))
 
   }
+
+
 
 
 
@@ -151,6 +168,7 @@ class App extends React.Component {
          <ApplicationDetails
         clickedJob = {this.state.curJob}
         clickUpdateBtn = {this.clickUpdateBtn.bind(this)}
+        clickRejBtn = {this.clickRejBtn.bind(this)}
 
         /> : null}
 
