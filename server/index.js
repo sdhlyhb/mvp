@@ -59,7 +59,7 @@ app.patch('/api/allApplications/:_id/status', (req, res) => {
   return db.updateStatus(newStatus, _id)
     .then(response => {
       console.log('Success Update status!');
-      res.status(201).send(response);
+      res.status(201).send("Sucess update status!");
     })
     .catch(err => {
       console.log('Err updating status', err);
@@ -112,6 +112,19 @@ app.get('/api/interviewing', (req, res) => {
 
 });
 
+
+app.get('/api/offers', (req, res) => {
+  return db.getAllOffers()
+    .then(jobs => {
+      console.log('all OFFERS:', jobs);
+      res.send(jobs);
+    })
+    .catch(err => {
+      console.log('err getting all the OFFERS!', err);
+      res.status(404).send(err);
+    })
+
+});
 
 
 

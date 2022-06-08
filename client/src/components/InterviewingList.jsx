@@ -10,6 +10,7 @@ const InterviewingList = (props) => {
       {props.interviews.map(interview => <InterviewEntry
         key={interview._id}
         interview={interview}
+        clickRejBtn = {props.clickRejBtn}
 
 
       />)}

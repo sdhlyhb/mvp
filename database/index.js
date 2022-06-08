@@ -49,6 +49,10 @@ let getAllInterviewingJobs = () => {
   return Application.find({'status': 'Interviewing'}).sort({interview_date: 1});
 }
 
+let getAllOffers = () => {
+  return Application.find({'status': 'OFFER'}).sort({interview_date: 1});
+}
+
 module.exports.saveOneApplication = saveOneApplication;
 module.exports.showAll = showAll;
 module.exports.deleteOneApplication = deleteOneApplication;
@@ -56,3 +60,4 @@ module.exports.updateNotes = updateNotes;
 module.exports.updateStatus = updateStatus;
 module.exports.getAllInterviewingJobs = getAllInterviewingJobs;
 module.exports.updateInterviewDate = updateInterviewDate;
+module.exports.getAllOffers = getAllOffers;
