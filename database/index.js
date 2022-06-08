@@ -23,15 +23,18 @@ let saveOneApplication = (obj) => {
 }
 
 let showAll = () => {
-  return Application.find({});
+  return Application.find({}).sort({application_date: -1});
 }
 
 let deleteOneApplication = (obj) => {
   return Application.deleteOne(obj);
+}
 
-
+let updateNotes = (notesString, _id) => {
+  return Application.findOneAndUpdate({'_id': _id}, {$set:{notes: notesString}},{upsert: true} );
 }
 
 module.exports.saveOneApplication = saveOneApplication;
 module.exports.showAll = showAll;
 module.exports.deleteOneApplication = deleteOneApplication;
+module.exports.updateNotes = updateNotes;

@@ -4,6 +4,7 @@ import JobWebsites from './Components/JobWebsites.jsx';
 import AddApplication from './Components/AddApplication.jsx';
 import AppliedList from './Components/AppliedList.jsx';
 import ApplicationDetails from './Components/ApplicationDetails.jsx'
+import UpdateNotes from './Components/UpdateNotes.jsx';
 import axios from 'axios';
 
 
@@ -15,7 +16,10 @@ class App extends React.Component {
     this.state = {
       allApplications: [],
       curJob: null,
-      detailPopSeen: false
+      detailPopSeen: false,
+      updatePopSeen: false,
+      appToUpdate:null,
+      appToUpdate_id: null
 
     }
   }
@@ -61,6 +65,36 @@ class App extends React.Component {
       .then(() => this.displayApplications())
       .catch(err => console.log('Err Deleting!', err))
 
+  };
+
+  clickUpdateBtn(e) {
+    e.preventDefault();
+    var _id = this.state.curJob._id;
+    var applicationToUpdate = this.state.curJob;
+    this.setState({
+      appToUpdate: applicationToUpdate,
+      appToUpdate_id: _id,
+      updatePopSeen: !this.state.updatePopSeen
+
+    })
+  };
+
+  updateNotes(_id, newNotes) {
+    let updateData = {_id: `${_id}`, newNotes: newNotes};
+    axios.patch('/api/allApplications', updateData)
+      .then(response => {
+        console.log('Sucess updating the notes!', response); //reponse empty
+        let updated = this.state.allApplications.filter(ele=> ele._id ===_id)[0];
+        this.setState({
+          curJob: updated,
+          updatePopSeen:false,
+          detailPopSeen:false
+        });
+
+
+      })
+      .then(() => this.displayApplications())
+      .catch(err => console.log('Err updating the notes!', err));
   }
 
 
@@ -76,11 +110,18 @@ class App extends React.Component {
     })
     this.setState({
       curJob: matched[0],
-      detailPopSeen:!this.state.detailPopSeen
+      detailPopSeen:!this.state.detailPopSeen,
+      updatePopSeen:false
     })
 
 
   };
+
+  clickCloseIcon(e) {
+    this.setState({
+      updatePopSeen: false
+    })
+  }
 
 
 
@@ -101,7 +142,23 @@ class App extends React.Component {
           delete = {this.deleteOne.bind(this)}
         />
 
-        {this.state.detailPopSeen? <ApplicationDetails clickedJob = {this.state.curJob}/> : null}
+        {this.state.detailPopSeen?
+         <ApplicationDetails
+        clickedJob = {this.state.curJob}
+        clickUpdateBtn = {this.clickUpdateBtn.bind(this)}
+
+        /> : null}
+
+
+        {this.state.updatePopSeen? <UpdateNotes
+          _id={this.state.appToUpdate_id}
+          clickCloseIcon = {this.clickCloseIcon.bind(this)}
+
+
+          updateNotes={this.updateNotes.bind(this)}
+
+
+        /> : null}
 
       </div>
 

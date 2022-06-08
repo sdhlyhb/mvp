@@ -23,14 +23,35 @@ app.get('/api/allApplications', (req, res) => {
 });
 
 app.post('/api/allApplications', (req, res) => {
-  console.log('this is the req.body:', req.body);
+  console.log('this is the POST req.body:', req.body);
   let jobData = req.body;
   return db.saveOneApplication(jobData)
     .then((response) => {
       console.log('Sucess post an application!');
       res.status(201).send('Success Posting!');
     })
+    .catch(err => {
+      console.log('Err posting!', err);
+      res.status(501).send(err);
+
+    })
 });
+
+app.patch('/api/allApplications', (req, res) => {
+  console.log('This is the PATCH req.body:', req.body);
+  console.log('This is req.params in PATCH:', req.params);
+  let newNotes = req.body.newNotes;
+  let _id = req.body._id;
+  return db.updateNotes(newNotes, _id)
+    .then(response => {
+      console.log('Success Update notes!');
+      res.status(201).send(response);
+    })
+    .catch(err => {
+      console.log('Err updating notes', err);
+      res.status(501).send(err);
+    })
+})
 
 app.delete('/api/allApplications', (req, res) => {
   console.log('This is req.body in DELETE:', req.body);
@@ -47,6 +68,7 @@ app.delete('/api/allApplications', (req, res) => {
       res.status(422).send(err); //422: unprocessable entity
     })
 })
+
 
 
 

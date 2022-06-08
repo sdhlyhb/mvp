@@ -6,6 +6,7 @@ import { faForwardStep} from '@fortawesome/free-solid-svg-icons';
 
 const ApplicationDetails = (props) => {
   var jobUrl = props.clickedJob.job_url;
+  var id= props.clickedJob._id;
   var applicationDate = new Date(props.clickedJob.application_date).toLocaleDateString();
   return (
     <div className="details">
@@ -18,7 +19,7 @@ const ApplicationDetails = (props) => {
       <div><a href={jobUrl} target="popup">Click to view job post</a></div>
       <div>Status: {props.clickedJob.status}</div>
       <div>Notes: {props.clickedJob.notes}</div>
-      <button><FontAwesomeIcon icon={faFilePen} /></button>
+      <button id={id} onClick={e=>props.clickUpdateBtn(e)}><FontAwesomeIcon icon={faFilePen} /></button>
       <button><FontAwesomeIcon icon={faForwardStep} /> interview</button>
       <button><FontAwesomeIcon icon={faHeartBroken} />Rej</button>
     </div>

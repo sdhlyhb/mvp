@@ -149,6 +149,7 @@ class AddApplication extends React.Component {
 
           <label>Notes</label>
           <input type="text" name="notes" onChange = {this.handleNotesInputChange}/>
+          <br></br>
 
           <input type="submit" value="Add New Application" onClick = {this.handleSubmit}/>
 
