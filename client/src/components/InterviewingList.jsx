@@ -11,6 +11,7 @@ const InterviewingList = (props) => {
         key={interview._id}
         interview={interview}
         clickRejBtn = {props.clickRejBtn}
+        clickOfferBtn = {props.clickOfferBtn}
 
 
       />)}

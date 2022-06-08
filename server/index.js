@@ -127,6 +127,20 @@ app.get('/api/offers', (req, res) => {
 });
 
 
+app.get('/api/rejected', (req, res) => {
+  return db.getAllRejected()
+    .then(jobs => {
+      console.log('all Rejected:', jobs);
+      res.send(jobs);
+    })
+    .catch(err => {
+      console.log('err getting all the rejected!', err);
+      res.status(404).send(err);
+    })
+
+});
+
+
 
 let port = 3001;
 

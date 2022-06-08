@@ -37,6 +37,7 @@ class App extends React.Component {
     this.displayApplications();
     this.displayInterviews();
     this.displayOffers();
+    this.displayRejected();
   }
 
 
@@ -72,6 +73,16 @@ class App extends React.Component {
         })
       }).catch(err => console.log('Err getting jobs from API', err))
   };
+
+  displayRejected() {
+    axios.get('/api/rejected')
+    .then(jobs => {
+      this.setState({
+        rejected: jobs.data
+      })
+    }).catch(err => console.log('Err getting jobs from API', err))
+
+  }
 
 
 
@@ -166,12 +177,8 @@ class App extends React.Component {
     axios.patch(`/api/allApplications/:${_id}/status`, updateStatusData)
       .then(response => {
         console.log('Sucess update the status to rejected!');
-        var curRejJob = this.state.allApplications.filter(ele => ele._id === _id)[0];
-        var rejJobs = this.state.rejected.concat(curRejJob);
-        this.setState({
-          rejected: rejJobs,
-          detailPopSeen: false
-        });
+        this.displayRejected();
+
       })
       .then(() => {
 
@@ -269,7 +276,12 @@ class App extends React.Component {
         <div>
           <JobWebsites />
         </div>
-        <Messages />
+        <Messages
+          applications={this.state.allApplications}
+          interviews={this.state.interviews}
+          rejects = {this.state.rejected}
+
+        />
 
 
 
