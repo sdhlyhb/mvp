@@ -40,8 +40,13 @@ let updateStatus = (newStatus, _id) => {
 
 }
 
+let updateInterviewDate = (newDate, _id) => {
+  return Application.findOneAndUpdate({'_id': _id}, {$set:{interview_date: newDate}},{upsert: true} );
+
+}
+
 let getAllInterviewingJobs = () => {
-  return Application.find({'status': 'Interviewing'}).exec();
+  return Application.find({'status': 'Interviewing'}).sort({interview_date: 1});
 }
 
 module.exports.saveOneApplication = saveOneApplication;
@@ -50,3 +55,4 @@ module.exports.deleteOneApplication = deleteOneApplication;
 module.exports.updateNotes = updateNotes;
 module.exports.updateStatus = updateStatus;
 module.exports.getAllInterviewingJobs = getAllInterviewingJobs;
+module.exports.updateInterviewDate = updateInterviewDate;

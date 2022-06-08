@@ -67,6 +67,20 @@ app.patch('/api/allApplications/:_id/status', (req, res) => {
     })
 })
 
+app.patch('/api/allApplications/:_id/interview_date', (req, res) => {
+  console.log('This is the PATCH req.body:', req.body);
+  let newDate = req.body.interviewDate;
+  let _id = req.body._id;
+  return db.updateInterviewDate(newDate, _id)
+    .then(response => {
+      console.log('Success Update interview date!');
+      res.status(201).send(response);
+    })
+    .catch(err => {
+      console.log('Err updating interview date', err);
+      res.status(501).send(err);
+    })
+})
 
 
 

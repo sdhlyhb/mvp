@@ -6,6 +6,9 @@ import AppliedList from './Components/AppliedList.jsx';
 import ApplicationDetails from './Components/ApplicationDetails.jsx'
 import UpdateNotes from './Components/UpdateNotes.jsx';
 import InterviewingList from './Components/InterviewingList.jsx';
+import Messages from './Components/Messages.jsx';
+import InterviewDate from './Components/InterviewDate.jsx';
+
 import axios from 'axios';
 
 
@@ -22,7 +25,8 @@ class App extends React.Component {
       appToUpdate:null,
       appToUpdate_id: null,
       rejected:[],
-      interviews:[]
+      interviews:[],
+      interviewPopSeen: false
 
     }
   }
@@ -128,7 +132,8 @@ class App extends React.Component {
     this.setState({
       curJob: matched[0],
       detailPopSeen:true,
-      updatePopSeen:false
+      updatePopSeen:false,
+      interviewPopSeen:false
     })
 
 
@@ -143,7 +148,8 @@ class App extends React.Component {
   clickCloseDetailsIcon(e) {
     this.setState({
       detailPopSeen: false,
-      updatePopSeen: false
+      updatePopSeen: false,
+      interviewPopSeen:false
     })
   }
 
@@ -183,6 +189,9 @@ class App extends React.Component {
         console.log('Sucess update the status to interviewing!');
         document.getElementById(_id+'-listDiv').classList.remove('crossed-line');
         document.getElementById(_id+'-listDiv').classList.add('highlight');
+        this.setState({
+          interviewPopSeen: true
+        })
 
       })
       .then(
@@ -204,6 +213,27 @@ class App extends React.Component {
   }
 
 
+  updateInterviewDate(_id, interviewDate) {
+    let updateInterviewDateData = {_id: `${_id}`, interviewDate: interviewDate};
+
+    axios.patch(`/api/allApplications/:${_id}/interview_date`, updateInterviewDateData)
+      .then(response => {
+        console.log('Sucess update the interview date!');
+        // this.setState({
+        //   interviewPopSeen: true
+        // })
+        this.displayInterviews();
+
+      })
+      .then(() => {
+
+        this.displayApplications();
+
+      })
+      .catch(err => console.log("err updating interview date!", err))
+  }
+
+
 
 
 
@@ -218,6 +248,11 @@ class App extends React.Component {
         <div>
           <JobWebsites />
         </div>
+        <Messages />
+
+
+
+
         <AddApplication handleAddition = {this.addNewApplication.bind(this)}/>
 
         <AppliedList
@@ -236,6 +271,21 @@ class App extends React.Component {
 
         /> : null}
 
+        {this.state.interviewPopSeen?
+        <InterviewDate
+        updateInterviewDate = {this.updateInterviewDate.bind(this)}
+        curJob = {this.state.curJob}
+        close = {this.clickCloseDetailsIcon.bind(this)}
+
+
+
+
+
+        />
+
+        :null}
+
+
 
         {this.state.updatePopSeen? <UpdateNotes
           _id={this.state.appToUpdate_id}
@@ -248,6 +298,7 @@ class App extends React.Component {
         /> : null}
 
         <InterviewingList interviews = {this.state.interviews}/>
+
 
       </div>
 

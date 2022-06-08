@@ -8,6 +8,7 @@ const ApplicationDetails = (props) => {
   var jobUrl = props.clickedJob.job_url;
   var id= props.clickedJob._id;
   var applicationDate = new Date(props.clickedJob.application_date).toLocaleDateString();
+  var interviewDate = new Date(props.clickedJob.interview_date).toLocaleString();
   return (
     <div className="details">
       <h3>Details Of Current Application</h3>
@@ -18,6 +19,7 @@ const ApplicationDetails = (props) => {
       <div>Location Type: {props.clickedJob.location_type}</div>
       <div><a href={jobUrl} target="popup">Click to view job post</a></div>
       <div>Status: {props.clickedJob.status}</div>
+      <div>Interview Date: {interviewDate}</div>
       <div>Notes: {props.clickedJob.notes}</div>
       <button id={id} onClick={e=>props.clickUpdateBtn(e)}><FontAwesomeIcon icon={faFilePen} /></button>
       <button id={id+"-interviewBtn"} onClick={props.clickInterviewBtn}><FontAwesomeIcon icon={faForwardStep} /> interview</button>
