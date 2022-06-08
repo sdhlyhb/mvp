@@ -15,4 +15,5 @@ body {
 
 .crossed-line {
   text-decoration: line-through;
+  color: grey;
 }

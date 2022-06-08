@@ -5,6 +5,7 @@ import AddApplication from './Components/AddApplication.jsx';
 import AppliedList from './Components/AppliedList.jsx';
 import ApplicationDetails from './Components/ApplicationDetails.jsx'
 import UpdateNotes from './Components/UpdateNotes.jsx';
+import InterviewingList from './Components/InterviewingList.jsx';
 import axios from 'axios';
 
 
@@ -20,13 +21,15 @@ class App extends React.Component {
       updatePopSeen: false,
       appToUpdate:null,
       appToUpdate_id: null,
-      rejected:[]
+      rejected:[],
+      interviews:[]
 
     }
   }
 
   componentDidMount() {
     this.displayApplications();
+    this.displayInterviews();
   }
 
 
@@ -43,6 +46,19 @@ class App extends React.Component {
       })
       .catch(err => console.log('Err updating the status!', err));
   };
+
+
+  displayInterviews() {
+    axios.get('/api/interviewing')
+    .then(jobs => {
+      this.setState({
+        interviews: jobs.data
+      })
+    }).catch(err => console.log('Err getting jobs from API', err))
+  };
+
+
+
 
 
   addNewApplication(newAppData) {
@@ -111,7 +127,7 @@ class App extends React.Component {
     })
     this.setState({
       curJob: matched[0],
-      detailPopSeen:!this.state.detailPopSeen,
+      detailPopSeen:true,
       updatePopSeen:false
     })
 
@@ -124,16 +140,30 @@ class App extends React.Component {
     })
   }
 
+  clickCloseDetailsIcon(e) {
+    this.setState({
+      detailPopSeen: false,
+      updatePopSeen: false
+    })
+  }
+
   clickRejBtn(e) {
     var _id = e.currentTarget.id.split('-')[0];
     let updateStatusData = {_id: `${_id}`, newStatus: "Rejected"};
     axios.patch(`/api/allApplications/:${_id}/status`, updateStatusData)
       .then(response => {
         console.log('Sucess update the status to rejected!');
+        var curRejJob = this.state.allApplications.filter(ele => ele._id===_id)[0];
+        var rejJobs = this.state.rejected.concat(curRejJob);
+        this.setState({
+          rejected: rejJobs,
+          detailPopSeen:false
+        });
       })
       .then(()=> {
 
         document.getElementById(_id+'-listDiv').classList.add('crossed-line');
+        this.displayInterviews();
 
 
         this.displayApplications();
@@ -142,6 +172,36 @@ class App extends React.Component {
       .catch(err => console.log("err updating status to rejected!", err))
 
   }
+
+
+  clickInterviewBtn(e) {
+    var _id = e.currentTarget.id.split('-')[0];
+    let updateStatusData = {_id: `${_id}`, newStatus: "Interviewing"};
+    axios.patch(`/api/allApplications/:${_id}/status`, updateStatusData)
+      .then(response => {
+        console.log('Sucess update the status to interviewing!');
+        document.getElementById(_id+'-listDiv').classList.remove('crossed-line');
+
+      })
+      .then(
+        () => {
+          this.displayInterviews();
+        }
+
+      )
+      .then(() => {
+
+        // document.getElementById(_id+'-listDiv').classList.add('crossed-line');
+
+
+        this.displayApplications();
+
+      })
+      .catch(err => console.log("err updating status to interviewing!", err))
+
+  }
+
+
 
 
 
@@ -169,6 +229,8 @@ class App extends React.Component {
         clickedJob = {this.state.curJob}
         clickUpdateBtn = {this.clickUpdateBtn.bind(this)}
         clickRejBtn = {this.clickRejBtn.bind(this)}
+        clickInterviewBtn = {this.clickInterviewBtn.bind(this)}
+        clickCloseDetailsIcon = {this.clickCloseDetailsIcon.bind(this)}
 
         /> : null}
 
@@ -182,6 +244,8 @@ class App extends React.Component {
 
 
         /> : null}
+
+        <InterviewingList interviews = {this.state.interviews}/>
 
       </div>
 

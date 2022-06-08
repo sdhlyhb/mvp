@@ -20,8 +20,9 @@ const ApplicationDetails = (props) => {
       <div>Status: {props.clickedJob.status}</div>
       <div>Notes: {props.clickedJob.notes}</div>
       <button id={id} onClick={e=>props.clickUpdateBtn(e)}><FontAwesomeIcon icon={faFilePen} /></button>
-      <button id={id+"-interviewBtn"}><FontAwesomeIcon icon={faForwardStep} /> interview</button>
+      <button id={id+"-interviewBtn"} onClick={props.clickInterviewBtn}><FontAwesomeIcon icon={faForwardStep} /> interview</button>
       <button id={id+"-rejBtn"} onClick = {props.clickRejBtn}><FontAwesomeIcon icon={faHeartBroken} />Rej</button>
+      <span onClick={props.clickCloseDetailsIcon}>Close</span>
     </div>
   )
 }

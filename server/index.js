@@ -85,6 +85,18 @@ app.delete('/api/allApplications/:_id', (req, res) => {
     })
 })
 
+app.get('/api/interviewing', (req, res) => {
+  return db.getAllInterviewingJobs()
+    .then(jobs => {
+      console.log('all interviewing job applicaitons:', jobs);
+      res.send(jobs);
+    })
+    .catch(err => {
+      console.log('err getting all the interviewing jobs!', err);
+      res.status(404).send(err);
+    })
+
+});
 
 
 

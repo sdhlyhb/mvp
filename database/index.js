@@ -7,6 +7,7 @@ let applicationSchema = new mongoose.Schema({
   job_title: String,
   company_name: String,
   application_date: {type: Date, default: Date.now},
+  interview_date:{type: Date, default:null},
   job_type: String,
   location_type: {type: String, default: "On-site" },
   job_url: String,
@@ -39,8 +40,13 @@ let updateStatus = (newStatus, _id) => {
 
 }
 
+let getAllInterviewingJobs = () => {
+  return Application.find({'status': 'Interviewing'}).exec();
+}
+
 module.exports.saveOneApplication = saveOneApplication;
 module.exports.showAll = showAll;
 module.exports.deleteOneApplication = deleteOneApplication;
 module.exports.updateNotes = updateNotes;
 module.exports.updateStatus = updateStatus;
+module.exports.getAllInterviewingJobs = getAllInterviewingJobs;
