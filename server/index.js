@@ -1,10 +1,11 @@
 const express = require('express');
 let app = express();
 const db = require('../database/index.js');
+const helpers = require('../helperFns/helpers.js');
 
 
 app.use(express.json());
-app.use(express.urlencoded({extended:true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/../client/dist'));
 
 
@@ -17,7 +18,7 @@ app.get('/api/allApplications', (req, res) => {
     })
     .catch(err => {
       console.log('err getting all the jobs!', err);
-      res.status(404).send(err);
+      res.status(500).send(err);
     })
 
 });
@@ -107,7 +108,7 @@ app.get('/api/interviewing', (req, res) => {
     })
     .catch(err => {
       console.log('err getting all the interviewing jobs!', err);
-      res.status(404).send(err);
+      res.status(500).send(err);
     })
 
 });
@@ -121,7 +122,7 @@ app.get('/api/offers', (req, res) => {
     })
     .catch(err => {
       console.log('err getting all the OFFERS!', err);
-      res.status(404).send(err);
+      res.status(500).send(err);
     })
 
 });
@@ -135,7 +136,21 @@ app.get('/api/rejected', (req, res) => {
     })
     .catch(err => {
       console.log('err getting all the rejected!', err);
-      res.status(404).send(err);
+      res.status(500).send(err);
+    })
+
+});
+
+app.get('/api/allApplications/report', (req, res) => {
+  return db.showAll()
+    .then(jobs => {
+      console.log('all job applicaitons:', jobs);
+      var csv = helpers.jsonArrToCsv(JSON.parse(JSON.stringify(jobs)));
+      res.send(csv);
+    })
+    .catch(err => {
+      console.log('err getting all the jobs!', err);
+      res.status(500).send(err);
     })
 
 });
@@ -144,6 +159,6 @@ app.get('/api/rejected', (req, res) => {
 
 let port = 3001;
 
-app.listen(port, function() {
+app.listen(port, function () {
   console.log(`listening on port ${port}`);
 });

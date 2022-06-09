@@ -280,6 +280,7 @@ class App extends React.Component {
           applications={this.state.allApplications}
           interviews={this.state.interviews}
           rejects = {this.state.rejected}
+          offers = {this.state.offers}
 
         />
 

@@ -8,7 +8,12 @@ const ApplicationDetails = (props) => {
   var jobUrl = props.clickedJob.job_url;
   var id= props.clickedJob._id;
   var applicationDate = new Date(props.clickedJob.application_date).toLocaleDateString();
-  var interviewDate = new Date(props.clickedJob.interview_date).toLocaleString();
+  if(props.clickedJob.interview_date) {
+    var interviewDate = new Date(props.clickedJob.interview_date).toLocaleString();
+  } else {
+    interviewDate = "NOT YET";
+  }
+
   return (
     <div className="details">
       <h3>Details Of Current Application</h3>

@@ -57,12 +57,16 @@ let getAllRejected = () => {
   return Application.find({'status': 'Rejected'}).sort({application_date: -1});
 }
 
-module.exports.saveOneApplication = saveOneApplication;
-module.exports.showAll = showAll;
-module.exports.deleteOneApplication = deleteOneApplication;
-module.exports.updateNotes = updateNotes;
-module.exports.updateStatus = updateStatus;
-module.exports.getAllInterviewingJobs = getAllInterviewingJobs;
-module.exports.updateInterviewDate = updateInterviewDate;
-module.exports.getAllOffers = getAllOffers;
-module.exports.getAllRejected = getAllRejected;
+
+module.exports = {
+  saveOneApplication,
+  showAll,
+  deleteOneApplication,
+  updateNotes,
+  updateStatus,
+  getAllInterviewingJobs,
+  updateInterviewDate,
+  getAllOffers,
+  getAllRejected
+
+};
