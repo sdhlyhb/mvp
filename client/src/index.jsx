@@ -10,6 +10,7 @@ import Messages from './Components/Messages.jsx';
 import InterviewDate from './Components/InterviewDate.jsx';
 import OfferList from './Components/OfferList.jsx';
 
+
 import axios from 'axios';
 
 
@@ -28,7 +29,10 @@ class App extends React.Component {
       rejected: [],
       interviews: [],
       interviewPopSeen: false,
-      offers:[]
+      offers:[],
+      searchKey:''
+
+
 
     }
   }
@@ -265,13 +269,53 @@ class App extends React.Component {
   }
 
 
+  search(keyword) {
+    let allApplicationsObjs = this.state.allApplications;
+
+    if(!keyword){
+      this.displayApplications();
+    }
+    let filtered = allApplicationsObjs.filter( obj => {
+      return (
+        obj.job_title.includes(keyword) ||
+        obj.company_name.includes(keyword) ||
+        obj.notes.includes(keyword) ||
+        obj.status.includes(keyword)
+      )
+
+    });
+
+    this.setState({allApplications: filtered});
+  }
+
+
+
+  onChangeKeyword(e) {
+    let keyword = e.target.value;
+    this.setState({searchKey: keyword});
+  };
+
+  clickViewAllBtn(e) {
+    this.displayApplications();
+    this.setState({searchKey: ''});
+
+  }
+
+
+
+
+
+  /************* rendering parts *****************/
+
+
 
 
   render() {
     return (
 
       <div>
-        <h1>Job Application Tracker</h1>
+        <h1>CRUDY TrackIT</h1>
+        <h2>--an all-in-one Job Application Tracker</h2>
 
         <div>
           <JobWebsites />
@@ -296,6 +340,11 @@ class App extends React.Component {
           jobApps={this.state.allApplications}
           popDetails={this.clickApplication.bind(this)}
           delete={this.deleteOne.bind(this)}
+          search = {this.search.bind(this)}
+          onChangeKeyword = {this.onChangeKeyword.bind(this)}
+          keyword = {this.state.searchKey}
+          clickViewAllBtn = {this.clickViewAllBtn.bind(this)}
+
         />
 
         {this.state.detailPopSeen ?

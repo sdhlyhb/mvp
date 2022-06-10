@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilePen } from '@fortawesome/free-solid-svg-icons';
 import { faHeartBroken} from '@fortawesome/free-solid-svg-icons';
 import { faForwardStep} from '@fortawesome/free-solid-svg-icons';
+import CancelPresentationTwoToneIcon from '@mui/icons-material/CancelPresentationTwoTone';
 
 const ApplicationDetails = (props) => {
   var jobUrl = props.clickedJob.job_url;
@@ -29,7 +30,8 @@ const ApplicationDetails = (props) => {
       <button id={id} onClick={e=>props.clickUpdateBtn(e)}><FontAwesomeIcon icon={faFilePen} /></button>
       <button id={id+"-interviewBtn"} onClick={props.clickInterviewBtn}><FontAwesomeIcon icon={faForwardStep} /> interview</button>
       <button id={id+"-rejBtn"} onClick = {props.clickRejBtn}><FontAwesomeIcon icon={faHeartBroken} />Rej</button>
-      <span onClick={props.clickCloseDetailsIcon}>Close</span>
+      {<span><CancelPresentationTwoToneIcon onClick={props.clickCloseDetailsIcon}/></span>}
+      {/* <span onClick={props.clickCloseDetailsIcon}>Close</span> */}
     </div>
   )
 }

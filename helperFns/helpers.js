@@ -26,6 +26,17 @@ let jsonArrToCsv = (jsonObjArr) => {
   return csv;
 
 
+};
+
+//helper function to check if any of the strings in the array contains the keyword
+let checkContains = (strArr, keyword) => {
+  for(var i = 0; i < strArr.length; i++) {
+    if(arr[i].indexOf(keyword) > -1) {
+      return true;
+    }
+  }
+  return false;
+
 }
 
 
@@ -33,6 +44,7 @@ let jsonArrToCsv = (jsonObjArr) => {
 
 
 module.exports = {
-  jsonArrToCsv
+  jsonArrToCsv,
+  checkContains
 
 }

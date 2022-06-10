@@ -57,6 +57,10 @@ let getAllRejected = () => {
   return Application.find({'status': 'Rejected'}).sort({application_date: -1});
 }
 
+// let getDataByKeyword = (keyword) => {
+//   return Application.find($or:[{"job_title": keyword},{"company_name": keyword},{"job_type": keyword}, {"location_type": keyword} ]);
+// }
+
 
 module.exports = {
   saveOneApplication,
@@ -68,5 +72,6 @@ module.exports = {
   updateInterviewDate,
   getAllOffers,
   getAllRejected
+
 
 };

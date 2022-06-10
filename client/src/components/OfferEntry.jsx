@@ -1,10 +1,11 @@
 import React from 'react';
+import CelebrationIcon from '@mui/icons-material/Celebration';
 
 const OfferEntry = (props) => {
 
   return (
     <div>
-      {props.offer.job_title} @ {props.offer.company_name}
+      {<CelebrationIcon />}{props.offer.job_title} @ {props.offer.company_name}
     </div>
   )
 }

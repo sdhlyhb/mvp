@@ -1,6 +1,7 @@
 import React from 'react';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import Button from '@mui/material/Button';
 
 
 class AddApplication extends React.Component {
@@ -98,10 +99,10 @@ class AddApplication extends React.Component {
         <h3>This is the add new job Application part</h3>
         <form>
           <label>Job Title</label>
-          <input type="text" name="jobTitle" onChange = {this.handleTitleInput}/>
+          <input type="text" name="jobTitle" onChange={this.handleTitleInput} />
           <br></br>
           <label>Company</label>
-          <input type="text" name="Company" onChange = {this.handleCompanyNameInput}/>
+          <input type="text" name="Company" onChange={this.handleCompanyNameInput} />
           <br></br>
           <label>Application Date</label>
           <DatePicker
@@ -111,47 +112,52 @@ class AddApplication extends React.Component {
           />
           <label>Job type</label>
           <div >
-            <input type="radio" value="Full-Time" name="jobtype" checked={this.state.selectedOption === "Full-Time"} onChange={this.onValueChange}/> Full-Time
-            <input type="radio" value="Part-Time" name="jobtype" checked={this.state.selectedOption === "Part-Time"} onChange={this.onValueChange}/> Part-time
-            <input type="radio" value="Contract" name="jobtype" checked={this.state.selectedOption === "Contract"} onChange={this.onValueChange}/> Contract
+            <input type="radio" value="Full-Time" name="jobtype" checked={this.state.selectedOption === "Full-Time"} onChange={this.onValueChange} /> Full-Time
+            <input type="radio" value="Part-Time" name="jobtype" checked={this.state.selectedOption === "Part-Time"} onChange={this.onValueChange} /> Part-time
+            <input type="radio" value="Contract" name="jobtype" checked={this.state.selectedOption === "Contract"} onChange={this.onValueChange} /> Contract
           </div>
 
           <label>Location type ("on-site" by default)</label>
           <div >
-          <input
+            <input
               type="checkbox"
               value="On-site"
               name="locType"
               onChange={this.handleLocTypeInputChange}
-               checked={this.state.locType === "On-site"}
+              checked={this.state.locType === "On-site"}
             /> On-site
             <input
               type="checkbox"
               value="Remote"
               name="locType"
               onChange={this.handleLocTypeInputChange}
-               checked={this.state.locType === "Remote"}
+              checked={this.state.locType === "Remote"}
             /> Remote
             <input
               type="checkbox"
               value="Hybrid"
               name="locType"
               onChange={this.handleLocTypeInputChange}
-               checked={this.state.locType === "Hybrid"}
+              checked={this.state.locType === "Hybrid"}
             /> Hybrid
 
 
           </div>
 
           <label>Job Post URL</label>
-          <input type="text" name="jobPostUrl" onChange = {this.handlePostUrlInputChange}/>
+          <input type="text" name="jobPostUrl" onChange={this.handlePostUrlInputChange} />
           <br></br>
 
           <label>Notes</label>
-          <input type="text" name="notes" onChange = {this.handleNotesInputChange}/>
+          <input type="text" name="notes" onChange={this.handleNotesInputChange} />
+          <br></br>
           <br></br>
 
-          <input type="submit" value="Add New Application" onClick = {this.handleSubmit}/>
+          <Button variant="contained" size="small" onClick={this.handleSubmit}>
+            Add New Application
+          </Button>
+
+
 
         </form>
 
