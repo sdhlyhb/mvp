@@ -256,12 +256,14 @@ class App extends React.Component {
         console.log('Sucess update the status to OFFER!');
         this.displayOffers();
 
+
       })
       .then(() => {
 
         this.displayInterviews();
 
         this.displayApplications();
+        document.getElementById(_id + '-listDiv').classList.add('offer-highlight');
 
       })
       .catch(err => console.log("err updating status to OFFER!", err))
@@ -277,10 +279,10 @@ class App extends React.Component {
     }
     let filtered = allApplicationsObjs.filter( obj => {
       return (
-        obj.job_title.includes(keyword) ||
-        obj.company_name.includes(keyword) ||
-        obj.notes.includes(keyword) ||
-        obj.status.includes(keyword)
+        obj.job_title.toLowerCase().includes(keyword.toLowerCase()) ||
+        obj.company_name.toLowerCase().includes(keyword.toLowerCase()) ||
+        obj.notes.toLowerCase().includes(keyword.toLowerCase()) ||
+        obj.status.toLowerCase().includes(keyword.toLowerCase())
       )
 
     });

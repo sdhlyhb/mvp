@@ -19,7 +19,13 @@ body {
   color: grey;
 }
 
-.highlight {
+.offer-highlight {
   background-color: yellow;
+  color: coral;
+  font-style: italic;
+}
+
+highlight {
+  background-color: cyan;
   color: blue;
 }
