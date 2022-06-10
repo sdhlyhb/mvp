@@ -5,6 +5,7 @@ import FindInPageTwoToneIcon from '@mui/icons-material/FindInPageTwoTone';
 import Button from '@mui/material/Button';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 
+
 const AppliedList = (props) => {
   let today = new Date().toLocaleString('en-US');
 

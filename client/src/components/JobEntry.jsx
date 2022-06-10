@@ -1,7 +1,8 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEye } from '@fortawesome/free-solid-svg-icons'
-import { faTrashCan } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye } from '@fortawesome/free-solid-svg-icons';
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import SummarizeTwoToneIcon from '@mui/icons-material/SummarizeTwoTone';
 
 const JobEntry = (props) => {
   var curjobTitle = props.jobApp.job_title;
@@ -12,6 +13,7 @@ const JobEntry = (props) => {
   var days = Math.ceil((today - applicationDate) /(1000*60*60*24));
   return (
     <div id={props.jobApp._id +"-listDiv"}>
+      <SummarizeTwoToneIcon />
       <span>{props.jobApp.status}</span>
       {":    "}
       {props.jobApp.job_title} @ {props.jobApp.company_name}

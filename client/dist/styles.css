@@ -1,11 +1,115 @@
 body {
-  background-color: beige;
+  /* background-color: beige; */
   font-family: Arial, Helvetica, sans-serif;
+  background-image: url('/img/background.jpg');
+  background-size: 100% 40%;
+  background-repeat: no-repeat;
+
+
+}
+
+#main {
+
+  background-color: #398AB9;
+  padding: 20px 20px;
+  width: 100%;
+  max-width: 880px;
+  padding: 30px;
+  border-radius: 5px;
+  margin-left: 450px;
+}
+
+#header {
+  background-color: #EEEEEE;
+  width: 80%;
+  max-width: 800px;
+  padding: 30px;
+  border-radius: 5px;
+  margin-left: 50px;
+  margin-bottom: 20px;
+
 }
 
 img {
   width:20px;
   height: 20px
+}
+
+.search-shortcuts {
+  background-color: #EEEEEE;
+  width: 50%;
+  max-width: 300px;
+  padding: 30px;
+  border-radius: 5px;
+  margin-left: 50px;
+  margin-bottom: 20px;
+
+}
+
+.msg-board {
+  background-color: #EEEEEE;
+  width: 100%;
+  max-width: 300px;
+  padding: 30px;
+  border-radius: 5px;
+  margin-left: 50px;
+  margin-bottom: 20px;
+
+}
+.row-1 {
+  display:flex;
+  flex-direction:row;
+}
+
+.row-2 {
+  display:flex;
+  flex-direction:row;
+}
+
+.row-3 {
+  display:flex;
+  flex-direction:row;
+}
+
+form {
+  background-color: #EEEEEE;
+  width: 100%;
+  max-width: 300px;
+  padding: 30px;
+  border-radius: 5px;
+  margin-left: 50px;
+}
+
+.offer-list {
+  background-color: yellow;
+  width: 100%;
+  max-width: 300px;
+  padding: 30px;
+  border-radius: 5px;
+  margin-left: 50px;
+  margin-bottom: 20px;
+
+}
+.interviewing-list {
+  background-color: lightcyan;
+  width: 100%;
+  max-width: 300px;
+  padding: 30px;
+  border-radius: 5px;
+  margin-left: 50px;
+  margin-bottom: 20px;
+
+}
+
+.application-list {
+  background-color: beige;
+  width: 100%;
+  max-width: 300px;
+  padding: 30px;
+  border-radius: 5px;
+  margin-left: 50px;
+  margin-bottom: 20px;
+
 }
 
 
@@ -28,11 +132,11 @@ img {
 
 .offer-highlight {
   background-color: yellow;
-  color: coral;
+  color: indigo;
   font-style: italic;
 }
 
-highlight {
+.highlight {
   background-color: cyan;
   color: blue;
 }

@@ -185,9 +185,10 @@ class App extends React.Component {
 
       })
       .then(() => {
+        document.getElementById(_id + '-listDiv').className='';
 
         document.getElementById(_id + '-listDiv').classList.add('crossed-line');
-        document.getElementById(_id + '-listDiv').classList.remove('highlight');
+
         this.displayInterviews();
 
 
@@ -205,8 +206,7 @@ class App extends React.Component {
     axios.patch(`/api/allApplications/:${_id}/status`, updateStatusData)
       .then(response => {
         console.log('Sucess update the status to interviewing!');
-        document.getElementById(_id + '-listDiv').classList.remove('crossed-line');
-        document.getElementById(_id + '-listDiv').classList.add('highlight');
+
         this.setState({
           interviewPopSeen: true
         })
@@ -215,6 +215,9 @@ class App extends React.Component {
       .then(
         () => {
           this.displayInterviews();
+          document.getElementById(_id + '-listDiv').className='';
+
+          document.getElementById(_id + '-listDiv').classList.add('highlight');
         }
 
       )
@@ -263,6 +266,7 @@ class App extends React.Component {
         this.displayInterviews();
 
         this.displayApplications();
+        document.getElementById(_id + '-listDiv').className='';
         document.getElementById(_id + '-listDiv').classList.add('offer-highlight');
 
       })
@@ -315,30 +319,47 @@ class App extends React.Component {
   render() {
     return (
 
-      <div>
-        <h1>CRUDY TrackIT</h1>
-        <h2>--an all-in-one Job Application Tracker</h2>
-
-        <div>
-          <JobWebsites />
+      <div id='main'>
+        <div id='header'>
+          <h1>CRUDY TrackIT</h1>
+          <h3>an all-in-one Job Application Tracker</h3>
         </div>
-        <Messages
-          applications={this.state.allApplications}
+
+        <div className='row-1'>
+          <JobWebsites />
+          <InterviewingList
           interviews={this.state.interviews}
-          rejects = {this.state.rejected}
-          offers = {this.state.offers}
+          clickRejBtn={this.clickRejBtn.bind(this)}
+          clickOfferBtn = {this.clickOfferBtn.bind(this)}
+
 
         />
+        </div>
 
 
 
 
-        <AddApplication handleAddition={this.addNewApplication.bind(this)} />
 
 
-        <OfferList offers = {this.state.offers}/>
+        <div className="row-2">
+          <Messages
+            applications={this.state.allApplications}
+            interviews={this.state.interviews}
+            rejects={this.state.rejected}
+            offers={this.state.offers}
 
-        <AppliedList
+          />
+
+          <OfferList offers={this.state.offers} />
+
+
+
+
+        </div>
+
+        <div className='row-3'>
+          <AddApplication handleAddition={this.addNewApplication.bind(this)} />
+          <AppliedList
           jobApps={this.state.allApplications}
           popDetails={this.clickApplication.bind(this)}
           delete={this.deleteOne.bind(this)}
@@ -348,6 +369,19 @@ class App extends React.Component {
           clickViewAllBtn = {this.clickViewAllBtn.bind(this)}
 
         />
+
+          </div>
+
+
+
+
+
+
+
+
+
+
+
 
         {this.state.detailPopSeen ?
           <ApplicationDetails
@@ -385,13 +419,7 @@ class App extends React.Component {
 
         /> : null}
 
-        <InterviewingList
-          interviews={this.state.interviews}
-          clickRejBtn={this.clickRejBtn.bind(this)}
-          clickOfferBtn = {this.clickOfferBtn.bind(this)}
 
-
-        />
 
 
       </div>

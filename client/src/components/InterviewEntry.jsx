@@ -2,6 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFaceLaugh } from '@fortawesome/free-solid-svg-icons';
 import { faHeartBroken} from '@fortawesome/free-solid-svg-icons';
+import TimerTwoToneIcon from '@mui/icons-material/TimerTwoTone';
 
 const InterviewEntry = (props) => {
   var interviewDate = new Date(props.interview.interview_date);
@@ -10,6 +11,8 @@ const InterviewEntry = (props) => {
 
   return (
     <div >
+
+      <TimerTwoToneIcon n/>
 
       {props.interview.job_title} @ {props.interview.company_name}
       {" "}

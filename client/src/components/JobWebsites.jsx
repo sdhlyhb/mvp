@@ -8,7 +8,7 @@ const JobWebsites = (props) => {
   let ZipRecruiterUrl = 'https://www.ziprecruiter.com/jobs-search?search=javascript&location=Atlanta,%20GA';
   let baseUrls = [LinkedInUrl.split('/jobs')[0], IndeedUrl.split('/jobs')[0], GoogleUrl.split('/jobs')[0],ZipRecruiterUrl.split('/jobs')[0]]
   return (
-    <div>
+    <div className='search-shortcuts'>
       <h3>Searching Shortcuts</h3>
       <span><img src={baseUrls[0]+'/favicon.ico'}/><a href={LinkedInUrl} target='popup'>LinkedIn</a></span> {"   "}
       <span><img src={baseUrls[1]+'/images/favicon.ico'}/><a href={IndeedUrl} target='popup'>Indeed</a></span>{"   "}

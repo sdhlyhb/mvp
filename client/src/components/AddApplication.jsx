@@ -96,8 +96,9 @@ class AddApplication extends React.Component {
   render() {
     return (
       <div>
-        <h3>This is the add new job Application part</h3>
+
         <form>
+        <h3>Add New Job Application</h3>
           <label>Job Title</label>
           <input type="text" name="jobTitle" onChange={this.handleTitleInput} />
           <br></br>
