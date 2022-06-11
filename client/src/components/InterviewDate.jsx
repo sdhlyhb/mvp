@@ -44,7 +44,7 @@ class InterviewDate extends React.Component {
 
           />
            <Button variant="contained" size="small" onClick={this.handleSubmit.bind(this)}>
-            Add New Application
+            update date
           </Button>
 
         </form>
