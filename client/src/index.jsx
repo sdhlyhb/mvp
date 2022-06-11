@@ -321,12 +321,19 @@ class App extends React.Component {
 
       <div id='main'>
         <div id='header'>
-          <h1>CRUDY TrackIT</h1>
+          <h1>CRUDDY TrackIT</h1>
           <h3>an all-in-one Job Application Tracker</h3>
         </div>
 
         <div className='row-1'>
-          <JobWebsites />
+
+          <Messages
+            applications={this.state.allApplications}
+            interviews={this.state.interviews}
+            rejects={this.state.rejected}
+            offers={this.state.offers}
+
+          />
           <InterviewingList
           interviews={this.state.interviews}
           clickRejBtn={this.clickRejBtn.bind(this)}
@@ -337,25 +344,11 @@ class App extends React.Component {
         </div>
 
 
-
-
-
-
         <div className="row-2">
-          <Messages
-            applications={this.state.allApplications}
-            interviews={this.state.interviews}
-            rejects={this.state.rejected}
-            offers={this.state.offers}
-
-          />
-
+          <JobWebsites />
           <OfferList offers={this.state.offers} />
-
-
-
-
         </div>
+
 
         <div className='row-3'>
           <AddApplication handleAddition={this.addNewApplication.bind(this)} />

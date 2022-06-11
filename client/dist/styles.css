@@ -2,7 +2,7 @@ body {
   /* background-color: beige; */
   font-family: Arial, Helvetica, sans-serif;
   background-image: url('/img/background.jpg');
-  background-size: 100% 40%;
+  background-size: 100% 50%;
   background-repeat: no-repeat;
 
 
@@ -20,6 +20,7 @@ body {
 }
 
 #header {
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #EEEEEE;
   width: 80%;
   max-width: 800px;
@@ -71,7 +72,7 @@ img {
   flex-direction:row;
 }
 
-form {
+#app-form {
   background-color: #EEEEEE;
   width: 100%;
   max-width: 300px;
@@ -125,6 +126,60 @@ form {
   color: red;
 }
 
+.details {
+  position: fixed;
+  z-index: 1;
+  left: 35%;
+  top: 10%;
+  background-color: lightskyblue;
+  border-radius: 5px;
+  margin: auto;
+  padding: 25px;
+  border: 1px solid #888;
+  width: 15%;
+  z-index: 1;
+
+
+
+}
+
+.interview-date {
+  position: fixed;
+  z-index: 1;
+  left: 35%;
+  top: 20%;
+  background-color: lightcyan;
+  border-radius: 5px;
+  margin: auto;
+  padding: 25px;
+  border: 1px solid #888;
+  width: 15%;
+  z-index: 1;
+
+
+
+}
+
+.update-notes {
+  position: fixed;
+  z-index: 1;
+  left: 35%;
+  top: 50%;
+  background-color: lightcyan;
+  border-radius: 5px;
+  margin: auto;
+  padding: 25px;
+  border: 1px solid #888;
+  width: 15%;
+  z-index: 1;
+
+
+
+}
+
+
+
+
 .crossed-line {
   text-decoration: line-through;
   color: grey;
@@ -139,4 +194,17 @@ form {
 .highlight {
   background-color: cyan;
   color: blue;
+}
+
+.time-stamp {
+  color: blue;
+  font-family:Georgia, 'Times New Roman', Times, serif
+
+}
+
+#close-icon {
+  position:absolute;
+  left: 85%;
+  top: 6%;
+
 }

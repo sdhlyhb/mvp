@@ -97,14 +97,16 @@ class AddApplication extends React.Component {
     return (
       <div>
 
-        <form>
+        <form id="app-form">
         <h3>Add New Job Application</h3>
           <label>Job Title</label>
+          <br />
           <input type="text" name="jobTitle" onChange={this.handleTitleInput} />
-          <br></br>
+          <br />
           <label>Company</label>
+          <br />
           <input type="text" name="Company" onChange={this.handleCompanyNameInput} />
-          <br></br>
+          <br />
           <label>Application Date</label>
           <DatePicker
             selected={this.state.startDate}
@@ -118,7 +120,7 @@ class AddApplication extends React.Component {
             <input type="radio" value="Contract" name="jobtype" checked={this.state.selectedOption === "Contract"} onChange={this.onValueChange} /> Contract
           </div>
 
-          <label>Location type ("on-site" by default)</label>
+          <label>Location type </label>
           <div >
             <input
               type="checkbox"
@@ -146,13 +148,15 @@ class AddApplication extends React.Component {
           </div>
 
           <label>Job Post URL</label>
+          <br />
           <input type="text" name="jobPostUrl" onChange={this.handlePostUrlInputChange} />
-          <br></br>
+          <br />
 
           <label>Notes</label>
-          <input type="text" name="notes" onChange={this.handleNotesInputChange} />
-          <br></br>
-          <br></br>
+          <br />
+          <textarea type="text" name="notes" onChange={this.handleNotesInputChange} />
+          <br />
+
 
           <Button variant="contained" size="small" onClick={this.handleSubmit}>
             Add New Application

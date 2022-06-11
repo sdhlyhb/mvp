@@ -19,7 +19,7 @@ const JobEntry = (props) => {
       {props.jobApp.job_title} @ {props.jobApp.company_name}
       {" "}
 
-      <span> Applied {days} days ago</span>
+      <span className="time-stamp"> Applied {days} days ago</span>
       {"    "}
       <button className="view-btn" onClick = {e => {props.clickAndPopDetails(curjobTitle, curJobCompany)}}> <FontAwesomeIcon icon={faEye} className="fa-icon"/></button>
       <button className="trash-btn" onClick = {e => {props.deleteApp(props.jobApp)}}><FontAwesomeIcon icon={faTrashCan} className="fa-icon"/></button>

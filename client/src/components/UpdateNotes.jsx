@@ -28,7 +28,7 @@ import React from 'react';
 
    render() {
      return (
-       <div>
+       <div className="update-notes">
          <h3>This is update notes part:</h3>
          <label>Update notes: {this.props._id}</label>
          <br></br>

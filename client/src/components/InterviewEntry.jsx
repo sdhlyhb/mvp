@@ -18,7 +18,8 @@ const InterviewEntry = (props) => {
       {" "}
 
       <span> interview on {new Date(props.interview.interview_date).toLocaleString()}</span>
-      <span>(in {calDays} days)</span>
+      {" "}
+      <span className="time-stamp">(in {calDays} days)</span>
       <button id={props.interview._id +'-offerBtn'} onClick={props.clickOfferBtn}><FontAwesomeIcon icon={faFaceLaugh} />OFFER</button>
       <button id={props.interview._id +'-itw-rejBtn'} onClick = {props.clickRejBtn}><FontAwesomeIcon icon={faHeartBroken} />Rej</button>
       {"    "}

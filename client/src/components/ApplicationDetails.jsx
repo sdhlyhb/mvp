@@ -30,7 +30,7 @@ const ApplicationDetails = (props) => {
       <button id={id} onClick={e=>props.clickUpdateBtn(e)}><FontAwesomeIcon icon={faFilePen} /></button>
       <button id={id+"-interviewBtn"} onClick={props.clickInterviewBtn}><FontAwesomeIcon icon={faForwardStep} /> interview</button>
       <button id={id+"-rejBtn"} onClick = {props.clickRejBtn}><FontAwesomeIcon icon={faHeartBroken} />Rej</button>
-      {<span><CancelPresentationTwoToneIcon onClick={props.clickCloseDetailsIcon}/></span>}
+      {<span id="close-icon"><CancelPresentationTwoToneIcon onClick={props.clickCloseDetailsIcon}/></span>}
       {/* <span onClick={props.clickCloseDetailsIcon}>Close</span> */}
     </div>
   )

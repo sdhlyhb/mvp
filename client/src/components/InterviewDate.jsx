@@ -1,6 +1,7 @@
 import React from 'react';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import Button from '@mui/material/Button';
 
 class InterviewDate extends React.Component {
   constructor(props) {
@@ -29,8 +30,8 @@ class InterviewDate extends React.Component {
 
   render() {
     return (
-      <div>
-        <form>
+      <div className="interview-date">
+        <form id="itw-date-form">
           <label>Interview Date {this.props.curJob._id}</label>
           <DatePicker
             selected={this.state.startDate}
@@ -42,7 +43,10 @@ class InterviewDate extends React.Component {
             dateFormat="MMMM d, yyyy h:mm aa"
 
           />
-          <button onClick={this.handleSubmit.bind(this)}>Update Interview Date</button>
+           <Button variant="contained" size="small" onClick={this.handleSubmit.bind(this)}>
+            Add New Application
+          </Button>
+
         </form>
 
 
