@@ -11,7 +11,7 @@ const AppliedList = (props) => {
 
   return(
     <div className="application-list">
-      <h3>This is the application list</h3>
+      <h3>Applications List</h3>
       <Button variant="outlined" size='small'><a href='/api/allApplications/report'  download ={`Application_Record_${today}.csv`}><FileDownloadTwoToneIcon />Full Record</a></Button>
       <br />
       <input type="text"  placeholder="search...." value = {props.keyword} onChange = {props.onChangeKeyword}></input>
