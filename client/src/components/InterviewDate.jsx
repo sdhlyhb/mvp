@@ -1,32 +1,27 @@
-import React from 'react';
+import React from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import Button from '@mui/material/Button';
+import Button from "@mui/material/Button";
 
 class InterviewDate extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       startDate: new Date(),
-
     };
   }
 
   handleDateSelect(date) {
     this.setState({
-      startDate: date
-
-    })
+      startDate: date,
+    });
   }
 
   handleSubmit(e) {
     e.preventDefault();
     this.props.updateInterviewDate(this.props.curJob._id, this.state.startDate);
     this.props.close(e);
-
   }
-
-
 
   render() {
     return (
@@ -41,37 +36,18 @@ class InterviewDate extends React.Component {
             timeIntervals={15}
             timeCaption="time"
             dateFormat="MMMM d, yyyy h:mm aa"
-
           />
-           <Button variant="contained" size="small" onClick={this.handleSubmit.bind(this)}>
+          <Button
+            variant="contained"
+            size="small"
+            onClick={this.handleSubmit.bind(this)}
+          >
             update date
           </Button>
-
         </form>
-
-
       </div>
-    )
+    );
   }
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 export default InterviewDate;

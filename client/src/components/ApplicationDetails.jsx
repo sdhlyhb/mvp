@@ -1,16 +1,22 @@
-import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFilePen } from '@fortawesome/free-solid-svg-icons';
-import { faHeartBroken} from '@fortawesome/free-solid-svg-icons';
-import { faForwardStep} from '@fortawesome/free-solid-svg-icons';
-import CancelPresentationTwoToneIcon from '@mui/icons-material/CancelPresentationTwoTone';
+import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faFilePen,
+  faHeartBroken,
+  faForwardStep,
+} from "@fortawesome/free-solid-svg-icons";
+import CancelPresentationTwoToneIcon from "@mui/icons-material/CancelPresentationTwoTone";
 
-const ApplicationDetails = (props) => {
-  var jobUrl = props.clickedJob.job_url;
-  var id= props.clickedJob._id;
-  var applicationDate = new Date(props.clickedJob.application_date).toLocaleDateString();
-  if(props.clickedJob.interview_date) {
-    var interviewDate = new Date(props.clickedJob.interview_date).toLocaleString();
+function ApplicationDetails(props) {
+  const jobUrl = props.clickedJob.job_url;
+  const id = props.clickedJob._id;
+  const applicationDate = new Date(
+    props.clickedJob.application_date
+  ).toLocaleDateString();
+  if (props.clickedJob.interview_date) {
+    var interviewDate = new Date(
+      props.clickedJob.interview_date
+    ).toLocaleString();
   } else {
     interviewDate = "NOT YET";
   }
@@ -23,17 +29,30 @@ const ApplicationDetails = (props) => {
       <div>Application Date: {applicationDate}</div>
       <div>Type: {props.clickedJob.job_type}</div>
       <div>Location Type: {props.clickedJob.location_type}</div>
-      <div><a href={jobUrl} target="popup">Click to view job post</a></div>
+      <div>
+        <a href={jobUrl} target="popup">
+          Click to view job post
+        </a>
+      </div>
       <div>Status: {props.clickedJob.status}</div>
       <div>Interview Date: {interviewDate}</div>
       <div>Notes: {props.clickedJob.notes}</div>
-      <button id={id} onClick={e=>props.clickUpdateBtn(e)}><FontAwesomeIcon icon={faFilePen} /></button>
-      <button id={id+"-interviewBtn"} onClick={props.clickInterviewBtn}><FontAwesomeIcon icon={faForwardStep} /> interview</button>
-      <button id={id+"-rejBtn"} onClick = {props.clickRejBtn}><FontAwesomeIcon icon={faHeartBroken} />Rej</button>
-      {<span id="close-icon"><CancelPresentationTwoToneIcon onClick={props.clickCloseDetailsIcon}/></span>}
+      <button id={id} onClick={(e) => props.clickUpdateBtn(e)}>
+        <FontAwesomeIcon icon={faFilePen} />
+      </button>
+      <button id={`${id}-interviewBtn`} onClick={props.clickInterviewBtn}>
+        <FontAwesomeIcon icon={faForwardStep} /> interview
+      </button>
+      <button id={`${id}-rejBtn`} onClick={props.clickRejBtn}>
+        <FontAwesomeIcon icon={faHeartBroken} />
+        Rej
+      </button>
+      <span id="close-icon">
+        <CancelPresentationTwoToneIcon onClick={props.clickCloseDetailsIcon} />
+      </span>
       {/* <span onClick={props.clickCloseDetailsIcon}>Close</span> */}
     </div>
-  )
+  );
 }
 
-export default ApplicationDetails
+export default ApplicationDetails;

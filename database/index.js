@@ -1,66 +1,67 @@
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/applicationTracker', { 'useNewUrlParser': true, 'useUnifiedTopology': true});
+const mongoose = require("mongoose");
 
-let applicationSchema = new mongoose.Schema({
-  // TODO: your schema here!
-  // job_id: {type: Number, unique: true, required: true, index: true},
-  job_title: String,
-  company_name: String,
-  application_date: {type: Date, default: Date.now},
-  interview_date:{type: Date, default:null},
-  job_type: String,
-  location_type: {type: String, default: "On-site" },
-  job_url: String,
-  status: {type: String, default: "Pending"},
-  notes: String
+mongoose.connect("mongodb://localhost/applicationTracker", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 });
 
-let Application = mongoose.model('Application', applicationSchema);
+const applicationSchema = new mongoose.Schema({
+  job_title: String,
+  company_name: String,
+  application_date: { type: Date, default: Date.now },
+  interview_date: { type: Date, default: null },
+  job_type: String,
+  location_type: { type: String, default: "On-site" },
+  job_url: String,
+  status: { type: String, default: "Pending" },
+  notes: String,
+});
 
-let saveOneApplication = (obj) => {
+const shortcutSchema = new mongoose.Schema({
+  search_url: String,
+  // {timestamp: true}
+});
 
-  return Application.create(obj);
+const Application = mongoose.model("Application", applicationSchema);
+const Shortcut = mongoose.model("Shortcut", shortcutSchema);
 
-}
+const saveOneApplication = (obj) => Application.create(obj);
 
-let showAll = () => {
-  return Application.find({}).sort({application_date: -1});
-}
+const saveOneShortcut = (obj) => Shortcut.create(obj);
 
-let deleteOneApplication = (obj) => {
-  return Application.deleteOne(obj);
-}
+const showAll = () => Application.find({}).sort({ application_date: -1 });
 
-let updateNotes = (notesString, _id) => {
-  return Application.findOneAndUpdate({'_id': _id}, {$set:{notes: notesString}},{upsert: true} );
-}
+const deleteOneApplication = (obj) => Application.deleteOne(obj);
 
-let updateStatus = (newStatus, _id) => {
-  return Application.findOneAndUpdate({'_id': _id}, {$set:{status: newStatus}},{upsert: true} );
+const updateNotes = (notesString, _id) =>
+  Application.findOneAndUpdate(
+    { _id },
+    { $set: { notes: notesString } },
+    { upsert: true }
+  );
 
-}
+const updateStatus = (newStatus, _id) =>
+  Application.findOneAndUpdate(
+    { _id },
+    { $set: { status: newStatus } },
+    { upsert: true }
+  );
 
-let updateInterviewDate = (newDate, _id) => {
-  return Application.findOneAndUpdate({'_id': _id}, {$set:{interview_date: newDate}},{upsert: true} );
+const updateInterviewDate = (newDate, _id) =>
+  Application.findOneAndUpdate(
+    { _id },
+    { $set: { interview_date: newDate } },
+    { upsert: true }
+  );
 
-}
+const getAllInterviewingJobs = () =>
+  Application.find({ status: "Interviewing" }).sort({ interview_date: 1 });
 
-let getAllInterviewingJobs = () => {
-  return Application.find({'status': 'Interviewing'}).sort({interview_date: 1});
-}
+const getAllOffers = () =>
+  Application.find({ status: "OFFER" }).sort({ interview_date: 1 });
 
-let getAllOffers = () => {
-  return Application.find({'status': 'OFFER'}).sort({interview_date: 1});
-}
-
-let getAllRejected = () => {
-  return Application.find({'status': 'Rejected'}).sort({application_date: -1});
-}
-
-// let getDataByKeyword = (keyword) => {
-//   return Application.find($or:[{"job_title": keyword},{"company_name": keyword},{"job_type": keyword}, {"location_type": keyword} ]);
-// }
-
+const getAllRejected = () =>
+  Application.find({ status: "Rejected" }).sort({ application_date: -1 });
 
 module.exports = {
   saveOneApplication,
@@ -71,7 +72,5 @@ module.exports = {
   getAllInterviewingJobs,
   updateInterviewDate,
   getAllOffers,
-  getAllRejected
-
-
+  getAllRejected,
 };

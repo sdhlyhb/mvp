@@ -1,8 +1,7 @@
-import React from 'react';
+import React from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import Button from '@mui/material/Button';
-
+import Button from "@mui/material/Button";
 
 class AddApplication extends React.Component {
   constructor(props) {
@@ -11,10 +10,10 @@ class AddApplication extends React.Component {
       jobTitle: null,
       companyName: null,
       startDate: new Date(),
-      selectedOption: '', //job type
-      locType: "On-site", //default
+      selectedOption: "", // job type
+      locType: "On-site", // default
       postUrl: null,
-      notes: null
+      notes: null,
     };
     this.handleTitleInput = this.handleTitleInput.bind(this);
     this.handleCompanyNameInput = this.handleCompanyNameInput.bind(this);
@@ -24,161 +23,167 @@ class AddApplication extends React.Component {
     this.handleLocTypeInputChange = this.handleLocTypeInputChange.bind(this);
     this.handlePostUrlInputChange = this.handlePostUrlInputChange.bind(this);
     this.handleNotesInputChange = this.handleNotesInputChange.bind(this);
-
   }
 
   handleTitleInput(e) {
     this.setState({
-      jobTitle: e.target.value
-    })
+      jobTitle: e.target.value,
+    });
   }
 
   handleCompanyNameInput(e) {
     this.setState({
-      companyName: e.target.value
-    })
+      companyName: e.target.value,
+    });
   }
 
   handleDateSelect(date) {
     this.setState({
-      startDate: date
-
-    })
+      startDate: date,
+    });
   }
 
   onValueChange(e) {
     this.setState({
-      selectedOption: e.target.value
+      selectedOption: e.target.value,
     });
   }
 
   handleLocTypeInputChange(e) {
     this.setState({
-      locType: e.target.value
-
-    })
+      locType: e.target.value,
+    });
   }
-
 
   handlePostUrlInputChange(e) {
     this.setState({
-      postUrl: e.target.value
-
-    })
+      postUrl: e.target.value,
+    });
   }
 
   handleNotesInputChange(e) {
     this.setState({
-      notes: e.target.value
-
-    })
+      notes: e.target.value,
+    });
   }
-
-
 
   handleSubmit(e) {
     e.preventDefault();
-    var data = {
-      "job_title": this.state.jobTitle,
-      "company_name": this.state.companyName,
-      "application_date": this.state.startDate,
-      "job_type": this.state.selectedOption,
-      "location_type": this.state.locType,
-      "job_url": this.state.postUrl,
-      "notes": this.state.notes
-    }
+    const data = {
+      job_title: this.state.jobTitle,
+      company_name: this.state.companyName,
+      application_date: this.state.startDate,
+      job_type: this.state.selectedOption,
+      location_type: this.state.locType,
+      job_url: this.state.postUrl,
+      notes: this.state.notes,
+    };
     this.props.handleAddition(data);
   }
-
-
-
 
   render() {
     return (
       <div>
-
         <form id="app-form">
-        <h3>Add New Job Application</h3>
+          <h3>Add New Job Application</h3>
           <label>Job Title</label>
           <br />
           <input type="text" name="jobTitle" onChange={this.handleTitleInput} />
           <br />
           <label>Company</label>
           <br />
-          <input type="text" name="Company" onChange={this.handleCompanyNameInput} />
+          <input
+            type="text"
+            name="Company"
+            onChange={this.handleCompanyNameInput}
+          />
           <br />
           <label>Application Date</label>
           <DatePicker
             selected={this.state.startDate}
-            onSelect={this.handleDateSelect} //when day is clicked
-
+            onSelect={this.handleDateSelect} // when day is clicked
           />
           <label>Job type</label>
-          <div >
-            <input type="radio" value="Full-Time" name="jobtype" checked={this.state.selectedOption === "Full-Time"} onChange={this.onValueChange} /> Full-Time
-            <input type="radio" value="Part-Time" name="jobtype" checked={this.state.selectedOption === "Part-Time"} onChange={this.onValueChange} /> Part-time
-            <input type="radio" value="Contract" name="jobtype" checked={this.state.selectedOption === "Contract"} onChange={this.onValueChange} /> Contract
+          <div>
+            <input
+              type="radio"
+              value="Full-Time"
+              name="jobtype"
+              checked={this.state.selectedOption === "Full-Time"}
+              onChange={this.onValueChange}
+            />{" "}
+            Full-Time
+            <input
+              type="radio"
+              value="Part-Time"
+              name="jobtype"
+              checked={this.state.selectedOption === "Part-Time"}
+              onChange={this.onValueChange}
+            />{" "}
+            Part-time
+            <input
+              type="radio"
+              value="Contract"
+              name="jobtype"
+              checked={this.state.selectedOption === "Contract"}
+              onChange={this.onValueChange}
+            />{" "}
+            Contract
           </div>
 
           <label>Location type </label>
-          <div >
+          <div>
             <input
               type="checkbox"
               value="On-site"
               name="locType"
               onChange={this.handleLocTypeInputChange}
               checked={this.state.locType === "On-site"}
-            /> On-site
+            />{" "}
+            On-site
             <input
               type="checkbox"
               value="Remote"
               name="locType"
               onChange={this.handleLocTypeInputChange}
               checked={this.state.locType === "Remote"}
-            /> Remote
+            />{" "}
+            Remote
             <input
               type="checkbox"
               value="Hybrid"
               name="locType"
               onChange={this.handleLocTypeInputChange}
               checked={this.state.locType === "Hybrid"}
-            /> Hybrid
-
-
+            />{" "}
+            Hybrid
           </div>
 
           <label>Job Post URL</label>
           <br />
-          <input type="text" name="jobPostUrl" onChange={this.handlePostUrlInputChange} />
+          <input
+            type="text"
+            name="jobPostUrl"
+            onChange={this.handlePostUrlInputChange}
+          />
           <br />
 
           <label>Notes</label>
           <br />
-          <textarea type="text" name="notes" onChange={this.handleNotesInputChange} />
+          <textarea
+            type="text"
+            name="notes"
+            onChange={this.handleNotesInputChange}
+          />
           <br />
-
 
           <Button variant="contained" size="small" onClick={this.handleSubmit}>
             Add New Application
           </Button>
-
-
-
         </form>
-
       </div>
-
-    )
+    );
   }
-
-
-
 }
-
-
-
-
-
-
 
 export default AddApplication;

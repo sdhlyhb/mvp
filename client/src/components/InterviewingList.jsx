@@ -1,30 +1,21 @@
-import React from 'react';
+import React from "react";
 
-import InterviewEntry from './InterviewEntry.jsx';
+import InterviewEntry from "./InterviewEntry.jsx";
 
-const InterviewingList = (props) => {
-
-  return(
+function InterviewingList(props) {
+  return (
     <div className="interviewing-list">
       <h3>Interviewing List</h3>
-      {props.interviews.map(interview => <InterviewEntry
-        key={interview._id}
-        interview={interview}
-        clickRejBtn = {props.clickRejBtn}
-        clickOfferBtn = {props.clickOfferBtn}
-
-
-      />)}
-
-
-
-
-
+      {props.interviews.map((interview) => (
+        <InterviewEntry
+          key={interview._id}
+          interview={interview}
+          clickRejBtn={props.clickRejBtn}
+          clickOfferBtn={props.clickOfferBtn}
+        />
+      ))}
     </div>
-  )
+  );
+}
 
-  }
-
-
-
-  export default InterviewingList;
+export default InterviewingList;
