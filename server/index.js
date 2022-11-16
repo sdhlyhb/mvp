@@ -104,7 +104,7 @@ app.get("/api/interviewing", (req, res) =>
     .getAllInterviewingJobs()
     .then((jobs) => {
       console.log("all interviewing job applicaitons:", jobs);
-      res.send(jobs);
+      res.status(200).send(jobs);
     })
     .catch((err) => {
       console.log("err getting all the interviewing jobs!", err);
@@ -117,7 +117,7 @@ app.get("/api/offers", (req, res) =>
     .getAllOffers()
     .then((jobs) => {
       console.log("all OFFERS:", jobs);
-      res.send(jobs);
+      res.status(200).send(jobs);
     })
     .catch((err) => {
       console.log("err getting all the OFFERS!", err);
@@ -130,7 +130,7 @@ app.get("/api/rejected", (req, res) =>
     .getAllRejected()
     .then((jobs) => {
       console.log("all Rejected:", jobs);
-      res.send(jobs);
+      res.status(200).send(jobs);
     })
     .catch((err) => {
       console.log("err getting all the rejected!", err);
@@ -144,13 +144,33 @@ app.get("/api/allApplications/report", (req, res) =>
     .then((jobs) => {
       console.log("all job applicaitons:", jobs);
       const csv = helpers.jsonArrToCsv(JSON.parse(JSON.stringify(jobs)));
-      res.send(csv);
+      res.status(200).send(csv);
     })
     .catch((err) => {
       console.log("err getting all the jobs!", err);
       res.status(500).send(err);
     })
 );
+
+app.get("api/shortcuts", (req, res) =>
+  db
+    .showAllShortcuts()
+    .then((urls) => res.status(200).send(urls))
+    .catch((err) => {
+      console.log("Err getting shortcuts urls", err);
+      res.status(500).send(err);
+    })
+);
+
+app.post("api/shortcuts", (req, res) => {
+  const urlObj = req.body;
+  db.saveOneShortcut(urlObj)
+    .then((response) => res.status(200).send("short cuts added!"))
+    .catch((err) => {
+      console.log("Err adding shortcuts urls", err);
+      res.status(500).send(err);
+    });
+});
 
 const port = 3001;
 

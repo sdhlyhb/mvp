@@ -17,10 +17,14 @@ const applicationSchema = new mongoose.Schema({
   notes: String,
 });
 
-const shortcutSchema = new mongoose.Schema({
-  search_url: String,
-  // {timestamp: true}
-});
+const shortcutSchema = new mongoose.Schema(
+  {
+    search_url: {
+      type: String,
+    },
+  },
+  { timestamp: true }
+);
 
 const Application = mongoose.model("Application", applicationSchema);
 const Shortcut = mongoose.model("Shortcut", shortcutSchema);
@@ -30,6 +34,8 @@ const saveOneApplication = (obj) => Application.create(obj);
 const saveOneShortcut = (obj) => Shortcut.create(obj);
 
 const showAll = () => Application.find({}).sort({ application_date: -1 });
+
+const showAllShortcuts = () => Shortcut.find({}).sort({ createAt: -1 });
 
 const deleteOneApplication = (obj) => Application.deleteOne(obj);
 
@@ -73,4 +79,6 @@ module.exports = {
   updateInterviewDate,
   getAllOffers,
   getAllRejected,
+  saveOneShortcut,
+  showAllShortcuts,
 };
