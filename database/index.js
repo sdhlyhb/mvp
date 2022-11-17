@@ -22,6 +22,9 @@ const shortcutSchema = new mongoose.Schema(
     search_url: {
       type: String,
     },
+    keywords: {
+      type: String,
+    },
   },
   { timestamp: true }
 );

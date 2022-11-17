@@ -152,7 +152,7 @@ app.get("/api/allApplications/report", (req, res) =>
     })
 );
 
-app.get("api/shortcuts", (req, res) =>
+app.get("/api/shortcuts", (req, res) =>
   db
     .showAllShortcuts()
     .then((urls) => res.status(200).send(urls))
@@ -162,17 +162,17 @@ app.get("api/shortcuts", (req, res) =>
     })
 );
 
-app.post("api/shortcuts", (req, res) => {
+app.post("/api/shortcuts", (req, res) => {
   const urlObj = req.body;
   db.saveOneShortcut(urlObj)
-    .then((response) => res.status(200).send("short cuts added!"))
+    .then((response) => res.status(200).send(urlObj))
     .catch((err) => {
       console.log("Err adding shortcuts urls", err);
       res.status(500).send(err);
     });
 });
 
-const port = 3001;
+const port = 3000;
 
 app.listen(port, () => {
   console.log(`listening on port ${port}`);

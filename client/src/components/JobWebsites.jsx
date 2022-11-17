@@ -1,50 +1,84 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
-function JobWebsites(props) {
-  const LinkedInUrl =
-    "https://www.linkedin.com/jobs/search/?distance=25.0&geoId=90000052&keywords=javascript";
-  const IndeedUrl =
-    "https://www.indeed.com/jobs?q=javascript&l=Atlanta%2C%20GA&sc=0kf%3Aexplvl(ENTRY_LEVEL)&vjk=af0f2c14e9c9cff0&advn=2324357231341452";
-  const GoogleUrl =
-    "https://careers.google.com/jobs/results/?distance=50&location=Atlanta,%20GA,%20USA&q=javascript";
-  const ZipRecruiterUrl =
-    "https://www.ziprecruiter.com/jobs-search?search=javascript&location=Atlanta,%20GA";
-  const baseUrls = [
-    LinkedInUrl.split("/jobs")[0],
-    IndeedUrl.split("/jobs")[0],
-    GoogleUrl.split("/jobs")[0],
-    ZipRecruiterUrl.split("/jobs")[0],
-  ];
+function JobWebsites() {
+  const [shortcutUrls, setShortcutsUrls] = useState([]);
+  const [newShortcut, setNewShortcut] = useState("");
+  const [newKeywords, setNewKeywords] = useState("");
+
+  const getUrls = async () => {
+    try {
+      const response = await axios.get(
+        "/api/shortcuts"
+      );
+      console.log("this is urls data:", response.data);
+      setShortcutsUrls(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getUrls();
+  }, [])
+
+
+
+
+  const handleSubmitUrl = async (e) => {
+    e.preventDefault();
+    const shotcutObj = {
+      search_url: newShortcut,
+      keywords: newKeywords,
+    };
+
+    try {
+      const response = await axios.post("/api/shortcuts", shotcutObj);
+      console.log("response:", response.data);
+      getUrls();
+      console.log("urls:", shortcutUrls);
+      setNewShortcut("");
+      setNewKeywords("");
+    } catch (err) {
+      console.log("Err adding new shortcut url!", err);
+    }
+  };
+
+  const baseUrls = shortcutUrls?.map(urlObj => urlObj.search_url.split("/jobs")[0]);
+
   return (
     <div className="search-shortcuts">
       <h3>Searching Shortcuts</h3>
-      <span>
-        <img src={`${baseUrls[0]}/favicon.ico`} />
-        <a href={LinkedInUrl} target="popup">
-          LinkedIn
+      {baseUrls?.map((url, i) => (<li key={i}>
+        <img
+          width="20"
+          height="20"
+          src={"//f5.allesedv.com/20/" + `${url}`}
+        />
+        <a href={shortcutUrls[i]}>
+          {shortcutUrls[i].keywords}
+
         </a>
-      </span>{" "}
-      {"   "}
-      <span>
-        <img src={`${baseUrls[1]}/images/favicon.ico`} />
-        <a href={IndeedUrl} target="popup">
-          Indeed
-        </a>
-      </span>
-      {"   "}
-      <span>
-        <img src={`${baseUrls[2]}/favicon.ico`} />
-        <a href={GoogleUrl} target="popup">
-          Google Careers
-        </a>
-      </span>
-      {"   "}
-      <span>
-        <img src={`${baseUrls[3]}/favicon.ico`} />
-        <a href={ZipRecruiterUrl} target="popup">
-          ZipRecruiter
-        </a>
-      </span>
+      </li>))}
+
+      <div>
+        <input
+          type="text"
+          name="shortcut"
+          placeholder="Enter the shortcut url..."
+          value = {newShortcut}
+          onChange={(e) => setNewShortcut(e.target.value)}
+        />
+        <input
+          type="text"
+          name="search-keywords"
+          placeholder="Enter the keywords of your search..."
+          value = {newKeywords}
+          onChange={(e) => setNewKeywords(e.target.value)}
+        />
+
+        <button onClick={(e) => handleSubmitUrl(e)}>Add New Shortcut</button>
+      </div>
     </div>
   );
 }
