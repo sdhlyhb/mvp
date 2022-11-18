@@ -5,6 +5,7 @@ function JobWebsites() {
   const [shortcutUrls, setShortcutsUrls] = useState([]);
   const [newShortcut, setNewShortcut] = useState("");
   const [newKeywords, setNewKeywords] = useState("");
+  const [addPop, setAddPop] = useState("false");
 
   const getUrls = async () => {
     try {
@@ -44,41 +45,64 @@ function JobWebsites() {
     }
   };
 
+  const deleteShortcutClick = async (e) => {
+    e.preventDefault();
+    const objId = e.currentTarget.id;
+    try {
+      const response = await axios.delete("/api/shortcuts/" + objId);
+      setShortcutsUrls(response.data);
+    } catch (err) {
+      console.log("Err deleting a shortcut record!", err);
+    }
+
+  }
+
   const baseUrls = shortcutUrls?.map(urlObj => urlObj.search_url.split("/jobs")[0]);
 
   return (
     <div className="search-shortcuts">
       <h3>Searching Shortcuts</h3>
-      {baseUrls?.map((url, i) => (<li key={i}>
-        <img
-          width="20"
-          height="20"
-          src={"//f5.allesedv.com/20/" + `${url}`}
-        />
-        <a href={shortcutUrls[i]}>
-          {shortcutUrls[i].keywords}
-
-        </a>
-      </li>))}
-
       <div>
-        <input
-          type="text"
-          name="shortcut"
-          placeholder="Enter the shortcut url..."
-          value = {newShortcut}
-          onChange={(e) => setNewShortcut(e.target.value)}
-        />
-        <input
-          type="text"
-          name="search-keywords"
-          placeholder="Enter the keywords of your search..."
-          value = {newKeywords}
-          onChange={(e) => setNewKeywords(e.target.value)}
-        />
+        {baseUrls?.map((url, i) => (<li key={i}>
+          <img
+            width="20"
+            height="20"
+            src={"//f5.allesedv.com/20/" + `${url}`}
+          />
+          <a href={shortcutUrls[i].search_url}>
+            {shortcutUrls[i].keywords}
 
-        <button onClick={(e) => handleSubmitUrl(e)}>Add New Shortcut</button>
+          </a>
+          <button id={shortcutUrls[i]._id} onClick = {e => {deleteShortcutClick(e)}}>delete</button>
+        </li>))}
+        <button onClick={e => setAddPop(!addPop)}>ADD</button>
+
       </div>
+
+      {!addPop
+        ? (<div>
+          <input
+            type="text"
+            name="shortcut"
+            placeholder="Enter the shortcut url..."
+            value={newShortcut}
+            onChange={(e) => setNewShortcut(e.target.value)}
+          />
+          <input
+            type="text"
+            name="search-keywords"
+            placeholder="Enter the keywords of your search..."
+            value={newKeywords}
+            onChange={(e) => setNewKeywords(e.target.value)}
+          />
+
+          <button onClick={(e) => {handleSubmitUrl(e); setAddPop("false");}}>Add New Shortcut</button>
+        </div>)
+        : null
+
+
+      }
+
     </div>
   );
 }

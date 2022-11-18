@@ -95,9 +95,10 @@ app.delete("/api/allApplications/:_id", (req, res) => {
     .then((result) => res.status(200).send(result))
     .catch((err) => {
       console.log("Err Deleting one application!", err);
-      res.status(422).send(err); // 422: unprocessable entity
+      res.status(500).send(err); // 422: unprocessable entity
     });
 });
+
 
 app.get("/api/interviewing", (req, res) =>
   db
@@ -171,6 +172,24 @@ app.post("/api/shortcuts", (req, res) => {
       res.status(500).send(err);
     });
 });
+
+
+app.delete("/api/shortcuts/:id", (req, res) => {
+  const objId = req.params.id;
+  console.log("this is req.params:", req.params);
+  console.log("this is objId:", objId);
+  db.deleteOneShortcutById(objId)
+    .then((response) => {
+      console.log("Success deleted one shortcut!");
+      return db.showAllShortcuts();
+    })
+    .then((result) => res.status(200).send(result))
+    .catch((err) => {
+      console.log("Err Deleting one shortcut!", err);
+      res.status(500).send(err);
+    });
+
+})
 
 const port = 3000;
 

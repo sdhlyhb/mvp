@@ -10,7 +10,7 @@ function AppliedList(props) {
 
   return (
     <div className="application-list">
-      <h3>Applications List</h3>
+      <h3>Applications Record</h3>
       <Button variant="outlined" size="small">
         <a
           href="/api/allApplications/report"
