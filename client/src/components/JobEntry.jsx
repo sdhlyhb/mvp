@@ -12,29 +12,89 @@ function JobEntry(props) {
   const days = Math.ceil((today - applicationDate) / (1000 * 60 * 60 * 24));
   return (
     <div id={`${props.jobApp._id}-listDiv`}>
-      <SummarizeTwoToneIcon />
-      <span>{props.jobApp.status}</span>
-      {":    "}
-      {props.jobApp.job_title} @ {props.jobApp.company_name}{" "}
-      <span className="time-stamp"> Applied {days} days ago</span>
-      {"    "}
-      <button
-        className="view-btn"
-        onClick={(e) => {
-          props.clickAndPopDetails(curjobTitle, curJobCompany);
-        }}
-      >
-        {" "}
-        <FontAwesomeIcon icon={faEye} className="fa-icon" />
-      </button>
-      <button
-        className="trash-btn"
-        onClick={(e) => {
-          props.deleteApp(props.jobApp);
-        }}
-      >
-        <FontAwesomeIcon icon={faTrashCan} className="fa-icon" />
-      </button>
+      {props.jobApp?.status === "Rejected" ? (
+        <div class="crossed-line">
+          <SummarizeTwoToneIcon />
+          <span>{props.jobApp.status}</span>
+          {":    "}
+          {props.jobApp.job_title} @ {props.jobApp.company_name}{" "}
+          <span className="time-stamp"> Applied {days} days ago</span>
+          {"    "}
+          <button
+            className="view-btn"
+            onClick={(e) => {
+              props.clickAndPopDetails(curjobTitle, curJobCompany);
+            }}
+          >
+            {" "}
+            <FontAwesomeIcon icon={faEye} className="fa-icon" />
+          </button>
+          <button
+            className="trash-btn"
+            onClick={(e) => {
+              props.deleteApp(props.jobApp);
+            }}
+          >
+            <FontAwesomeIcon icon={faTrashCan} className="fa-icon" />
+          </button>
+        </div>
+      ) : props.jobApp?.status === "OFFER" ? (
+        <div class="offer-highlight">
+          <SummarizeTwoToneIcon />
+          <span>{props.jobApp.status}</span>
+          {":    "}
+          {props.jobApp.job_title} @ {props.jobApp.company_name}{" "}
+          <span className="time-stamp"> Applied {days} days ago</span>
+          {"    "}
+          <button
+            className="view-btn"
+            onClick={(e) => {
+              props.clickAndPopDetails(curjobTitle, curJobCompany);
+            }}
+          >
+            {" "}
+            <FontAwesomeIcon icon={faEye} className="fa-icon" />
+          </button>
+          <button
+            className="trash-btn"
+            onClick={(e) => {
+              props.deleteApp(props.jobApp);
+            }}
+          >
+            <FontAwesomeIcon icon={faTrashCan} className="fa-icon" />
+          </button>
+        </div>
+      )
+
+
+
+      : (
+        <div>
+          <SummarizeTwoToneIcon />
+          <span>{props.jobApp.status}</span>
+          {":    "}
+          {props.jobApp.job_title} @ {props.jobApp.company_name}{" "}
+          <span className="time-stamp"> Applied {days} days ago</span>
+          {"    "}
+          <button
+            className="view-btn"
+            onClick={(e) => {
+              props.clickAndPopDetails(curjobTitle, curJobCompany);
+            }}
+          >
+            {" "}
+            <FontAwesomeIcon icon={faEye} className="fa-icon" />
+          </button>
+          <button
+            className="trash-btn"
+            onClick={(e) => {
+              props.deleteApp(props.jobApp);
+            }}
+          >
+            <FontAwesomeIcon icon={faTrashCan} className="fa-icon" />
+          </button>
+        </div>
+      )}
     </div>
   );
 }
