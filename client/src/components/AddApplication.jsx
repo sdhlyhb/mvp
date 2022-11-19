@@ -62,8 +62,11 @@ class AddApplication extends React.Component {
   }
 
   handleNotesInputChange(e) {
+    const notes = e.target.value;
+    let processed = notes.replace(/\n/g, " ").replace(/\r/g, " ");
+    processed = processed.replace(/, /g, "").replace(",", ";");
     this.setState({
-      notes: e.target.value,
+      notes: processed,
     });
   }
 

@@ -42,8 +42,7 @@ const showAllShortcuts = () => Shortcut.find({}).sort({ createAt: -1 });
 
 const deleteOneApplication = (obj) => Application.deleteOne(obj);
 
-const deleteOneShortcutById = (objId) =>
-  Shortcut.deleteOne({ _id: objId });
+const deleteOneShortcutById = (objId) => Shortcut.deleteOne({ _id: objId });
 
 const updateNotes = (notesString, _id) =>
   Application.findOneAndUpdate(
