@@ -94,7 +94,7 @@ class App extends React.Component {
     const { _id } = applicationObj;
     console.log("this is _id:", _id);
     axios
-      .delete(`/api/allApplications/;${_id}`, { data: { _id: `${_id}` } })
+      .delete(`/api/allApplications/:${_id}`, { data: { _id: `${_id}` } })
       .then((res) => {
         console.log("Success Deleted current application!");
       })

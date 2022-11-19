@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import FileDownloadTwoToneIcon from "@mui/icons-material/FileDownloadTwoTone";
 import FindInPageTwoToneIcon from "@mui/icons-material/FindInPageTwoTone";
 import Button from "@mui/material/Button";
@@ -7,6 +7,10 @@ import JobEntry from "./JobEntry.jsx";
 
 function AppliedList(props) {
   const today = new Date().toLocaleString("en-US");
+  const [searchKeywords, setSearchKeywords] = useState("");
+  useEffect(() => {
+    props.search(searchKeywords);
+  }, [searchKeywords]);
 
   return (
     <div className="application-list">
@@ -23,19 +27,25 @@ function AppliedList(props) {
       <br />
       <input
         type="text"
-        placeholder="search...."
-        value={props.keyword}
-        onChange={props.onChangeKeyword}
+        placeholder="Search by keywords..."
+        value={searchKeywords}
+        onChange={(e) => setSearchKeywords(e.target.value)}
       />
-      <Button
+      {/* <Button
         size="small"
         onClick={(e) => {
           props.search(props.keyword);
         }}
       >
         <FindInPageTwoToneIcon />
-      </Button>
-      <Button size="small" onClick={props.clickViewAllBtn}>
+      </Button> */}
+      <Button
+        size="small"
+        onClick={(e) => {
+          setSearchKeywords("");
+          props.clickViewAllBtn;
+        }}
+      >
         <ListAltIcon />
         All
       </Button>

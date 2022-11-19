@@ -186,14 +186,14 @@ img {
 }
 
 .offer-highlight {
-  background-color: yellow;
+  background-color: pink;
   color: indigo;
   font-style: italic;
 }
 
 .highlight {
-  background-color: cyan;
-  color: blue;
+  background-color: rgb(74, 210, 237);
+  color: rgb(113, 75, 21);
 }
 
 .time-stamp {
