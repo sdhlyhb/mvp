@@ -82,6 +82,12 @@ class AddApplication extends React.Component {
       notes: this.state.notes,
     };
     this.props.handleAddition(data);
+    this.setState({
+      job_title: "",
+      company_name: "",
+      job_url: "",
+      notes: "",
+    });
   }
 
   render() {
@@ -91,13 +97,19 @@ class AddApplication extends React.Component {
           <h3>Add New Job Application</h3>
           <label>Job Title</label>
           <br />
-          <input type="text" name="jobTitle" onChange={this.handleTitleInput} />
+          <input
+            type="text"
+            name="jobTitle"
+            value={this.state.job_title}
+            onChange={this.handleTitleInput}
+          />
           <br />
           <label>Company</label>
           <br />
           <input
             type="text"
             name="Company"
+            value={this.state.company_name}
             onChange={this.handleCompanyNameInput}
           />
           <br />
@@ -167,6 +179,7 @@ class AddApplication extends React.Component {
           <input
             type="text"
             name="jobPostUrl"
+            value={this.state.job_url}
             onChange={this.handlePostUrlInputChange}
           />
           <br />
@@ -176,6 +189,7 @@ class AddApplication extends React.Component {
           <textarea
             type="text"
             name="notes"
+            value={this.state.notes}
             onChange={this.handleNotesInputChange}
           />
           <br />
