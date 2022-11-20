@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFilePen,
@@ -8,8 +8,15 @@ import {
 import CancelPresentationTwoToneIcon from "@mui/icons-material/CancelPresentationTwoTone";
 
 function ApplicationDetails(props) {
+  const [notes, setNotes] = useState(props.clickedJob.notes);
+  const [detailsEdit, setDetailsEdit] = useState(false);
   const jobUrl = props.clickedJob.job_url;
   const id = props.clickedJob._id;
+  const handleUpdateClick = (e) => {
+    e.preventDefault();
+    setDetailsEdit(!detailsEdit);
+    props.updateNotes(id, notes);
+  };
   const applicationDate = new Date(
     props.clickedJob.application_date
   ).toLocaleDateString();
@@ -36,8 +43,26 @@ function ApplicationDetails(props) {
       </div>
       <div>Status: {props.clickedJob.status}</div>
       <div>Interview Date: {interviewDate}</div>
-      <div>Notes: {props.clickedJob.notes}</div>
-      <button id={id} onClick={(e) => props.clickUpdateBtn(e)}>
+      {!detailsEdit ? (
+        <div>Notes: {notes}</div>
+      ) : (
+        <div>
+          Notes:
+          <br />
+          <textarea
+            rows="4"
+            cols="20"
+            placeholder="Update notes here..."
+            value={notes}
+            onChange={(e) => {
+              setNotes(e.target.value);
+            }}
+          />
+          <button onClick={handleUpdateClick}>Update</button>
+        </div>
+      )}
+
+      <button id={id} onClick={(e) => setDetailsEdit(!detailsEdit)}>
         <FontAwesomeIcon icon={faFilePen} />
       </button>
       <button id={`${id}-interviewBtn`} onClick={props.clickInterviewBtn}>

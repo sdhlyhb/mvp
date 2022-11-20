@@ -6,7 +6,6 @@ import JobWebsites from "./Components/JobWebsites.jsx";
 import AddApplication from "./Components/AddApplication.jsx";
 import AppliedList from "./Components/AppliedList.jsx";
 import ApplicationDetails from "./Components/ApplicationDetails.jsx";
-import UpdateNotes from "./Components/UpdateNotes.jsx";
 import InterviewingList from "./Components/InterviewingList.jsx";
 import Messages from "./Components/Messages.jsx";
 import InterviewDate from "./Components/InterviewDate.jsx";
@@ -124,8 +123,6 @@ class App extends React.Component {
         )[0];
         this.setState({
           curJob: updated,
-          updatePopSeen: false,
-          detailPopSeen: false,
         });
       })
       .then(() => this.displayApplications())
@@ -249,7 +246,7 @@ class App extends React.Component {
   search(keyword) {
     const allApplicationsObjs = this.state.allApplications;
 
-    if (!keyword) {
+    if (keyword.length < 2) {
       this.displayApplications();
     }
     const filtered = allApplicationsObjs.filter(
@@ -322,6 +319,8 @@ class App extends React.Component {
             clickRejBtn={this.clickRejBtn.bind(this)}
             clickInterviewBtn={this.clickInterviewBtn.bind(this)}
             clickCloseDetailsIcon={this.clickCloseDetailsIcon.bind(this)}
+            updateDetails = {this.state.updatePopSeen}
+            updateNotes={this.updateNotes.bind(this)}
           />
         ) : null}
 
@@ -330,14 +329,6 @@ class App extends React.Component {
             updateInterviewDate={this.updateInterviewDate.bind(this)}
             curJob={this.state.curJob}
             close={this.clickCloseDetailsIcon.bind(this)}
-          />
-        ) : null}
-
-        {this.state.updatePopSeen ? (
-          <UpdateNotes
-            _id={this.state.appToUpdate_id}
-            clickCloseIcon={this.clickCloseIcon.bind(this)}
-            updateNotes={this.updateNotes.bind(this)}
           />
         ) : null}
       </div>
