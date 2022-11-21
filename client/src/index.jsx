@@ -2,6 +2,7 @@
 import React, { component } from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
+import Navbar from "./Components/Navbar.jsx";
 import JobWebsites from "./Components/JobWebsites.jsx";
 import AddApplication from "./Components/AddApplication.jsx";
 import AppliedList from "./Components/AppliedList.jsx";
@@ -275,10 +276,11 @@ class App extends React.Component {
   render() {
     return (
       <div id="main">
-        <div id="header">
+        {/* <div id="header">
           <h1>CRUDDY TrackIT</h1>
           <h3>an all-in-one Job Application Tracker</h3>
-        </div>
+        </div> */}
+        <Navbar />
 
         <div className="row-1">
           <Messages
