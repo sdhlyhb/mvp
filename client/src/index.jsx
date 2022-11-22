@@ -2,6 +2,7 @@
 import React, { component } from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
+import { IconButton, Button, Modal, Box, Grid } from "@mui/material";
 import Navbar from "./Components/Navbar.jsx";
 import JobWebsites from "./Components/JobWebsites.jsx";
 import AddApplication from "./Components/AddApplication.jsx";
@@ -11,6 +12,26 @@ import InterviewingList from "./Components/InterviewingList.jsx";
 import Messages from "./Components/Messages.jsx";
 import InterviewDate from "./Components/InterviewDate.jsx";
 import OfferList from "./Components/OfferList.jsx";
+import OfferJobEntryCard from "./Components/OfferJobCard.jsx";
+import InterviewingJobEntryCard from "./Components/InterviewingJobCard.jsx";
+import PendingJobEntryCard from "./Components/PendingJobEntryCard.jsx";
+import RejJobEntryCard from "./Components/RejJobEntryCard.jsx";
+
+const listContainerStyle = {
+  verticalAlign: "top",
+  padding: "5px 5px 5px 5px",
+  border: "1px solid",
+  margin: "5px",
+  backgroundColor: "white",
+  maxWidth: "350px",
+  borderRadius: "10px",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  minHeight: "90vh",
+  maxHeight: "90vh",
+  overflowY: "scroll",
+};
 
 class App extends React.Component {
   constructor(props) {
@@ -276,11 +297,45 @@ class App extends React.Component {
   render() {
     return (
       <div id="main">
-        {/* <div id="header">
-          <h1>CRUDDY TrackIT</h1>
-          <h3>an all-in-one Job Application Tracker</h3>
-        </div> */}
         <Navbar />
+        <div className="row-1">
+          <Box style={{ ...listContainerStyle }}>
+            <OfferJobEntryCard />
+            <OfferJobEntryCard />
+            <OfferJobEntryCard />
+            <OfferJobEntryCard />
+            <OfferJobEntryCard />
+            <OfferJobEntryCard />
+            <OfferJobEntryCard />
+            <OfferJobEntryCard />
+          </Box>
+          <Box style={{ ...listContainerStyle }}>
+            <InterviewingJobEntryCard />
+            <InterviewingJobEntryCard />
+            <InterviewingJobEntryCard />
+            <InterviewingJobEntryCard />
+            <InterviewingJobEntryCard />
+          </Box>
+          <Box style={{ ...listContainerStyle }}>
+            <PendingJobEntryCard />
+            <PendingJobEntryCard />
+            <PendingJobEntryCard />
+            <PendingJobEntryCard />
+            <PendingJobEntryCard />
+            <PendingJobEntryCard />
+            <PendingJobEntryCard />
+          </Box>
+          <Box style={{ ...listContainerStyle }}>
+            <OfferJobEntryCard />
+            <RejJobEntryCard />
+            <RejJobEntryCard />
+            <PendingJobEntryCard />
+            <InterviewingJobEntryCard />
+            <PendingJobEntryCard />
+            <InterviewingJobEntryCard />
+            <PendingJobEntryCard />
+          </Box>
+        </div>
 
         <div className="row-1">
           <Messages
@@ -294,6 +349,7 @@ class App extends React.Component {
             clickRejBtn={this.clickRejBtn.bind(this)}
             clickOfferBtn={this.clickOfferBtn.bind(this)}
           />
+          <OfferJobEntryCard />
         </div>
 
         <div className="row-2">
@@ -321,7 +377,7 @@ class App extends React.Component {
             clickRejBtn={this.clickRejBtn.bind(this)}
             clickInterviewBtn={this.clickInterviewBtn.bind(this)}
             clickCloseDetailsIcon={this.clickCloseDetailsIcon.bind(this)}
-            updateDetails = {this.state.updatePopSeen}
+            updateDetails={this.state.updatePopSeen}
             updateNotes={this.updateNotes.bind(this)}
           />
         ) : null}

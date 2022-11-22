@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
   AppBar,
   Avatar,
-  Badge,
   Box,
   InputBase,
   Menu,
@@ -10,9 +9,13 @@ import {
   styled,
   Toolbar,
   Typography,
+  IconButton,
+  Tooltip,
 } from "@mui/material";
-import LogoutIcon from '@mui/icons-material/Logout';
+import { orange, blue, grey } from "@mui/material/colors";
 
+import SearchIcon from "@mui/icons-material/Search";
+import InsertChartIcon from "@mui/icons-material/InsertChart";
 
 const StyledToolbar = styled(Toolbar)({
   display: "flex",
@@ -35,20 +38,12 @@ const Search = styled("div")(({ theme }) => ({
 const Icons = styled(Box)(({ theme }) => ({
   display: "none",
   alignItems: "center",
-  gap: "20px",
+  gap: "40px",
   [theme.breakpoints.up("sm")]: {
     display: "flex",
   },
 }));
 
-const UserBox = styled(Box)(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  gap: "10px",
-  [theme.breakpoints.up("sm")]: {
-    display: "none",
-  },
-}));
 function Navbar() {
   const [open, setOpen] = useState(false);
   return (
@@ -62,26 +57,24 @@ function Navbar() {
           />
         </Logo>
         <Search>
+          <SearchIcon size="large" sx={{ color: grey[500] }} />
+
           <InputBase placeholder="search..." />
         </Search>
         <Icons>
-          <Badge badgeContent={2} color="error">
-            <LogoutIcon />
-          </Badge>
+          <Tooltip title="Display Stats">
+            <IconButton>
+              <InsertChartIcon size="large" style={{ color: "white" }} />
+            </IconButton>
+          </Tooltip>
+
           <Avatar
-            sx={{ width: 30, height: 30 }}
+            sx={{ width: 40, height: 40 }}
             src="xxxx.png"
             alt="Serena"
             onClick={(e) => setOpen(true)}
           />
         </Icons>
-        <UserBox onClick={(e) => setOpen(true)}>
-          <Avatar
-            sx={{ width: 30, height: 30 }}
-            src="https://images.pexels.com/photos/846741/pexels-photo-846741.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-          />
-          <Typography variant="span">John</Typography>
-        </UserBox>
       </StyledToolbar>
       <Menu
         id="positioned-menu"
