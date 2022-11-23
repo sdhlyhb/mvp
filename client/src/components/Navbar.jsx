@@ -64,7 +64,7 @@ function Navbar() {
         <Icons>
           <Tooltip title="Display Stats">
             <IconButton>
-              <InsertChartIcon size="large" style={{ color: "white" }} />
+              <InsertChartIcon sx={{ fontSize: 30, color: "white" }}/>
             </IconButton>
           </Tooltip>
 

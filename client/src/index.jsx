@@ -2,7 +2,16 @@
 import React, { component } from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
-import { IconButton, Button, Modal, Box, Grid } from "@mui/material";
+import {
+  IconButton,
+  Button,
+  Modal,
+  Box,
+  Grid,
+  AppBar,
+  Toolbar,
+  Typography,
+} from "@mui/material";
 import Navbar from "./Components/Navbar.jsx";
 import JobWebsites from "./Components/JobWebsites.jsx";
 import AddApplication from "./Components/AddApplication.jsx";
@@ -17,20 +26,39 @@ import InterviewingJobEntryCard from "./Components/InterviewingJobCard.jsx";
 import PendingJobEntryCard from "./Components/PendingJobEntryCard.jsx";
 import RejJobEntryCard from "./Components/RejJobEntryCard.jsx";
 
-const listContainerStyle = {
+const style1 = {
   verticalAlign: "top",
-  padding: "5px 5px 5px 5px",
   border: "1px solid",
   margin: "5px",
   backgroundColor: "white",
-  maxWidth: "350px",
+  width: "auto",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  minHeight: "90vh",
+  maxHeight: "95vh",
+};
+const listContainerStyle = {
+  verticalAlign: "top",
+  marginTop: "45px",
+  backgroundColor: "white",
+  maxWidth: "450px",
   borderRadius: "10px",
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
   minHeight: "90vh",
-  maxHeight: "90vh",
+  maxHeight: "95vh",
   overflowY: "scroll",
+  overflowX: "hidden",
+};
+
+const gridStyle = {
+  position: "fixed",
+  width: "345px",
+  height: "45px",
+  backgroundColor: "white",
+  marginTop: "0",
 };
 
 class App extends React.Component {
@@ -299,45 +327,88 @@ class App extends React.Component {
       <div id="main">
         <Navbar />
         <div className="row-1">
-          <Box style={{ ...listContainerStyle }}>
-            <OfferJobEntryCard />
-            <OfferJobEntryCard />
-            <OfferJobEntryCard />
-            <OfferJobEntryCard />
-            <OfferJobEntryCard />
-            <OfferJobEntryCard />
-            <OfferJobEntryCard />
-            <OfferJobEntryCard />
+          <Box
+            style={{
+              ...listContainerStyle,
+              marginTop: "5px",
+              marginRight: "10px",
+            }}
+          >
+            <Messages
+              applications={this.state.allApplications}
+              interviews={this.state.interviews}
+              rejects={this.state.rejected}
+              offers={this.state.offers}
+            />
+            <JobWebsites />
           </Box>
-          <Box style={{ ...listContainerStyle }}>
-            <InterviewingJobEntryCard />
-            <InterviewingJobEntryCard />
-            <InterviewingJobEntryCard />
-            <InterviewingJobEntryCard />
-            <InterviewingJobEntryCard />
+
+          <Box style={{ ...style1 }}>
+            <Grid style={{ ...gridStyle }}>
+              <Typography style={{ padding: "10px" }}>
+                All applications: 0
+              </Typography>
+            </Grid>
+
+            <Box style={{ ...listContainerStyle }}>
+              <OfferJobEntryCard />
+              <RejJobEntryCard />
+              <RejJobEntryCard />
+              <PendingJobEntryCard />
+              <InterviewingJobEntryCard />
+              <PendingJobEntryCard />
+              <InterviewingJobEntryCard />
+              <PendingJobEntryCard />
+            </Box>
           </Box>
-          <Box style={{ ...listContainerStyle }}>
-            <PendingJobEntryCard />
-            <PendingJobEntryCard />
-            <PendingJobEntryCard />
-            <PendingJobEntryCard />
-            <PendingJobEntryCard />
-            <PendingJobEntryCard />
-            <PendingJobEntryCard />
+
+          <Box style={{ ...style1 }}>
+            <Grid style={{ ...gridStyle }}>
+              <Typography style={{ padding: "10px" }}>Offers: 0</Typography>
+            </Grid>
+            <Box style={{ ...listContainerStyle }}>
+              <OfferJobEntryCard />
+              <OfferJobEntryCard />
+              <OfferJobEntryCard />
+              <OfferJobEntryCard />
+              <OfferJobEntryCard />
+              <OfferJobEntryCard />
+              <OfferJobEntryCard />
+              <OfferJobEntryCard />
+            </Box>
           </Box>
-          <Box style={{ ...listContainerStyle }}>
-            <OfferJobEntryCard />
-            <RejJobEntryCard />
-            <RejJobEntryCard />
-            <PendingJobEntryCard />
-            <InterviewingJobEntryCard />
-            <PendingJobEntryCard />
-            <InterviewingJobEntryCard />
-            <PendingJobEntryCard />
+
+          <Box style={{ ...style1 }}>
+            <Grid style={{ ...gridStyle }}>
+              <Typography style={{ padding: "10px" }}>
+                Interviewing: 0
+              </Typography>
+            </Grid>
+            <Box style={{ ...listContainerStyle }}>
+              <InterviewingJobEntryCard />
+              <InterviewingJobEntryCard />
+              <InterviewingJobEntryCard />
+              <InterviewingJobEntryCard />
+              <InterviewingJobEntryCard />
+            </Box>
+          </Box>
+          <Box style={{ ...style1 }}>
+            <Grid style={{ ...gridStyle }}>
+              <Typography style={{ padding: "10px" }}>Pending: 0</Typography>
+            </Grid>
+            <Box style={{ ...listContainerStyle }}>
+              <PendingJobEntryCard />
+              <PendingJobEntryCard />
+              <PendingJobEntryCard />
+              <PendingJobEntryCard />
+              <PendingJobEntryCard />
+              <PendingJobEntryCard />
+              <PendingJobEntryCard />
+            </Box>
           </Box>
         </div>
 
-        <div className="row-1">
+        {/* <div className="row-1">
           <Messages
             applications={this.state.allApplications}
             interviews={this.state.interviews}
@@ -388,7 +459,7 @@ class App extends React.Component {
             curJob={this.state.curJob}
             close={this.clickCloseDetailsIcon.bind(this)}
           />
-        ) : null}
+        ) : null} */}
       </div>
     );
   }
