@@ -12,6 +12,9 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import { yellow, blue, orange } from "@mui/material/colors";
+import Fab from "@mui/material/Fab";
 import Navbar from "./Components/Navbar.jsx";
 import JobWebsites from "./Components/JobWebsites.jsx";
 import AddApplication from "./Components/AddApplication.jsx";
@@ -55,7 +58,8 @@ const listContainerStyle = {
 
 const gridStyle = {
   position: "fixed",
-  width: "345px",
+  minWidth: "330px",
+  maxWidth: "345px",
   height: "45px",
   backgroundColor: "white",
   marginTop: "0",
@@ -359,6 +363,16 @@ class App extends React.Component {
               <PendingJobEntryCard />
               <InterviewingJobEntryCard />
               <PendingJobEntryCard />
+              <Fab
+                size="small"
+                sx={{
+                  color: blue[700],
+                  position: "absolute",
+                  bottom: 730,
+                }}
+              >
+                <AddIcon />
+              </Fab>
             </Box>
           </Box>
 
