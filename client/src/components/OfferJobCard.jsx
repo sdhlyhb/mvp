@@ -29,7 +29,7 @@ export default function OfferJobEntryCard() {
     <Paper
       sx={{
         p: 2,
-        margin: "5px",
+        margin: "3px",
         maxWidth: 300,
         maxHeight: 100,
         flexGrow: 0.5,

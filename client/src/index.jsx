@@ -10,6 +10,7 @@ import {
   Grid,
   AppBar,
   Toolbar,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
@@ -34,24 +35,22 @@ const style1 = {
   border: "1px solid",
   margin: "5px",
   backgroundColor: "white",
-  width: "auto",
+  maxWidth: "500",
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  minHeight: "90vh",
-  maxHeight: "95vh",
+  maxHeight: "94vh",
 };
 const listContainerStyle = {
   verticalAlign: "top",
-  marginTop: "45px",
+  marginTop: "70px",
   backgroundColor: "white",
-  maxWidth: "450px",
-  borderRadius: "10px",
+  minWidth: "360px",
+  maxWidth: "400px",
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  minHeight: "90vh",
-  maxHeight: "95vh",
+  maxHeight: "84.5vh",
   overflowY: "scroll",
   overflowX: "hidden",
 };
@@ -355,24 +354,19 @@ class App extends React.Component {
             </Grid>
 
             <Box style={{ ...listContainerStyle }}>
-              <OfferJobEntryCard />
-              <RejJobEntryCard />
-              <RejJobEntryCard />
-              <PendingJobEntryCard />
-              <InterviewingJobEntryCard />
-              <PendingJobEntryCard />
-              <InterviewingJobEntryCard />
-              <PendingJobEntryCard />
-              <Fab
-                size="small"
-                sx={{
-                  color: blue[700],
-                  position: "absolute",
-                  bottom: 730,
-                }}
-              >
-                <AddIcon />
-              </Fab>
+              <Tooltip title="Add an application">
+                <Fab
+                  size="small"
+                  sx={{
+                    color: blue[700],
+                    position: "absolute",
+                    bottom: 820,
+                    right: 1200,
+                  }}
+                >
+                  <AddIcon />
+                </Fab>
+              </Tooltip>
             </Box>
           </Box>
 

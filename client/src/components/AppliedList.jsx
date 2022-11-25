@@ -13,31 +13,13 @@ function AppliedList(props) {
 
   return (
     <div className="application-list">
-      <h3>Applications Record</h3>
-      <Button variant="outlined" size="small">
-        <a
-          href="/api/allApplications/report"
-          download={`Application_Record_${today}.csv`}
-        >
-          <FileDownloadTwoToneIcon />
-          Full Record
-        </a>
-      </Button>
-      <br />
       <input
         type="text"
         placeholder="Search by keywords..."
         value={searchKeywords}
         onChange={(e) => setSearchKeywords(e.target.value)}
       />
-      {/* <Button
-        size="small"
-        onClick={(e) => {
-          props.search(props.keyword);
-        }}
-      >
-        <FindInPageTwoToneIcon />
-      </Button> */}
+
       <Button
         size="small"
         onClick={(e) => {

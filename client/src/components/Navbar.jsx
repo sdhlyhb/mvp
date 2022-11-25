@@ -10,12 +10,14 @@ import {
   Toolbar,
   Typography,
   IconButton,
+  Button,
   Tooltip,
 } from "@mui/material";
 import { orange, blue, grey } from "@mui/material/colors";
 
 import SearchIcon from "@mui/icons-material/Search";
 import InsertChartIcon from "@mui/icons-material/InsertChart";
+import DownloadIcon from "@mui/icons-material/Download";
 
 const StyledToolbar = styled(Toolbar)({
   display: "flex",
@@ -45,6 +47,7 @@ const Icons = styled(Box)(({ theme }) => ({
 }));
 
 function Navbar() {
+  const today = new Date().toLocaleString("en-US");
   const [open, setOpen] = useState(false);
   return (
     <AppBar position="sticky">
@@ -62,9 +65,22 @@ function Navbar() {
           <InputBase placeholder="search..." />
         </Search>
         <Icons>
+          <Tooltip title="Download Full Application Record">
+            <Button >
+              <DownloadIcon sx={{ fontSize: 30, color: "white" }} />
+              <a
+                href="/api/allApplications/report"
+                download={`Application_Record_${today}.csv`}
+                style={{ fontSize: 15, color: "white" }}
+              >
+                {" "}
+                record
+              </a>
+            </Button>
+          </Tooltip>
           <Tooltip title="Display Stats">
             <IconButton>
-              <InsertChartIcon sx={{ fontSize: 30, color: "white" }}/>
+              <InsertChartIcon sx={{ fontSize: 30, color: "white" }} />
             </IconButton>
           </Tooltip>
 
