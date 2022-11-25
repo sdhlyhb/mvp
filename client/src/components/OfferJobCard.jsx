@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
@@ -21,8 +21,8 @@ const style = {
 };
 
 export default function OfferJobEntryCard() {
-  const [deletePop, setDeletePop] = React.useState(false);
-  const [detailPop, setDetailPop] = React.useState(false);
+  const [deletePop, setDeletePop] = useState(false);
+  const [detailPop, setDetailPop] = useState(false);
   const handleClose = (e) => setDeletePop(false);
 
   return (

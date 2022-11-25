@@ -6,6 +6,10 @@ import CelebrationIcon from "@mui/icons-material/Celebration";
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import PendingActionsIcon from '@mui/icons-material/PendingActions';
 import PhoneInTalkIcon from '@mui/icons-material/PhoneInTalk';
+import OfferJobEntryCard from "./OfferJobCard.jsx";
+import InterviewingJobEntryCard from "./InterviewingJobCard.jsx";
+import PendingJobEntryCard from "./PendingJobEntryCard.jsx";
+import RejJobEntryCard from "./RejJobEntryCard.jsx";
 
 function JobEntry(props) {
   const curjobTitle = props.jobApp.job_title;
@@ -17,31 +21,43 @@ function JobEntry(props) {
   return (
     <div id={`${props.jobApp._id}-listDiv`}>
       {props.jobApp?.status === "Rejected" ? (
-        <div class="crossed-line">
-          <ThumbDownIcon />
-          <span>{props.jobApp.status}</span>
-          {":    "}
-          {props.jobApp.job_title} @ {props.jobApp.company_name}{" "}
-          <span className="time-stamp"> Applied {days} days ago</span>
-          {"    "}
-          <button
-            className="view-btn"
-            onClick={(e) => {
-              props.clickAndPopDetails(curjobTitle, curJobCompany);
-            }}
-          >
-            {" "}
-            <FontAwesomeIcon icon={faEye} className="fa-icon" />
-          </button>
-          <button
-            className="trash-btn"
-            onClick={(e) => {
-              props.deleteApp(props.jobApp);
-            }}
-          >
-            <FontAwesomeIcon icon={faTrashCan} className="fa-icon" />
-          </button>
-        </div>
+        <RejJobEntryCard
+        curJob = {props.jobApp}
+        companyName = {props.jobApp.company_name}
+        jobTitle = {props.jobApp.job_title}
+        timeStamp = {days}
+        viewDetailsClick = {props.clickAndPopDetails}
+        deleteClick = {props.deleteApp}
+        clickUpdateBtn = {props.clickUpdateBtn}
+        clickRejBtn = {props.clickRejBtn}
+        clickInterviewBtn = {props.clickInterviewBtn}
+
+        />
+        // <div class="crossed-line">
+        //   <ThumbDownIcon />
+        //   <span>{props.jobApp.status}</span>
+        //   {":    "}
+        //   {props.jobApp.job_title} @ {props.jobApp.company_name}{" "}
+        //   <span className="time-stamp"> Applied {days} days ago</span>
+        //   {"    "}
+        //   <button
+        //     className="view-btn"
+        //     onClick={(e) => {
+        //       props.clickAndPopDetails(curjobTitle, curJobCompany);
+        //     }}
+        //   >
+        //     {" "}
+        //     <FontAwesomeIcon icon={faEye} className="fa-icon" />
+        //   </button>
+        //   <button
+        //     className="trash-btn"
+        //     onClick={(e) => {
+        //       props.deleteApp(props.jobApp);
+        //     }}
+        //   >
+        //     <FontAwesomeIcon icon={faTrashCan} className="fa-icon" />
+        //   </button>
+        // </div>
       ) : props.jobApp?.status === "OFFER" ? (
         <div class="offer-highlight">
           <CelebrationIcon />

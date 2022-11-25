@@ -367,6 +367,15 @@ class App extends React.Component {
                   <AddIcon />
                 </Fab>
               </Tooltip>
+              <AppliedList
+                jobApps={this.state.allApplications}
+                popDetails={this.clickApplication.bind(this)}
+                delete={this.deleteOne.bind(this)}
+                // search={this.search.bind(this)}
+                // onChangeKeyword={this.onChangeKeyword.bind(this)}
+                // keyword={this.state.searchKey}
+                clickViewAllBtn={this.clickViewAllBtn.bind(this)}
+              />
             </Box>
           </Box>
 

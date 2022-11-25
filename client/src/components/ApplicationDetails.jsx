@@ -73,7 +73,7 @@ function ApplicationDetails(props) {
         Rej
       </button>
       <span id="close-icon">
-        <CancelPresentationTwoToneIcon onClick={props.clickCloseDetailsIcon} />
+        <CancelPresentationTwoToneIcon onClick={props.handleDetailClose} />
       </span>
       {/* <span onClick={props.clickCloseDetailsIcon}>Close</span> */}
     </div>
