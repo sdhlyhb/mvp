@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   AppBar,
   Avatar,
@@ -46,9 +46,14 @@ const Icons = styled(Box)(({ theme }) => ({
   },
 }));
 
-function Navbar() {
+function Navbar({ search, displayAll }) {
   const today = new Date().toLocaleString("en-US");
   const [open, setOpen] = useState(false);
+  const [searchKeywords, setSearchKeywords] = useState("");
+
+  useEffect(() => {
+    search(searchKeywords);
+  }, [searchKeywords]);
   return (
     <AppBar position="sticky">
       <StyledToolbar>
@@ -62,11 +67,15 @@ function Navbar() {
         <Search>
           <SearchIcon size="large" sx={{ color: grey[500] }} />
 
-          <InputBase placeholder="search..." />
+          <InputBase
+            placeholder="search by keyword..."
+            onChange={(e) => setSearchKeywords(e.target.value)}
+            style={{ display: "hidden" }}
+          />
         </Search>
         <Icons>
           <Tooltip title="Download Full Application Record">
-            <Button >
+            <Button>
               <DownloadIcon sx={{ fontSize: 30, color: "white" }} />
               <a
                 href="/api/allApplications/report"

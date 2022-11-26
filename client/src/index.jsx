@@ -69,6 +69,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       allApplications: [],
+      displayed: [],
       curJob: null,
       detailPopSeen: false,
       updatePopSeen: false,
@@ -94,7 +95,10 @@ class App extends React.Component {
       .get("/api/allApplications")
       .then((allJobs) => {
         console.log("This is all the job applications:", allJobs.data);
-        this.setState({ allApplications: allJobs.data });
+        this.setState({
+          allApplications: allJobs.data,
+          displayed: allJobs.data,
+        });
       })
       .catch((err) => console.log("Err updating the status!", err));
   }
@@ -298,6 +302,7 @@ class App extends React.Component {
 
   search(keyword) {
     const allApplicationsObjs = this.state.allApplications;
+    const displayedList = this.state.displayed;
 
     if (keyword.length < 2) {
       this.displayApplications();
@@ -310,7 +315,7 @@ class App extends React.Component {
         obj.status.toLowerCase().includes(keyword.toLowerCase())
     );
 
-    this.setState({ allApplications: filtered });
+    this.setState({ displayed: filtered });
   }
 
   onChangeKeyword(e) {
@@ -328,7 +333,10 @@ class App extends React.Component {
   render() {
     return (
       <div id="main">
-        <Navbar />
+        <Navbar
+          search={this.search.bind(this)}
+          displayAll={this.displayApplications.bind(this)}
+        />
         <div className="row-1">
           <Box
             style={{
@@ -368,7 +376,7 @@ class App extends React.Component {
                 </Fab>
               </Tooltip>
               <AppliedList
-                jobApps={this.state.allApplications}
+                jobApps={this.state.displayed}
                 popDetails={this.clickApplication.bind(this)}
                 delete={this.deleteOne.bind(this)}
                 clickUpdateBtn={this.clickUpdateBtn.bind(this)}
