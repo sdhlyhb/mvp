@@ -31,6 +31,7 @@ function JobEntry(props) {
         clickUpdateBtn = {props.clickUpdateBtn}
         clickRejBtn = {props.clickRejBtn}
         clickInterviewBtn = {props.clickInterviewBtn}
+        updateNotes = {props.updateNotes}
 
         />
         // <div class="crossed-line">

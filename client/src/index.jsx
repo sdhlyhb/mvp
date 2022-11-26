@@ -371,10 +371,12 @@ class App extends React.Component {
                 jobApps={this.state.allApplications}
                 popDetails={this.clickApplication.bind(this)}
                 delete={this.deleteOne.bind(this)}
-                // search={this.search.bind(this)}
-                // onChangeKeyword={this.onChangeKeyword.bind(this)}
-                // keyword={this.state.searchKey}
-                clickViewAllBtn={this.clickViewAllBtn.bind(this)}
+                clickUpdateBtn={this.clickUpdateBtn.bind(this)}
+                clickRejBtn={this.clickRejBtn.bind(this)}
+                clickInterviewBtn={this.clickInterviewBtn.bind(this)}
+                clickCloseDetailsIcon={this.clickCloseDetailsIcon.bind(this)}
+                updateDetails={this.state.updatePopSeen}
+                updateNotes={this.updateNotes.bind(this)}
               />
             </Box>
           </Box>
