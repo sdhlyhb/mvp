@@ -14,11 +14,6 @@ import JobEntry from "./JobEntry.jsx";
 
 function AppliedList(props) {
   const today = new Date().toLocaleString("en-US");
-  // const [searchKeywords, setSearchKeywords] = useState("");
-  // useEffect(() => {
-  //   props.search(searchKeywords);
-  // }, [searchKeywords]);
-
   return (
     <>
       {props.jobApps.map((jobApp) => (
@@ -30,7 +25,7 @@ function AppliedList(props) {
           clickUpdateBtn={props.clickUpdateBtn}
           clickRejBtn={props.clickRejBtn}
           clickInterviewBtn={props.clickInterviewBtn}
-          updateNotes = {props.updateNotes}
+          updateNotes={props.updateNotes}
         />
       ))}
     </>

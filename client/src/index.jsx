@@ -71,7 +71,7 @@ class App extends React.Component {
       allApplications: [],
       displayed: [],
       curJob: null,
-      detailPopSeen: false,
+      addNewAppPop: false,
       updatePopSeen: false,
       appToUpdate: null,
       appToUpdate_id: null,
@@ -79,7 +79,6 @@ class App extends React.Component {
       interviews: [],
       interviewPopSeen: false,
       offers: [],
-      searchKey: "",
     };
   }
 
@@ -318,14 +317,10 @@ class App extends React.Component {
     this.setState({ displayed: filtered });
   }
 
-  onChangeKeyword(e) {
-    const keyword = e.target.value;
-    this.setState({ searchKey: keyword });
-  }
-
-  clickViewAllBtn(e) {
-    this.displayApplications();
-    this.setState({ searchKey: "" });
+  handleAddNewAppModalClose(e) {
+    this.setState({
+      addNewAppPop: false,
+    });
   }
 
   /** *********** rendering parts **************** */
@@ -333,10 +328,7 @@ class App extends React.Component {
   render() {
     return (
       <div id="main">
-        <Navbar
-          search={this.search.bind(this)}
-          displayAll={this.displayApplications.bind(this)}
-        />
+        <Navbar search={this.search.bind(this)} />
         <div className="row-1">
           <Box
             style={{
@@ -359,22 +351,25 @@ class App extends React.Component {
               <Typography style={{ padding: "10px" }}>
                 All applications: 0
               </Typography>
-            </Grid>
-
-            <Box style={{ ...listContainerStyle }}>
               <Tooltip title="Add an application">
                 <Fab
                   size="small"
                   sx={{
                     color: blue[700],
                     position: "absolute",
-                    bottom: 820,
-                    right: 1200,
+                    bottom: -10,
+                    right: 20,
                   }}
                 >
-                  <AddIcon />
+                  <AddIcon
+                    onClick={(e) => this.setState({ addNewAppPop: true })}
+                  />
                 </Fab>
               </Tooltip>
+            </Grid>
+
+            <Box style={{ ...listContainerStyle }}>
+
               <AppliedList
                 jobApps={this.state.displayed}
                 popDetails={this.clickApplication.bind(this)}
@@ -433,6 +428,20 @@ class App extends React.Component {
               <PendingJobEntryCard />
             </Box>
           </Box>
+
+          {this.state.addNewAppPop ? (
+            <Modal
+              open={this.state.addNewAppPop}
+              onClose={this.handleAddNewAppModalClose.bind(this)}
+            >
+              <Box>
+                {" "}
+                <AddApplication
+                  handleAddition={this.addNewApplication.bind(this)}
+                />{" "}
+              </Box>
+            </Modal>
+          ) : null}
         </div>
 
         {/* <div className="row-1">
