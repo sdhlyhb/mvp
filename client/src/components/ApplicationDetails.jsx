@@ -1,11 +1,36 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFilePen } from "@fortawesome/free-solid-svg-icons";
 import {
-  faFilePen,
-  faHeartBroken,
-  faForwardStep,
-} from "@fortawesome/free-solid-svg-icons";
-import CancelPresentationTwoToneIcon from "@mui/icons-material/CancelPresentationTwoTone";
+  IconButton,
+  Button,
+  Modal,
+  Box,
+  Grid,
+  Tooltip,
+  Typography,
+  Link,
+  TextField,
+  styled,
+} from "@mui/material";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import CancelIcon from "@mui/icons-material/Cancel";
+import PhoneForwardedIcon from "@mui/icons-material/PhoneForwarded";
+import ThumbDownIcon from "@mui/icons-material/ThumbDown";
+
+const titleStyles = {
+  fontFamily: "Roboto, sans-serif",
+  fontWeight: "550",
+};
+
+const Icons = styled(Box)(({ theme }) => ({
+  display: "none",
+  alignItems: "center",
+  gap: "80px",
+  [theme.breakpoints.up("sm")]: {
+    display: "flex",
+  },
+}));
 
 function ApplicationDetails(props) {
   const [notes, setNotes] = useState(props.clickedJob.notes);
@@ -30,7 +55,67 @@ function ApplicationDetails(props) {
 
   return (
     <div className="details">
-      <h3>Details Of Current Application</h3>
+      <Grid container spacing={2}>
+        <Grid item xs={8}>
+          <Typography style={titleStyles}>Job Title: </Typography>
+          <Typography>{props.clickedJob.job_title} </Typography>
+        </Grid>
+        <Grid item xs={4}>
+          <Typography style={titleStyles}>Company: </Typography>
+          <Typography>{props.clickedJob.company_name} </Typography>
+        </Grid>
+        <Grid item xs={4}>
+          <Typography style={titleStyles}>Application Date: </Typography>
+          <Typography>{applicationDate} </Typography>
+        </Grid>
+        <Grid item xs={4}>
+          <Typography style={titleStyles}>Job Type: </Typography>
+          <Typography>{props.clickedJob.job_type} </Typography>
+        </Grid>
+        <Grid item xs={4}>
+          <Typography style={titleStyles}>Location Type: </Typography>
+          <Typography>{props.clickedJob.location_type} </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <OpenInNewIcon />
+          <Link href={jobUrl} underline="hover" target="_blank">
+            Click to view job post
+          </Link>
+        </Grid>
+        <Grid item xs={8}>
+          <Typography style={titleStyles}>Interview Date: </Typography>
+          <Typography>{interviewDate} </Typography>
+        </Grid>
+        <Grid item xs={4}>
+          <Typography style={titleStyles}>Status: </Typography>
+          <Typography>{props.clickedJob.status} </Typography>
+        </Grid>
+
+        <Grid item xs={12}>
+          {!detailsEdit ? (
+            <Grid item xs={12}>
+              <Typography style={titleStyles}>Notes: </Typography>
+              <Typography>{notes} </Typography>
+            </Grid>
+          ) : (
+            <Grid item xs={12}>
+              <Typography style={titleStyles}>Notes: </Typography>
+              <TextField
+                style={{ backgroundColor: "white" }}
+                multiline
+                maxRows={4}
+                placeholder="Update notes here..."
+                value={notes}
+                onChange={(e) => {
+                  setNotes(e.target.value);
+                }}
+              />
+              <Button onClick={handleUpdateClick}>Update</Button>
+            </Grid>
+          )}
+        </Grid>
+      </Grid>
+      {/* <h3>Details Of Current Application</h3>
       <div>Title: {props.clickedJob.job_title}</div>
       <div>Company: {props.clickedJob.company_name}</div>
       <div>Application Date: {applicationDate}</div>
@@ -60,22 +145,35 @@ function ApplicationDetails(props) {
           />
           <button onClick={handleUpdateClick}>Update</button>
         </div>
-      )}
+      )} */}
+      <Icons>
+        <Tooltip title="Update Notes">
+          <IconButton id={id} onClick={(e) => setDetailsEdit(!detailsEdit)}>
+            <FontAwesomeIcon icon={faFilePen} />
+          </IconButton>
+        </Tooltip>
 
-      <button id={id} onClick={(e) => setDetailsEdit(!detailsEdit)}>
-        <FontAwesomeIcon icon={faFilePen} />
-      </button>
-      <button id={`${id}-interviewBtn`} onClick={props.clickInterviewBtn}>
-        <FontAwesomeIcon icon={faForwardStep} /> interview
-      </button>
-      <button id={`${id}-rejBtn`} onClick={props.clickRejBtn}>
-        <FontAwesomeIcon icon={faHeartBroken} />
-        Rej
-      </button>
-      <span id="close-icon">
-        <CancelPresentationTwoToneIcon onClick={props.handleDetailClose} />
-      </span>
-      {/* <span onClick={props.clickCloseDetailsIcon}>Close</span> */}
+        <Tooltip title="Update Interview Info">
+          <IconButton
+            id={`${id}-interviewBtn`}
+            onClick={props.clickInterviewBtn}
+          >
+            <PhoneForwardedIcon />
+          </IconButton>
+        </Tooltip>
+
+        <Tooltip title="Rejected">
+          <IconButton id={`${id}-rejBtn`} onClick={props.clickRejBtn}>
+            <ThumbDownIcon />
+          </IconButton>
+        </Tooltip>
+
+        <Tooltip title="Close Modal">
+          <IconButton onClick={props.handleDetailClose}>
+            <CancelIcon />
+          </IconButton>
+        </Tooltip>
+      </Icons>
     </div>
   );
 }

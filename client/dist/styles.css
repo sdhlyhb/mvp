@@ -122,19 +122,13 @@ img {
 }
 
 .details {
-  position: fixed;
-  z-index: 1;
-  left: 35%;
-  top: 10%;
-  background-color: lightskyblue;
+
+  margin: 10vh auto auto auto;
+  background-color: lightgoldenrodyellow;
   border-radius: 5px;
-  margin: auto;
   padding: 25px;
   border: 1px solid #888;
-  width: 15%;
-  z-index: 1;
-
-
+  width: 25vw;
 
 }
 
@@ -197,12 +191,14 @@ img {
 
 }
 
-#close-icon {
-  position:absolute;
-  left: 85%;
-  top: 6%;
+/* #close-icon {
+  display: flex;
+  z-index: 2;
+  position: absolute;
+  right: -40px;
+  top: -40px;
 
-}
+} */
 
 
 /* list-header {

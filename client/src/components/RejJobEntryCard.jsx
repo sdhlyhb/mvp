@@ -48,7 +48,7 @@ export default function RejJobEntryCard({
           theme.palette.mode === "dark" ? "#1A2027" : grey[400],
       }}
     >
-      <Grid container spacing={2}>
+      <Grid container spacing={4}>
         <Grid item>
           <Stack direction="column" alignItems="center" spacing={1}>
             <ThumbDownIcon />
