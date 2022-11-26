@@ -7,7 +7,7 @@ import Stack from "@mui/material/Stack";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { yellow, blue, orange } from "@mui/material/colors";
 import { IconButton, Button, Modal, Box } from "@mui/material";
-import { styled } from "@mui/material/styles";
+import ApplicationDetails from "./ApplicationDetails.jsx";
 
 const style = {
   position: "absolute",
@@ -20,59 +20,79 @@ const style = {
   p: 3,
 };
 
-export default function OfferJobEntryCard() {
+export default function OfferJobEntryCard({
+  curJob,
+  companyName,
+  timeStamp,
+  jobTitle,
+  deleteClick,
+  clickUpdateBtn,
+  clickRejBtn,
+  clickInterviewBtn,
+  updateNotes,
+}) {
   const [deletePop, setDeletePop] = useState(false);
   const [detailPop, setDetailPop] = useState(false);
   const handleClose = (e) => setDeletePop(false);
+  const handleDetailClose = (e) => setDetailPop(false);
 
   return (
     <Paper
       sx={{
-        p: 2,
+        p: 3,
         margin: "3px",
-        maxWidth: 300,
+        maxWidth: 320,
+        minWidth: 300,
         maxHeight: 100,
-        flexGrow: 0.5,
+        flexGrow: 2,
         backgroundColor: (theme) =>
           theme.palette.mode === "dark" ? "#1A2027" : yellow[300],
       }}
     >
-      <Grid container spacing={2}>
-        <Grid item>
+      <Grid container spacing={4}>
+        <Grid item xs={4} align="center">
           <Stack direction="column" alignItems="center" spacing={1}>
-            <CelebrationIcon sx={{ color: orange[900] }} />
+            <CelebrationIcon sx={{ color: orange[800] }} />
             <Typography
               gutterBottom
               variant="subtitle1"
-              sx={{ color: orange[900] }}
-              style={{ fontSize: "0.8rem" }}
+              style={{ fontSize: "1rem", color: orange[800] }}
             >
               OFFER
             </Typography>
+            <Grid item>
+              <Typography
+                variant="subtitle2"
+                component="div"
+                color="text.primary"
+                style={{ fontSize: "0.75rem" }}
+              >
+                @{companyName}
+              </Typography>
+            </Grid>
           </Stack>
         </Grid>
         <Grid item xs={12} sm container>
-          <Grid item xs container direction="column" spacing={2}>
+          <Grid item xs container direction="column" spacing={1}>
             <Grid item xs>
               <Typography
                 gutterBottom
-                variant="subtitle1"
                 style={{
-                  color: orange[900],
-                  fontWeight: "500",
+                  fontSize: "0.95rem",
+                  color: orange[800],
                 }}
               >
-                Software Engineer
+                {jobTitle}
               </Typography>
               <Typography
-                variant="body2"
                 style={{
+                  fontFamily: "Georgia",
+                  fontSize: "0.8rem",
                   color: blue[900],
                   fontStyle: "italic",
-                  fontFamily: "Georgia, 'Times New Roman', Times, serif",
                 }}
               >
-                Applied xxx days ago
+                Applied {timeStamp} days ago
               </Typography>
             </Grid>
             <Stack direction="row" alignItems="center" spacing={8}>
@@ -87,13 +107,27 @@ export default function OfferJobEntryCard() {
                 <DeleteIcon onClick={(e) => setDeletePop(!deletePop)} />
               </IconButton>
             </Stack>
-            {detailPop ? <Grid> details! </Grid> : null}
+            {detailPop ? (
+              <Modal open={detailPop} onClose={handleDetailClose}>
+                <Box>
+                  {" "}
+                  <ApplicationDetails
+                    clickedJob={curJob}
+                    clickUpdateBtn={clickUpdateBtn}
+                    clickRejBtn={clickRejBtn}
+                    clickInterviewBtn={clickInterviewBtn}
+                    handleDetailClose={handleDetailClose}
+                    // updateDetails={() => {}}
+                    updateNotes={updateNotes}
+                  />{" "}
+                </Box>
+              </Modal>
+            ) : null}
             {deletePop ? (
               <Modal
                 open={deletePop}
                 onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
+                aria-labelledby="delete-comfirmation-modal"
               >
                 <Box sx={style}>
                   <Typography
@@ -104,22 +138,12 @@ export default function OfferJobEntryCard() {
                     Delete this application?
                   </Typography>
                   <Stack direction="row" alignItems="center" spacing={8}>
-                    <Button> YES</Button>
+                    <Button onClick={(e) => deleteClick(curJob)}> YES</Button>
                     <Button onClick={handleClose}> Cancel</Button>
                   </Stack>
                 </Box>
               </Modal>
             ) : null}
-          </Grid>
-          <Grid item>
-            <Typography
-              variant="subtitle1"
-              component="div"
-              color="text.primary"
-              style={{ fontSize: "0.9rem" }}
-            >
-              @Amazon
-            </Typography>
           </Grid>
         </Grid>
       </Grid>

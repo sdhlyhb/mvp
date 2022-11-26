@@ -34,57 +34,20 @@ function JobEntry(props) {
         updateNotes = {props.updateNotes}
 
         />
-        // <div class="crossed-line">
-        //   <ThumbDownIcon />
-        //   <span>{props.jobApp.status}</span>
-        //   {":    "}
-        //   {props.jobApp.job_title} @ {props.jobApp.company_name}{" "}
-        //   <span className="time-stamp"> Applied {days} days ago</span>
-        //   {"    "}
-        //   <button
-        //     className="view-btn"
-        //     onClick={(e) => {
-        //       props.clickAndPopDetails(curjobTitle, curJobCompany);
-        //     }}
-        //   >
-        //     {" "}
-        //     <FontAwesomeIcon icon={faEye} className="fa-icon" />
-        //   </button>
-        //   <button
-        //     className="trash-btn"
-        //     onClick={(e) => {
-        //       props.deleteApp(props.jobApp);
-        //     }}
-        //   >
-        //     <FontAwesomeIcon icon={faTrashCan} className="fa-icon" />
-        //   </button>
-        // </div>
       ) : props.jobApp?.status === "OFFER" ? (
-        <div class="offer-highlight">
-          <CelebrationIcon />
-          <span>{props.jobApp.status}</span>
-          {":    "}
-          {props.jobApp.job_title} @ {props.jobApp.company_name}{" "}
-          <span className="time-stamp"> Applied {days} days ago</span>
-          {"    "}
-          <button
-            className="view-btn"
-            onClick={(e) => {
-              props.clickAndPopDetails(curjobTitle, curJobCompany);
-            }}
-          >
-            {" "}
-            <FontAwesomeIcon icon={faEye} className="fa-icon" />
-          </button>
-          <button
-            className="trash-btn"
-            onClick={(e) => {
-              props.deleteApp(props.jobApp);
-            }}
-          >
-            <FontAwesomeIcon icon={faTrashCan} className="fa-icon" />
-          </button>
-        </div>
+        <OfferJobEntryCard
+        curJob = {props.jobApp}
+        companyName = {props.jobApp.company_name}
+        jobTitle = {props.jobApp.job_title}
+        timeStamp = {days}
+        viewDetailsClick = {props.clickAndPopDetails}
+        deleteClick = {props.deleteApp}
+        clickUpdateBtn = {props.clickUpdateBtn}
+        clickRejBtn = {props.clickRejBtn}
+        clickInterviewBtn = {props.clickInterviewBtn}
+        updateNotes = {props.updateNotes}
+
+        />
       ) : props.jobApp?.status === "Interviewing" ? (
         <div class="highlight">
           <PhoneInTalkIcon />

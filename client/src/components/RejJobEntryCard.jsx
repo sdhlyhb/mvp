@@ -25,7 +25,6 @@ export default function RejJobEntryCard({
   companyName,
   timeStamp,
   jobTitle,
-  viewDetailsClick,
   deleteClick,
   clickUpdateBtn,
   clickRejBtn,
@@ -145,16 +144,6 @@ export default function RejJobEntryCard({
               </Modal>
             ) : null}
           </Grid>
-          {/* <Grid item>
-            <Typography
-              variant="subtitle1"
-              component="div"
-              color="text.secondary"
-              style={{ fontSize: "0.8rem" }}
-            >
-              @{companyName}
-            </Typography>
-          </Grid> */}
         </Grid>
       </Grid>
     </Paper>
