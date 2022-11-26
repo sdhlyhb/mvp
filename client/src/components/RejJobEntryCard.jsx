@@ -50,7 +50,7 @@ export default function RejJobEntryCard({
       }}
     >
       <Grid container spacing={4}>
-        <Grid item>
+        <Grid item xs={4} align="center">
           <Stack direction="column" alignItems="center" spacing={1}>
             <ThumbDownIcon />
             <Typography
@@ -61,22 +61,32 @@ export default function RejJobEntryCard({
             >
               Rejected
             </Typography>
+            <Grid item>
+              <Typography
+                variant="subtitle2"
+                component="div"
+                color="text.secondary"
+                style={{ fontSize: "0.8rem" }}
+              >
+                @{companyName}
+              </Typography>
+            </Grid>
           </Stack>
         </Grid>
         <Grid item xs={12} sm container>
-          <Grid item xs container direction="column" spacing={2}>
+          <Grid item xs container direction="column" spacing={1}>
             <Grid item xs>
               <Typography
                 gutterBottom
-                variant="subtitle1"
                 color="text.secondary"
-                style={{ textDecoration: "line-through" }}
+                style={{ textDecoration: "line-through", fontSize: "0.95rem" }}
               >
                 {jobTitle}
               </Typography>
               <Typography
-                variant="body2"
                 style={{
+                  fontFamily: "Georgia",
+                  fontSize: "0.8rem",
                   color: blue[900],
                   fontStyle: "italic",
                   textDecoration: "line-through",
@@ -128,14 +138,14 @@ export default function RejJobEntryCard({
                     Delete this application?
                   </Typography>
                   <Stack direction="row" alignItems="center" spacing={8}>
-                    <Button> YES</Button>
+                    <Button onClick={(e) => deleteClick(curJob)}> YES</Button>
                     <Button onClick={handleClose}> Cancel</Button>
                   </Stack>
                 </Box>
               </Modal>
             ) : null}
           </Grid>
-          <Grid item>
+          {/* <Grid item>
             <Typography
               variant="subtitle1"
               component="div"
@@ -144,7 +154,7 @@ export default function RejJobEntryCard({
             >
               @{companyName}
             </Typography>
-          </Grid>
+          </Grid> */}
         </Grid>
       </Grid>
     </Paper>
