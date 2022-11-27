@@ -136,7 +136,7 @@ function ApplicationDetails(props) {
         </Tooltip>
 
         <Tooltip title="Mark as Rejected">
-          <IconButton onClick={props.clickRejBtn}>
+          <IconButton id={id} onClick={props.clickRejBtn}>
             <ThumbDownIcon />
           </IconButton>
         </Tooltip>
