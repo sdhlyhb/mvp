@@ -26,6 +26,7 @@ function AppliedList(props) {
           clickRejBtn={props.clickRejBtn}
           clickInterviewBtn={props.clickInterviewBtn}
           updateNotes={props.updateNotes}
+          updateDetails = {props.updateDetails}
         />
       ))}
     </>

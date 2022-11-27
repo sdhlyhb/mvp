@@ -30,6 +30,8 @@ export default function RejJobEntryCard({
   clickRejBtn,
   clickInterviewBtn,
   updateNotes,
+  updateDetails,
+  updateInterviewDate,
 }) {
   const [deletePop, setDeletePop] = useState(false);
   const [detailPop, setDetailPop] = useState(false);
@@ -116,8 +118,9 @@ export default function RejJobEntryCard({
                     clickRejBtn={clickRejBtn}
                     clickInterviewBtn={clickInterviewBtn}
                     handleDetailClose={handleDetailClose}
-                    // updateDetails={() => {}}
+                    updateDetails={updateDetails}
                     updateNotes={updateNotes}
+                    updateInterviewDate={updateInterviewDate}
                   />{" "}
                 </Box>
               </Modal>

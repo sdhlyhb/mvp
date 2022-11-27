@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
@@ -6,65 +6,146 @@ import PendingActionsIcon from "@mui/icons-material/PendingActions";
 import Stack from "@mui/material/Stack";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { orange, blue, green } from "@mui/material/colors";
-import { IconButton, Button } from "@mui/material";
+import { IconButton, Button, Modal, Box } from "@mui/material";
+import ApplicationDetails from "./ApplicationDetails.jsx";
 
-export default function PendingJobEntryCard() {
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 200,
+  bgcolor: "background.paper",
+  boxShadow: 24,
+  p: 3,
+};
+
+export default function PendingJobEntryCard({
+  curJob,
+  companyName,
+  timeStamp,
+  jobTitle,
+  deleteClick,
+  clickUpdateBtn,
+  clickRejBtn,
+  clickInterviewBtn,
+  updateNotes,
+  updateDetails,
+  updateInterviewDate,
+}) {
+  const [deletePop, setDeletePop] = useState(false);
+  const [detailPop, setDetailPop] = useState(false);
+  const handleClose = (e) => setDeletePop(false);
+  const handleDetailClose = (e) => setDetailPop(false);
   return (
     <Paper
       sx={{
-        p: 2,
+        p: 3,
         margin: "3px",
-        maxWidth: 300,
+        maxWidth: 320,
+        minWidth: 300,
         maxHeight: 100,
-        flexGrow: 0.5,
+        flexGrow: 2,
         backgroundColor: (theme) =>
-          theme.palette.mode === "dark" ? "#1A2027" : green[200],
+          theme.palette.mode === "dark" ? "#1A2027" : green[100],
       }}
     >
-      <Grid container spacing={2}>
-        <Grid item>
+      <Grid container spacing={4}>
+        <Grid item xs={4} align="center">
           <Stack direction="column" alignItems="center" spacing={1}>
-            <PendingActionsIcon />
+            <PendingActionsIcon sx={{ color: green[900] }} />
             <Typography
               gutterBottom
               variant="subtitle1"
-              color="text.primary"
-              style={{ fontSize: "0.7rem" }}
+              style={{ fontSize: "1rem", color: green[900] }}
             >
               Pending
             </Typography>
+            <Grid item>
+              <Typography
+                variant="subtitle2"
+                component="div"
+                color="text.primary"
+                style={{ fontSize: "0.75rem" }}
+              >
+                @{companyName}
+              </Typography>
+            </Grid>
           </Stack>
         </Grid>
         <Grid item xs={12} sm container>
-          <Grid item xs container direction="column" spacing={2}>
+          <Grid item xs container direction="column" spacing={1}>
             <Grid item xs>
-              <Typography gutterBottom variant="subtitle1" color="text.primary">
-                Software Engineer
-              </Typography>
               <Typography
-                variant="body2"
+                gutterBottom
                 style={{
-                  color: blue[900],
-                  fontStyle: "italic",
-                  fontFamily: "Georgia, 'Times New Roman', Times, serif",
+                  fontSize: "0.95rem",
+                  color: green[900],
                 }}
               >
-                Applied xxx days ago
+                {jobTitle}
+              </Typography>
+              <Typography
+                style={{
+                  fontFamily: "Georgia",
+                  fontSize: "0.8rem",
+                  color: blue[900],
+                  fontStyle: "italic",
+                }}
+              >
+                Applied {timeStamp} days ago
               </Typography>
             </Grid>
             <Stack direction="row" alignItems="center" spacing={8}>
-              <Button aria-label="delete" size="small">
+              <Button
+                aria-label="delete"
+                size="small"
+                onClick={(e) => setDetailPop(!detailPop)}
+              >
                 view
               </Button>
               <IconButton aria-label="delete" size="large">
-                <DeleteIcon />
+                <DeleteIcon onClick={(e) => setDeletePop(!deletePop)} />
               </IconButton>
             </Stack>
-          </Grid>
-          <Grid item>
-            <Typography variant="subtitle1" component="div">
-              @Amazon
-            </Typography>
+            {detailPop ? (
+              <Modal open={detailPop} onClose={handleDetailClose}>
+                <Box>
+                  {" "}
+                  <ApplicationDetails
+                    clickedJob={curJob}
+                    clickUpdateBtn={clickUpdateBtn}
+                    clickRejBtn={clickRejBtn}
+                    clickInterviewBtn={clickInterviewBtn}
+                    handleDetailClose={handleDetailClose}
+                    updateDetails={updateDetails}
+                    updateNotes={updateNotes}
+                    updateInterviewDate={updateInterviewDate}
+                  />{" "}
+                </Box>
+              </Modal>
+            ) : null}
+            {deletePop ? (
+              <Modal
+                open={deletePop}
+                onClose={handleClose}
+                aria-labelledby="delete-comfirmation-modal"
+              >
+                <Box sx={style}>
+                  <Typography
+                    id="modal-modal-title"
+                    variant="h6"
+                    component="h2"
+                  >
+                    Delete this application?
+                  </Typography>
+                  <Stack direction="row" alignItems="center" spacing={8}>
+                    <Button onClick={(e) => deleteClick(curJob)}> YES</Button>
+                    <Button onClick={handleClose}> Cancel</Button>
+                  </Stack>
+                </Box>
+              </Modal>
+            ) : null}
           </Grid>
         </Grid>
       </Grid>

@@ -117,8 +117,9 @@ export default function OfferJobEntryCard({
                     clickRejBtn={clickRejBtn}
                     clickInterviewBtn={clickInterviewBtn}
                     handleDetailClose={handleDetailClose}
-                    // updateDetails={() => {}}
+                    updateDetails={updateDetails}
                     updateNotes={updateNotes}
+                    updateInterviewDate={updateInterviewDate}
                   />{" "}
                 </Box>
               </Modal>

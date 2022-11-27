@@ -17,6 +17,7 @@ import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import CancelIcon from "@mui/icons-material/Cancel";
 import PhoneForwardedIcon from "@mui/icons-material/PhoneForwarded";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
+import InterviewDate from "./InterviewDate.jsx";
 
 const titleStyles = {
   fontFamily: "Roboto, sans-serif",
@@ -35,6 +36,7 @@ const Icons = styled(Box)(({ theme }) => ({
 function ApplicationDetails(props) {
   const [notes, setNotes] = useState(props.clickedJob.notes);
   const [detailsEdit, setDetailsEdit] = useState(false);
+  const [interviewDatePop, setInterviewDatePop] = useState(false);
   const jobUrl = props.clickedJob.job_url;
   const id = props.clickedJob._id;
   const handleUpdateClick = (e) => {
@@ -115,55 +117,26 @@ function ApplicationDetails(props) {
           )}
         </Grid>
       </Grid>
-      {/* <h3>Details Of Current Application</h3>
-      <div>Title: {props.clickedJob.job_title}</div>
-      <div>Company: {props.clickedJob.company_name}</div>
-      <div>Application Date: {applicationDate}</div>
-      <div>Type: {props.clickedJob.job_type}</div>
-      <div>Location Type: {props.clickedJob.location_type}</div>
-      <div>
-        <a href={jobUrl} target="popup">
-          Click to view job post
-        </a>
-      </div>
-      <div>Status: {props.clickedJob.status}</div>
-      <div>Interview Date: {interviewDate}</div>
-      {!detailsEdit ? (
-        <div>Notes: {notes}</div>
-      ) : (
-        <div>
-          Notes:
-          <br />
-          <textarea
-            rows="4"
-            cols="20"
-            placeholder="Update notes here..."
-            value={notes}
-            onChange={(e) => {
-              setNotes(e.target.value);
-            }}
-          />
-          <button onClick={handleUpdateClick}>Update</button>
-        </div>
-      )} */}
       <Icons>
         <Tooltip title="Update Notes">
-          <IconButton id={id} onClick={(e) => setDetailsEdit(!detailsEdit)}>
+          <IconButton onClick={(e) => setDetailsEdit(!detailsEdit)}>
             <FontAwesomeIcon icon={faFilePen} />
           </IconButton>
         </Tooltip>
 
         <Tooltip title="Update Interview Info">
           <IconButton
-            id={`${id}-interviewBtn`}
-            onClick={props.clickInterviewBtn}
+            onClick={(e) => {
+              props.clickInterviewBtn(e, props.clickedJob._id);
+              setInterviewDatePop(true);
+            }}
           >
             <PhoneForwardedIcon />
           </IconButton>
         </Tooltip>
 
-        <Tooltip title="Rejected">
-          <IconButton id={`${id}-rejBtn`} onClick={props.clickRejBtn}>
+        <Tooltip title="Mark as Rejected">
+          <IconButton onClick={props.clickRejBtn}>
             <ThumbDownIcon />
           </IconButton>
         </Tooltip>
@@ -174,6 +147,17 @@ function ApplicationDetails(props) {
           </IconButton>
         </Tooltip>
       </Icons>
+      <Modal
+        open={interviewDatePop}
+        onClose={(e) => setInterviewDatePop(false)}
+      >
+        <Box>
+          <InterviewDate
+            updateInterviewDate={props.updateInterviewDate}
+            curJob={props.clickedJob}
+          />
+        </Box>
+      </Modal>
     </div>
   );
 }

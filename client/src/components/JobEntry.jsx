@@ -32,6 +32,8 @@ function JobEntry(props) {
         clickRejBtn = {props.clickRejBtn}
         clickInterviewBtn = {props.clickInterviewBtn}
         updateNotes = {props.updateNotes}
+        updateDetails = {props.updateDetails}
+        updateInterviewDate = {props.updateInterviewDate}
 
         />
       ) : props.jobApp?.status === "OFFER" ? (
@@ -46,65 +48,72 @@ function JobEntry(props) {
         clickRejBtn = {props.clickRejBtn}
         clickInterviewBtn = {props.clickInterviewBtn}
         updateNotes = {props.updateNotes}
+        updateDetails = {props.updateDetails}
+        updateInterviewDate = {props.updateInterviewDate}
 
         />
       ) : props.jobApp?.status === "Interviewing" ? (
-        <div class="highlight">
-          <PhoneInTalkIcon />
-          <span>{props.jobApp.status}</span>
-          {":    "}
-          {props.jobApp.job_title} @ {props.jobApp.company_name}{" "}
-          <span className="time-stamp"> Applied {days} days ago</span>
-          {"    "}
-          <button
-            className="view-btn"
-            onClick={(e) => {
-              props.clickAndPopDetails(curjobTitle, curJobCompany);
-            }}
-          >
-            {" "}
-            <FontAwesomeIcon icon={faEye} className="fa-icon" />
-          </button>
-          <button
-            className="trash-btn"
-            onClick={(e) => {
-              props.deleteApp(props.jobApp);
-            }}
-          >
-            <FontAwesomeIcon icon={faTrashCan} className="fa-icon" />
-          </button>
-        </div>
+        <InterviewingJobEntryCard
+        curJob = {props.jobApp}
+        companyName = {props.jobApp.company_name}
+        jobTitle = {props.jobApp.job_title}
+        timeStamp = {days}
+        viewDetailsClick = {props.clickAndPopDetails}
+        deleteClick = {props.deleteApp}
+        clickUpdateBtn = {props.clickUpdateBtn}
+        clickRejBtn = {props.clickRejBtn}
+        clickInterviewBtn = {props.clickInterviewBtn}
+        updateNotes = {props.updateNotes}
+        updateDetails = {props.updateDetails}
+        updateInterviewDate = {props.updateInterviewDate}
+
+        />
       )
 
 
 
 
       : (
-        <div>
-          <PendingActionsIcon />
-          <span>{props.jobApp.status}</span>
-          {":    "}
-          {props.jobApp.job_title} @ {props.jobApp.company_name}{" "}
-          <span className="time-stamp"> Applied {days} days ago</span>
-          {"    "}
-          <button
-            className="view-btn"
-            onClick={(e) => {
-              props.clickAndPopDetails(curjobTitle, curJobCompany);
-            }}
-          >
-            {" "}
-            <FontAwesomeIcon icon={faEye} className="fa-icon" />
-          </button>
-          <button
-            className="trash-btn"
-            onClick={(e) => {
-              props.deleteApp(props.jobApp);
-            }}
-          >
-            <FontAwesomeIcon icon={faTrashCan} className="fa-icon" />
-          </button>
-        </div>
+        <PendingJobEntryCard
+        curJob = {props.jobApp}
+        companyName = {props.jobApp.company_name}
+        jobTitle = {props.jobApp.job_title}
+        timeStamp = {days}
+        viewDetailsClick = {props.clickAndPopDetails}
+        deleteClick = {props.deleteApp}
+        clickUpdateBtn = {props.clickUpdateBtn}
+        clickRejBtn = {props.clickRejBtn}
+        clickInterviewBtn = {props.clickInterviewBtn}
+        updateNotes = {props.updateNotes}
+        updateDetails = {props.updateDetails}
+        updateInterviewDate = {props.updateInterviewDate}
+
+        />
+        // <div>
+        //   <PendingActionsIcon />
+        //   <span>{props.jobApp.status}</span>
+        //   {":    "}
+        //   {props.jobApp.job_title} @ {props.jobApp.company_name}{" "}
+        //   <span className="time-stamp"> Applied {days} days ago</span>
+        //   {"    "}
+        //   <button
+        //     className="view-btn"
+        //     onClick={(e) => {
+        //       props.clickAndPopDetails(curjobTitle, curJobCompany);
+        //     }}
+        //   >
+        //     {" "}
+        //     <FontAwesomeIcon icon={faEye} className="fa-icon" />
+        //   </button>
+        //   <button
+        //     className="trash-btn"
+        //     onClick={(e) => {
+        //       props.deleteApp(props.jobApp);
+        //     }}
+        //   >
+        //     <FontAwesomeIcon icon={faTrashCan} className="fa-icon" />
+        //   </button>
+        // </div>
       )}
     </div>
   );
