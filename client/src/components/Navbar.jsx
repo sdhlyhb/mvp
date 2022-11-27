@@ -19,7 +19,7 @@ import { orange, blue, grey } from "@mui/material/colors";
 import SearchIcon from "@mui/icons-material/Search";
 import InsertChartIcon from "@mui/icons-material/InsertChart";
 import DownloadIcon from "@mui/icons-material/Download";
-import PieChart from "./PieChart.jsx";
+import DataPieChart from "./DataPieChart.jsx";
 
 const StyledToolbar = styled(Toolbar)({
   display: "flex",
@@ -59,7 +59,7 @@ const style = {
   p: 3,
 };
 
-function Navbar({ search, displayAll }) {
+function Navbar({ search, data}) {
   const today = new Date().toLocaleString("en-US");
   const [open, setOpen] = useState(false);
   const [searchKeywords, setSearchKeywords] = useState("");
@@ -145,7 +145,7 @@ function Navbar({ search, displayAll }) {
             {" "}
             Your Metrics
           </Typography>
-          <PieChart />
+          <DataPieChart data={data}/>
         </Box>
       </Modal>
     </AppBar>

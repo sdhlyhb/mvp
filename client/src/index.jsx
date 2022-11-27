@@ -335,7 +335,7 @@ class App extends React.Component {
   render() {
     return (
       <div id="main">
-        <Navbar search={this.search.bind(this)} />
+        <Navbar search={this.search.bind(this)} data={[this.state.interviews.length, this.state.pending.length, this.state.offers.length, this.state.rejected.length]}/>
         <div className="row-1">
           <Box
             style={{
