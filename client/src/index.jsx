@@ -73,11 +73,12 @@ class App extends React.Component {
       curJob: null,
       addNewAppPop: false,
       updatePopSeen: false,
-      appToUpdate: null,
-      appToUpdate_id: null,
+      // appToUpdate: null,
+      // appToUpdate_id: null,
+      pending: [],
       rejected: [],
       interviews: [],
-      interviewPopSeen: false,
+      // interviewPopSeen: false,
       offers: [],
     };
   }
@@ -87,6 +88,7 @@ class App extends React.Component {
     this.displayInterviews();
     this.displayOffers();
     this.displayRejected();
+    this.displayPending();
   }
 
   displayApplications() {
@@ -100,6 +102,17 @@ class App extends React.Component {
         });
       })
       .catch((err) => console.log("Err updating the status!", err));
+  }
+
+  displayPending() {
+    axios
+      .get("/api/pending")
+      .then((jobs) => {
+        this.setState({
+          pending: jobs.data,
+        });
+      })
+      .catch((err) => console.log("Err getting jobs from API", err));
   }
 
   displayInterviews() {
@@ -363,7 +376,6 @@ class App extends React.Component {
             </Grid>
 
             <Box style={{ ...listContainerStyle }}>
-
               <AppliedList
                 jobApps={this.state.displayed}
                 popDetails={this.clickApplication.bind(this)}
@@ -380,15 +392,11 @@ class App extends React.Component {
           </Box>
           <Box style={{ ...style1 }}>
             <Grid style={{ ...gridStyle }}>
-              <Typography style={{ padding: "10px" }}>Pending: 0</Typography>
+              <Typography style={{ padding: "10px" }}>
+                Pending: {this.state.pending.length}
+              </Typography>
             </Grid>
             <Box style={{ ...listContainerStyle }}>
-              <PendingJobEntryCard />
-              <PendingJobEntryCard />
-              <PendingJobEntryCard />
-              <PendingJobEntryCard />
-              <PendingJobEntryCard />
-              <PendingJobEntryCard />
               <PendingJobEntryCard />
             </Box>
           </Box>
@@ -396,31 +404,26 @@ class App extends React.Component {
           <Box style={{ ...style1 }}>
             <Grid style={{ ...gridStyle }}>
               <Typography style={{ padding: "10px" }}>
-                Interviewing: 0
+                Interviewing: {this.state.interviews.length}
               </Typography>
             </Grid>
             <Box style={{ ...listContainerStyle }}>
-              <InterviewingJobEntryCard />
-              <InterviewingJobEntryCard />
-              <InterviewingJobEntryCard />
-              <InterviewingJobEntryCard />
-              <InterviewingJobEntryCard />
+              <InterviewingList
+                interviews={this.state.interviews}
+                clickRejBtn={this.clickRejBtn.bind(this)}
+                clickOfferBtn={this.clickOfferBtn.bind(this)}
+              />
             </Box>
           </Box>
 
           <Box style={{ ...style1 }}>
             <Grid style={{ ...gridStyle }}>
-              <Typography style={{ padding: "10px" }}>Offers: 0</Typography>
+              <Typography style={{ padding: "10px" }}>
+                Offers: {this.state.offers.length}
+              </Typography>
             </Grid>
             <Box style={{ ...listContainerStyle }}>
-              <OfferJobEntryCard />
-              <OfferJobEntryCard />
-              <OfferJobEntryCard />
-              <OfferJobEntryCard />
-              <OfferJobEntryCard />
-              <OfferJobEntryCard />
-              <OfferJobEntryCard />
-              <OfferJobEntryCard />
+              <OfferList offers={this.state.offers}/>
             </Box>
           </Box>
 

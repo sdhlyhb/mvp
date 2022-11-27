@@ -71,6 +71,9 @@ const getAllInterviewingJobs = () =>
 const getAllOffers = () =>
   Application.find({ status: "OFFER" }).sort({ interview_date: 1 });
 
+const getAllPending = () =>
+  Application.find({ status: "Pending" }).sort({ application_date: -1 });
+
 const getAllRejected = () =>
   Application.find({ status: "Rejected" }).sort({ application_date: -1 });
 
@@ -87,4 +90,5 @@ module.exports = {
   saveOneShortcut,
   showAllShortcuts,
   deleteOneShortcutById,
+  getAllPending
 };

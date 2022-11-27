@@ -12,12 +12,14 @@ import {
   IconButton,
   Button,
   Tooltip,
+  Modal,
 } from "@mui/material";
 import { orange, blue, grey } from "@mui/material/colors";
 
 import SearchIcon from "@mui/icons-material/Search";
 import InsertChartIcon from "@mui/icons-material/InsertChart";
 import DownloadIcon from "@mui/icons-material/Download";
+import PieChart from "./PieChart.jsx";
 
 const StyledToolbar = styled(Toolbar)({
   display: "flex",
@@ -46,10 +48,24 @@ const Icons = styled(Box)(({ theme }) => ({
   },
 }));
 
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 600,
+  bgcolor: blue[100],
+  boxShadow: 24,
+  p: 3,
+};
+
 function Navbar({ search, displayAll }) {
   const today = new Date().toLocaleString("en-US");
   const [open, setOpen] = useState(false);
   const [searchKeywords, setSearchKeywords] = useState("");
+  const [statsPop, setStatsPop] = useState(false);
+
+  const handleStatsClose = (e) => setStatsPop(false);
 
   useEffect(() => {
     search(searchKeywords);
@@ -88,7 +104,7 @@ function Navbar({ search, displayAll }) {
             </Button>
           </Tooltip>
           <Tooltip title="Display Stats">
-            <IconButton>
+            <IconButton onClick={(e) => setStatsPop(true)}>
               <InsertChartIcon sx={{ fontSize: 30, color: "white" }} />
             </IconButton>
           </Tooltip>
@@ -119,6 +135,19 @@ function Navbar({ search, displayAll }) {
         <MenuItem>My account</MenuItem>
         <MenuItem>Logout</MenuItem>
       </Menu>
+      <Modal open={statsPop} onClose={handleStatsClose}>
+        <Box sx={style}>
+          <Typography
+            style={{ fontFamily: "Roboto", fontWeight: "600" }}
+            variant="h6"
+            component="h2"
+          >
+            {" "}
+            Your Metrics
+          </Typography>
+          <PieChart />
+        </Box>
+      </Modal>
     </AppBar>
   );
 }

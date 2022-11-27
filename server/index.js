@@ -99,7 +99,6 @@ app.delete("/api/allApplications/:_id", (req, res) => {
     });
 });
 
-
 app.get("/api/interviewing", (req, res) =>
   db
     .getAllInterviewingJobs()
@@ -112,6 +111,20 @@ app.get("/api/interviewing", (req, res) =>
       res.status(500).send(err);
     })
 );
+
+app.get("/api/pending", (req, res) =>
+  db
+    .getAllPending()
+    .then((jobs) => {
+      console.log("all pending job applicaitons:", jobs);
+      res.status(200).send(jobs);
+    })
+    .catch((err) => {
+      console.log("err getting all the pending jobs!", err);
+      res.status(500).send(err);
+    })
+);
+
 
 app.get("/api/offers", (req, res) =>
   db
@@ -173,7 +186,6 @@ app.post("/api/shortcuts", (req, res) => {
     });
 });
 
-
 app.delete("/api/shortcuts/:id", (req, res) => {
   const objId = req.params.id;
   console.log("this is req.params:", req.params);
@@ -188,8 +200,7 @@ app.delete("/api/shortcuts/:id", (req, res) => {
       console.log("Err Deleting one shortcut!", err);
       res.status(500).send(err);
     });
-
-})
+});
 
 const port = 3000;
 
