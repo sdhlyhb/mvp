@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import PendingActionsIcon from "@mui/icons-material/PendingActions";
 import Stack from "@mui/material/Stack";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { orange, blue, green } from "@mui/material/colors";
+import { orange, blue, green, red } from "@mui/material/colors";
 import { IconButton, Button, Modal, Box } from "@mui/material";
 import ApplicationDetails from "./ApplicationDetails.jsx";
 
@@ -105,7 +105,8 @@ export default function PendingJobEntryCard({
                 view
               </Button>
               <IconButton aria-label="delete" size="large">
-                <DeleteIcon onClick={(e) => setDeletePop(!deletePop)} />
+                <DeleteIcon onClick={(e) => setDeletePop(!deletePop)} sx={{':hover': {
+                color: red[700],}}}/>
               </IconButton>
             </Stack>
             {detailPop ? (

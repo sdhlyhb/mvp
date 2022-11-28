@@ -105,7 +105,7 @@ function ApplicationDetails(props) {
               <TextField
                 style={{ backgroundColor: "white" }}
                 multiline
-                maxRows={4}
+                maxRows={20}
                 placeholder="Update notes here..."
                 value={notes}
                 onChange={(e) => {

@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import PhoneInTalkIcon from "@mui/icons-material/PhoneInTalk";
 import Stack from "@mui/material/Stack";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { orange, blue, grey } from "@mui/material/colors";
+import { orange, blue, grey, red } from "@mui/material/colors";
 import { IconButton, Button, Modal, Box } from "@mui/material";
 import ApplicationDetails from "./ApplicationDetails.jsx";
 
@@ -104,7 +104,8 @@ export default function InterviewingJobCard({
               >
                 view
               </Button>
-              <IconButton aria-label="delete" size="large">
+              <IconButton aria-label="delete" size="large" sx={{':hover': {
+                color: red[700],}}}>
                 <DeleteIcon onClick={(e) => setDeletePop(!deletePop)} />
               </IconButton>
             </Stack>
