@@ -13,13 +13,42 @@ import {
   TextField,
   styled,
   Paper,
+  Chip,
+  Stack,
+  Avatar
 } from "@mui/material";
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import AppShortcutIcon from '@mui/icons-material/AppShortcut';
 
 const style = {
-  margin: "10vh auto auto auto",
-  width: 600,
-  height: 300,
+  margin: "2vh auto auto auto",
+  minWidth: 290,
+  maxWidth: 300,
+  maxHeight: 500,
   bgcolor: grey[100],
+  p: 2,
+};
+const stackStyle = {
+    display: 'flex',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+    listStyle: 'none',
+    minHeight: 100,
+    p: 0.5,
+    m: 0,
+
+};
+
+const ListItem = styled('li')(({ theme }) => ({
+  margin: theme.spacing(0.5),
+}));
+
+const modalStyle = {
+  margin: "20vh auto auto auto",
+  minWidth: 300,
+  maxWidth: 600,
+  maxHeight: 500,
+  bgcolor: grey[200],
   p:3,
 
 };
@@ -70,9 +99,9 @@ function JobWebsites() {
     }
   };
 
-  const deleteShortcutClick = async (e) => {
+  const deleteShortcutClick = async (e, objId) => {
     e.preventDefault();
-    const objId = e.currentTarget.id;
+    // const objId = e.currentTarget.id;
     try {
       const response = await axios.delete("/api/shortcuts/" + objId);
       setShortcutsUrls(response.data);
@@ -85,29 +114,53 @@ function JobWebsites() {
   const baseUrls = shortcutUrls?.map(urlObj => urlObj.search_url.split("/jobs")[0]);
 
   return (
-    <div className="search-shortcuts">
-      <h3>Searching Shortcuts</h3>
-      <div>
-        {baseUrls?.map((url, i) => (<li key={i}>
-          <img
-            width="20"
-            height="20"
-            src={"//f5.allesedv.com/20/" + `${url}`}
-          />
-          <a href={shortcutUrls[i].search_url}>
-            {shortcutUrls[i].keywords}
+    <Paper sx ={style}>
+      <AppShortcutIcon sx={{ fontSize: 30 }}/>
+      <Typography sx={{ fontSize: 20 }} color="text.primary" gutterBottom>Searching Shortcuts</Typography>
+      <Paper sx={stackStyle} component="ul">
+      {baseUrls.map((url, i) => {
 
-          </a>
-          <button id={shortcutUrls[i]._id} onClick = {e => {deleteShortcutClick(e)}}>delete</button>
-        </li>))}
-        <button onClick={e => setAddPop(true)}>ADD</button>
+        return (
+          <ListItem key={i}>
+            <Chip
+              variant="outlined"
+              color="primary"
+              label={shortcutUrls[i].keywords}
+              avatar={<Avatar alt="favcon" src={"//f5.allesedv.com/20/" + `${url}`} />}
+              onDelete={e => deleteShortcutClick(e, shortcutUrls[i]._id)}
+              component={Link}
+              target="_blank"
+              href={shortcutUrls[i].search_url}
+              sx={{
+                ':hover': {
+                bgcolor: blue[300], // theme.palette.primary.main
+                color: 'white',
 
-      </div>
+              }}}
+            />
+          </ListItem>
+        );
+      })}
+
+        </Paper>
+
+      <Tooltip title="Add a new shortcut url">
+          <IconButton onClick={e => setAddPop(true)}>
+            <AddCircleOutlineIcon
+              sx={{
+                fontSize: 30,
+                ':hover': {
+                color: blue[700],
+
+              }}}
+
+          /></IconButton>
+        </Tooltip>
 
       {addPop
         ? (
           <Modal open={addPop} onClose={closeModal}>
-            <Paper sx={style} align="center">
+            <Paper sx={modalStyle} align="center">
                 <TextField
                   style={{ backgroundColor: "white", width: 600,  }}
                   multiline
@@ -131,36 +184,19 @@ function JobWebsites() {
                 </TextField>
 
 
-              <Button variant="contained" style={{  marginTop: 20  }} onClick={(e) => {handleSubmitUrl(e); setAddPop("false");}}>Add New Shortcut</Button>
+              <Button variant="contained"
+               style={{  marginTop: 20  }}
+               onClick={(e) => {handleSubmitUrl(e); setAddPop("false");}}>Add New Shortcut</Button>
 
             </Paper>
           </Modal>
         )
-
-        // (<div>
-        //   <input
-        //     type="text"
-        //     name="shortcut"
-        //     placeholder="Enter the shortcut url..."
-        //     value={newShortcut}
-        //     onChange={(e) => setNewShortcut(e.target.value)}
-        //   />
-        //   <input
-        //     type="text"
-        //     name="search-keywords"
-        //     placeholder="Enter the keywords of your search..."
-        //     value={newKeywords}
-        //     onChange={(e) => setNewKeywords(e.target.value)}
-        //   />
-
-        //   <button onClick={(e) => {handleSubmitUrl(e); setAddPop("false");}}>Add New Shortcut</button>
-        // </div>)
         : null
 
 
       }
 
-    </div>
+    </Paper>
   );
 }
 
