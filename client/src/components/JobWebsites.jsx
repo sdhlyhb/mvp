@@ -1,11 +1,36 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { yellow, blue, orange, red, grey } from "@mui/material/colors";
+import {
+  IconButton,
+  Button,
+  Modal,
+  Box,
+  Grid,
+  Tooltip,
+  Typography,
+  Link,
+  TextField,
+  styled,
+  Paper,
+} from "@mui/material";
+
+const style = {
+  margin: "10vh auto auto auto",
+  width: 600,
+  height: 300,
+  bgcolor: grey[100],
+  p:3,
+
+};
 
 function JobWebsites() {
   const [shortcutUrls, setShortcutsUrls] = useState([]);
   const [newShortcut, setNewShortcut] = useState("");
   const [newKeywords, setNewKeywords] = useState("");
-  const [addPop, setAddPop] = useState("false");
+  const [addPop, setAddPop] = useState(false);
+  const closeModal = (e) => {setAddPop(false)};
+
 
   const getUrls = async () => {
     try {
@@ -75,29 +100,61 @@ function JobWebsites() {
           </a>
           <button id={shortcutUrls[i]._id} onClick = {e => {deleteShortcutClick(e)}}>delete</button>
         </li>))}
-        <button onClick={e => setAddPop(!addPop)}>ADD</button>
+        <button onClick={e => setAddPop(true)}>ADD</button>
 
       </div>
 
-      {!addPop
-        ? (<div>
-          <input
-            type="text"
-            name="shortcut"
-            placeholder="Enter the shortcut url..."
-            value={newShortcut}
-            onChange={(e) => setNewShortcut(e.target.value)}
-          />
-          <input
-            type="text"
-            name="search-keywords"
-            placeholder="Enter the keywords of your search..."
-            value={newKeywords}
-            onChange={(e) => setNewKeywords(e.target.value)}
-          />
+      {addPop
+        ? (
+          <Modal open={addPop} onClose={closeModal}>
+            <Paper sx={style} align="center">
+                <TextField
+                  style={{ backgroundColor: "white", width: 600,  }}
+                  multiline
+                  maxRows={10}
+                  placeholder="Enter the shortcut url..."
+                  value={newShortcut}
+                  onChange={(e) => {
+                    setNewShortcut(e.target.value);
+                  }} >
 
-          <button onClick={(e) => {handleSubmitUrl(e); setAddPop("false");}}>Add New Shortcut</button>
-        </div>)
+                </TextField>
+                <TextField
+                  style={{ backgroundColor: "white", width: 600, marginTop: 20  }}
+                  multiline
+                  maxRows={10}
+                  placeholder="Enter the keywords of your search..."
+                  value={newKeywords}
+                  onChange={(e) => setNewKeywords(e.target.value)}
+                >
+
+                </TextField>
+
+
+              <Button variant="contained" style={{  marginTop: 20  }} onClick={(e) => {handleSubmitUrl(e); setAddPop("false");}}>Add New Shortcut</Button>
+
+            </Paper>
+          </Modal>
+        )
+
+        // (<div>
+        //   <input
+        //     type="text"
+        //     name="shortcut"
+        //     placeholder="Enter the shortcut url..."
+        //     value={newShortcut}
+        //     onChange={(e) => setNewShortcut(e.target.value)}
+        //   />
+        //   <input
+        //     type="text"
+        //     name="search-keywords"
+        //     placeholder="Enter the keywords of your search..."
+        //     value={newKeywords}
+        //     onChange={(e) => setNewKeywords(e.target.value)}
+        //   />
+
+        //   <button onClick={(e) => {handleSubmitUrl(e); setAddPop("false");}}>Add New Shortcut</button>
+        // </div>)
         : null
 
 
