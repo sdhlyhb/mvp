@@ -14,7 +14,7 @@ import {
   Typography,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import { yellow, blue, orange } from "@mui/material/colors";
+import { yellow, blue, orange, green } from "@mui/material/colors";
 import Fab from "@mui/material/Fab";
 import Navbar from "./Components/Navbar.jsx";
 import JobWebsites from "./Components/JobWebsites.jsx";
@@ -355,7 +355,7 @@ class App extends React.Component {
 
           <Box style={{ ...style1 }}>
             <Grid style={{ ...gridStyle }}>
-              <Typography style={{ padding: "10px" }}>
+              <Typography style={{ padding: "10px", fontWeight: "600" }}>
                 All applications: {this.state.allApplications.length}
               </Typography>
               <Tooltip title="Add an application">
@@ -392,7 +392,7 @@ class App extends React.Component {
           </Box>
           <Box style={{ ...style1 }}>
             <Grid style={{ ...gridStyle }}>
-              <Typography style={{ padding: "10px" }}>
+              <Typography style={{ padding: "10px", color: green[900], fontWeight: "600" }}>
                 Pending: {this.state.pending.length}
               </Typography>
             </Grid>
@@ -403,7 +403,7 @@ class App extends React.Component {
 
           <Box style={{ ...style1 }}>
             <Grid style={{ ...gridStyle }}>
-              <Typography style={{ padding: "10px" }}>
+              <Typography style={{ padding: "10px", color: blue[900], fontWeight: "600"}}>
                 Interviewing: {this.state.interviews.length}
               </Typography>
             </Grid>
@@ -418,7 +418,7 @@ class App extends React.Component {
 
           <Box style={{ ...style1 }}>
             <Grid style={{ ...gridStyle }}>
-              <Typography style={{ padding: "10px" }}>
+              <Typography style={{ padding: "10px", color: orange[900], fontWeight: "600" }}>
                 Offers: {this.state.offers.length}
               </Typography>
             </Grid>

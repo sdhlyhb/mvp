@@ -30,6 +30,8 @@ export default function OfferJobEntryCard({
   clickRejBtn,
   clickInterviewBtn,
   updateNotes,
+  updateDetails,
+  updateInterviewDate,
 }) {
   const [deletePop, setDeletePop] = useState(false);
   const [detailPop, setDetailPop] = useState(false);
@@ -56,7 +58,12 @@ export default function OfferJobEntryCard({
             <Typography
               gutterBottom
               variant="subtitle1"
-              style={{ fontSize: "1rem", color: orange[800] }}
+              style={{
+                fontSize: "1rem",
+                color: orange[800],
+                fontStyle: "italic",
+                fontWeight: "600",
+              }}
             >
               OFFER
             </Typography>
@@ -65,7 +72,7 @@ export default function OfferJobEntryCard({
                 variant="subtitle2"
                 component="div"
                 color="text.primary"
-                style={{ fontSize: "0.75rem" }}
+                style={{ fontSize: "0.75rem", fontStyle: "italic",}}
               >
                 @{companyName}
               </Typography>

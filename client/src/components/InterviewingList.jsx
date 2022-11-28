@@ -4,8 +4,7 @@ import InterviewEntry from "./InterviewEntry.jsx";
 
 function InterviewingList(props) {
   return (
-    <div className="interviewing-list">
-      <h3>Interviewing List</h3>
+    <>
       {props.interviews.map((interview) => (
         <InterviewEntry
           key={interview._id}
@@ -14,7 +13,7 @@ function InterviewingList(props) {
           clickOfferBtn={props.clickOfferBtn}
         />
       ))}
-    </div>
+    </>
   );
 }
 
