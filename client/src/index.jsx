@@ -166,7 +166,12 @@ class App extends React.Component {
       .then((res) => {
         console.log("Success Deleted current application!");
       })
-      .then(() => this.displayApplications())
+      .then(() => {
+        this.displayApplications();
+        this.displayInterviews();
+        this.displayPending();
+        this.displayOffers();
+      })
       .catch((err) => console.log("Err Deleting!", err));
   }
 
@@ -204,9 +209,9 @@ class App extends React.Component {
     );
     this.setState({
       curJob: matched[0],
-      detailPopSeen: true,
+      // detailPopSeen: true,
       updatePopSeen: false,
-      interviewPopSeen: false,
+      // interviewPopSeen: false,
     });
   }
 
@@ -252,13 +257,11 @@ class App extends React.Component {
       .patch(`/api/allApplications/:${_id}/status`, updateStatusData)
       .then((response) => {
         console.log("Sucess update the status to interviewing!");
-
-        this.setState({
-          interviewPopSeen: true,
-        });
-      })
-      .then(() => {
         this.displayApplications();
+
+        // this.setState({
+        //   interviewPopSeen: true,
+        // });
       })
       .catch((err) => console.log("err updating status to interviewing!", err));
   }
@@ -278,8 +281,6 @@ class App extends React.Component {
         console.log("Sucess update the interview date!");
 
         this.displayInterviews();
-      })
-      .then(() => {
         this.displayApplications();
       })
       .catch((err) => console.log("err updating interview date!", err));
@@ -335,7 +336,15 @@ class App extends React.Component {
   render() {
     return (
       <div id="main">
-        <Navbar search={this.search.bind(this)} data={[this.state.interviews.length, this.state.pending.length, this.state.offers.length, this.state.rejected.length]}/>
+        <Navbar
+          search={this.search.bind(this)}
+          data={[
+            this.state.interviews.length,
+            this.state.pending.length,
+            this.state.offers.length,
+            this.state.rejected.length,
+          ]}
+        />
         <div className="row-1">
           <Box
             style={{
@@ -392,7 +401,13 @@ class App extends React.Component {
           </Box>
           <Box style={{ ...style1 }}>
             <Grid style={{ ...gridStyle }}>
-              <Typography style={{ padding: "10px", color: green[900], fontWeight: "600" }}>
+              <Typography
+                style={{
+                  padding: "10px",
+                  color: green[900],
+                  fontWeight: "600",
+                }}
+              >
                 Pending: {this.state.pending.length}
               </Typography>
             </Grid>
@@ -406,14 +421,15 @@ class App extends React.Component {
                 />
               ))} */}
 
-
               <PendingJobEntryCard />
             </Box>
           </Box>
 
           <Box style={{ ...style1 }}>
             <Grid style={{ ...gridStyle }}>
-              <Typography style={{ padding: "10px", color: blue[900], fontWeight: "600"}}>
+              <Typography
+                style={{ padding: "10px", color: blue[900], fontWeight: "600" }}
+              >
                 Interviewing: {this.state.interviews.length}
               </Typography>
             </Grid>
@@ -428,12 +444,18 @@ class App extends React.Component {
 
           <Box style={{ ...style1 }}>
             <Grid style={{ ...gridStyle }}>
-              <Typography style={{ padding: "10px", color: orange[900], fontWeight: "600" }}>
+              <Typography
+                style={{
+                  padding: "10px",
+                  color: orange[900],
+                  fontWeight: "600",
+                }}
+              >
                 Offers: {this.state.offers.length}
               </Typography>
             </Grid>
             <Box style={{ ...listContainerStyle }}>
-              <OfferList offers={this.state.offers}/>
+              <OfferList offers={this.state.offers} />
             </Box>
           </Box>
 
@@ -451,7 +473,6 @@ class App extends React.Component {
             </Modal>
           ) : null}
         </div>
-
 
         {/* <div className="row-1">
           <Messages

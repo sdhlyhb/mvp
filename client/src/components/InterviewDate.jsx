@@ -19,15 +19,15 @@ class InterviewDate extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.updateInterviewDate(this.props.curJob._id, this.state.startDate);
-    this.props.close(e);
+   this.props.updateInterviewDate(this.props.curJob._id, this.state.startDate);
+    // this.props.close(e);
   }
 
   render() {
     return (
       <div className="interview-date">
         <form id="itw-date-form">
-          <label>Interview Date {this.props.curJob._id}</label>
+          <label>Interview Date</label>
           <DatePicker
             selected={this.state.startDate}
             onChange={this.handleDateSelect.bind(this)}

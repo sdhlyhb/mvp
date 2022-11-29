@@ -147,17 +147,19 @@ function ApplicationDetails(props) {
           </IconButton>
         </Tooltip>
       </Icons>
-      <Modal
-        open={interviewDatePop}
-        onClose={(e) => setInterviewDatePop(false)}
-      >
-        <Box>
-          <InterviewDate
-            updateInterviewDate={props.updateInterviewDate}
-            curJob={props.clickedJob}
-          />
-        </Box>
-      </Modal>
+      {interviewDatePop ? (
+        <Modal
+          open={interviewDatePop}
+          onClose={(e) => setInterviewDatePop(false)}
+        >
+          <Box>
+            <InterviewDate
+              updateInterviewDate={props.updateInterviewDate}
+              curJob={props.clickedJob}
+            />
+          </Box>
+        </Modal>
+      ) : null}
     </div>
   );
 }
