@@ -397,6 +397,16 @@ class App extends React.Component {
               </Typography>
             </Grid>
             <Box style={{ ...listContainerStyle }}>
+              {/* {this.state.pending.map((app) => (
+                <PendingJobEntryCard
+                  key={app._id}
+                  interview={interview}
+                  clickRejBtn={props.clickRejBtn}
+                  clickOfferBtn={props.clickOfferBtn}
+                />
+              ))} */}
+
+
               <PendingJobEntryCard />
             </Box>
           </Box>
@@ -441,6 +451,7 @@ class App extends React.Component {
             </Modal>
           ) : null}
         </div>
+
 
         {/* <div className="row-1">
           <Messages
