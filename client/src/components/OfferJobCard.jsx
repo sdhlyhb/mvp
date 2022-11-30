@@ -50,6 +50,7 @@ export default function OfferJobEntryCard({
         backgroundColor: (theme) =>
           theme.palette.mode === "dark" ? "#1A2027" : yellow[300],
       }}
+      elevation={3}
     >
       <Grid container spacing={4}>
         <Grid item xs={4} align="center">

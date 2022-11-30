@@ -19,6 +19,8 @@ import {
 } from "@mui/material";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import AppShortcutIcon from '@mui/icons-material/AppShortcut';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 
 const style = {
   margin: "2vh auto auto auto",
@@ -58,7 +60,15 @@ function JobWebsites() {
   const [newShortcut, setNewShortcut] = useState("");
   const [newKeywords, setNewKeywords] = useState("");
   const [addPop, setAddPop] = useState(false);
+  const [open, setOpen] = useState(false);
   const closeModal = (e) => {setAddPop(false)};
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
 
 
   const getUrls = async () => {
@@ -114,6 +124,7 @@ function JobWebsites() {
   const baseUrls = shortcutUrls?.map(urlObj => urlObj.search_url.split("/jobs")[0]);
 
   return (
+    <>
     <Paper sx ={style}>
       <AppShortcutIcon sx={{ fontSize: 30 }}/>
       <Typography sx={{ fontSize: 20 }} color="text.primary" gutterBottom>Searching Shortcuts</Typography>
@@ -186,7 +197,7 @@ function JobWebsites() {
 
               <Button variant="contained"
                style={{  marginTop: 20  }}
-               onClick={(e) => {handleSubmitUrl(e); setAddPop("false");}}>Add New Shortcut</Button>
+               onClick={(e) => {handleSubmitUrl(e); setOpen(true);}}>Add New Shortcut</Button>
 
             </Paper>
           </Modal>
@@ -197,6 +208,13 @@ function JobWebsites() {
       }
 
     </Paper>
+    <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <MuiAlert elevation={6} variant="filled" onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+          Shortcut added!
+        </MuiAlert>
+      </Snackbar>
+    </>
+
   );
 }
 

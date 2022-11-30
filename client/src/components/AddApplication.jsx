@@ -27,6 +27,8 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
 
 class AddApplication extends React.Component {
   constructor(props) {
@@ -39,6 +41,7 @@ class AddApplication extends React.Component {
       locType: "On-site", // default
       postUrl: null,
       notes: null,
+      alertOpen: false,
     };
     this.handleTitleInput = this.handleTitleInput.bind(this);
     this.handleCompanyNameInput = this.handleCompanyNameInput.bind(this);
@@ -49,6 +52,8 @@ class AddApplication extends React.Component {
     this.handleLocTypeInputChange = this.handleLocTypeInputChange.bind(this);
     this.handlePostUrlInputChange = this.handlePostUrlInputChange.bind(this);
     this.handleNotesInputChange = this.handleNotesInputChange.bind(this);
+    this.handleAlertOpen = this.handleAlertOpen.bind(this);
+    this.handleAlertClose = this.handleAlertClose.bind(this);
   }
 
   handleTitleInput(e) {
@@ -108,6 +113,7 @@ class AddApplication extends React.Component {
       notes: this.state.notes,
     };
     this.props.handleAddition(data);
+    this.handleAlertOpen(e);
     this.setState({
       job_title: "",
       company_name: "",
@@ -124,6 +130,17 @@ class AddApplication extends React.Component {
       job_url: "",
       notes: "",
     });
+  }
+
+  handleAlertOpen(e){
+    this.setState({alertOpen: true});
+  }
+
+  handleAlertClose(e) {
+    this.setState({
+      alertOpen: false,
+
+    })
   }
 
   render() {
@@ -230,9 +247,9 @@ class AddApplication extends React.Component {
                   </RadioGroup>
                 </FormControl>
               </Grid>
-              <Grid item xs={12} >
+              <Grid item xs={12}>
                 <TextField
-                fullWidth
+                  fullWidth
                   variant="outlined"
                   label="Job Post URL"
                   name="jobPostUrl"
@@ -242,7 +259,7 @@ class AddApplication extends React.Component {
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                fullWidth
+                  fullWidth
                   multiline
                   rows={4}
                   maxRows={20}
@@ -274,6 +291,17 @@ class AddApplication extends React.Component {
             </Grid>
           </Box>
         </form>
+        <Snackbar open={this.state.alertOpen} autoHideDuration={6000} onClose={this.handleAlertClose}>
+          <MuiAlert
+            elevation={6}
+            variant="filled"
+            // onClose={this.props.handleAlertClose}
+            severity="success"
+            sx={{ width: "100%" }}
+          >
+            New Job Application Added!
+          </MuiAlert>
+        </Snackbar>
         {/* <form id="app-form">
           <h3>Add New Job Application</h3>
           <label>Job Title</label>
