@@ -2,12 +2,15 @@ import React from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Button from "@mui/material/Button";
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 
 class InterviewDate extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       startDate: new Date(),
+      alertOpen: false,
     };
   }
 
@@ -21,7 +24,19 @@ class InterviewDate extends React.Component {
     e.preventDefault();
     this.props.updateToInterviewing(e, this.props.curJob._id);
    this.props.updateInterviewDate(this.props.curJob._id, this.state.startDate);
-    // this.props.close(e);
+   this.handleAlertOpen(e);
+  }
+
+  handleAlertOpen(e) {
+    this.setState({
+      alertOpen: true,
+    })
+  }
+
+  handleAlertClose(e) {
+    this.setState({
+      alertOpen: false,
+    })
   }
 
   render() {
@@ -46,6 +61,11 @@ class InterviewDate extends React.Component {
             update date
           </Button>
         </form>
+        <Snackbar open={this.state.alertOpen} autoHideDuration={6000} onClose={this.handleAlertClose}>
+        <MuiAlert elevation={6} variant="filled" onClose={this.handleAlertClose} severity="success" sx={{ width: '100%' }}>
+          Interview Date Updated!
+        </MuiAlert>
+      </Snackbar>
       </div>
     );
   }
