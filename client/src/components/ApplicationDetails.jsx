@@ -127,8 +127,9 @@ function ApplicationDetails(props) {
         <Tooltip title="Update Interview Info">
           <IconButton
             onClick={(e) => {
-              props.clickInterviewBtn(e, props.clickedJob._id);
               setInterviewDatePop(true);
+              // props.clickInterviewBtn(e, props.clickedJob._id);
+
             }}
           >
             <PhoneForwardedIcon />
@@ -154,6 +155,7 @@ function ApplicationDetails(props) {
         >
           <Box>
             <InterviewDate
+              updateToInterviewing = {props.clickInterviewBtn}
               updateInterviewDate={props.updateInterviewDate}
               curJob={props.clickedJob}
             />

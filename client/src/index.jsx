@@ -258,6 +258,7 @@ class App extends React.Component {
       .then((response) => {
         console.log("Sucess update the status to interviewing!");
         this.displayApplications();
+        this.displayInterviews();
 
         // this.setState({
         //   interviewPopSeen: true,

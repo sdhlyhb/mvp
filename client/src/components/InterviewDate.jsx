@@ -19,6 +19,7 @@ class InterviewDate extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    this.props.updateToInterviewing(e, this.props.curJob._id);
    this.props.updateInterviewDate(this.props.curJob._id, this.state.startDate);
     // this.props.close(e);
   }
