@@ -19,11 +19,10 @@ const style = {
 };
 
 function OfferEntry(props) {
+  const applicationDate = new Date(
+    props.offer.application_date
+  ).toLocaleDateString();
   return (
-    // <div>
-    //   <CelebrationIcon />
-    //   {props.offer.job_title} @ {props.offer.company_name}
-    // </div>
     <Paper
       sx={{
         p: 3,
@@ -44,13 +43,13 @@ function OfferEntry(props) {
               gutterBottom
               variant="subtitle1"
               style={{
-                fontSize: "1rem",
+                fontSize: "0.9rem",
                 color: orange[800],
                 fontStyle: "italic",
-                fontWeight: "600",
+                fontWeight: "500",
               }}
             >
-              OFFER
+              {props.offer.job_title}
             </Typography>
             <Grid item>
               <Typography
@@ -68,15 +67,6 @@ function OfferEntry(props) {
           <Grid item xs container direction="column" spacing={1}>
             <Grid item xs>
               <Typography
-                gutterBottom
-                style={{
-                  fontSize: "0.95rem",
-                  color: orange[800],
-                }}
-              >
-                {props.offer.job_title}
-              </Typography>
-              <Typography
                 style={{
                   fontFamily: "Georgia",
                   fontSize: "0.8rem",
@@ -84,7 +74,17 @@ function OfferEntry(props) {
                   fontStyle: "italic",
                 }}
               >
-                Applied XXX days ago, Offer received on xxxx
+                Applied on {applicationDate}
+              </Typography>
+              <Typography
+                style={{
+                  fontFamily: "Georgia",
+                  fontSize: "0.9rem",
+                  color: orange[900],
+                  fontStyle: "italic",
+                }}
+              >
+                Offer received on xxxx day
               </Typography>
             </Grid>
           </Grid>

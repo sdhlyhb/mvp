@@ -10,6 +10,7 @@ const applicationSchema = new mongoose.Schema({
   company_name: String,
   application_date: { type: Date, default: Date.now },
   interview_date: { type: Date, default: null },
+  offer_date: { type: Date, default: null },
   job_type: String,
   location_type: { type: String, default: "On-site" },
   job_url: String,

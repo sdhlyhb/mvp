@@ -8,8 +8,8 @@ body {
 
 #main {
 
-  background-color: lightcyan;
-  width: 100vw;
+  background-color: #C7EEFF;
+  width: 99vw;
   height: 100vh;
 
 }
@@ -68,7 +68,7 @@ img {
 }
 
 #app-form {
-  background-color: lightcyan;
+  background-color: #D5FDFF;
   max-width: 25vw;
   padding: 30px;
   border-radius: 5px;
@@ -108,18 +108,6 @@ img {
 }
 
 
-
-.view-btn:hover .fa-icon {
-
-  color: lightseagreen;
-}
-
-
-.trash-btn:hover .fa-icon {
-
-  color: red;
-}
-
 .details {
 
   margin: 10vh auto auto auto;
@@ -139,7 +127,15 @@ img {
   border: 1px solid #888;
   width: 15vw;
 
+}
 
+.offer-date {
+  margin: 20vh auto auto auto;
+  background-color: lightsalmon;
+  border-radius: 5px;
+  padding: 25px;
+  border: 1px solid #888;
+  width: 15vw;
 
 }
 

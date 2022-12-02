@@ -5,16 +5,21 @@ import Typography from "@mui/material/Typography";
 import AlarmIcon from "@mui/icons-material/Alarm";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import MoodIcon from '@mui/icons-material/Mood';
-import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
+import MoodIcon from "@mui/icons-material/Mood";
+import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
 import { yellow, blue, orange, red } from "@mui/material/colors";
 import { IconButton, Button, Modal, Box, Stack, Tooltip } from "@mui/material";
+import OfferDate from "./OfferDate.jsx";
 
 function InterviewEntry(props) {
   const [offerConfirm, setOfferConfirm] = useState(false);
+  const [offerDatePop, setOfferDatePop] = useState(false);
   const [rejPop, setRejPop] = useState(false);
   const handleOfferConfirmClose = (e) => {
     setOfferConfirm(false);
+  };
+  const handleOfferDateModalClose = (e) => {
+    setOfferDatePop(false);
   };
   const handleRejClose = (e) => {
     setRejPop(false);
@@ -84,7 +89,8 @@ function InterviewEntry(props) {
                 <Typography
                   style={{
                     fontFamily: "Georgia",
-                    fontSize: "0.8rem",
+                    fontSize: "0.9rem",
+                    fontWeight: "500",
                     color: red[900],
                     fontStyle: "italic",
                   }}
@@ -95,18 +101,20 @@ function InterviewEntry(props) {
                 <Typography
                   style={{
                     fontFamily: "Georgia",
-                    fontSize: "0.8rem",
+                    fontSize: "0.9rem",
+                    fontWeight: "500",
                     color: blue[900],
                     fontStyle: "italic",
                   }}
                 >
-                  ({calDays} days ago)
+                  ({-calDays} days ago)
                 </Typography>
               ) : (
                 <Typography
                   style={{
                     fontFamily: "Georgia",
                     fontSize: "1rem",
+                    fontWeight: "600",
                     color: red[900],
                     fontStyle: "italic",
                   }}
@@ -117,13 +125,13 @@ function InterviewEntry(props) {
             </Grid>
             <Stack direction="row" alignItems="center" spacing={8}>
               <Tooltip title="Marks as Offer Received">
-              <IconButton
-                aria-label="thumbUp"
-                size="large"
-                onClick={(e) => setOfferConfirm(true)}
-              >
-                <ThumbUpIcon />
-              </IconButton>
+                <IconButton
+                  aria-label="thumbUp"
+                  size="large"
+                  onClick={(e) => setOfferConfirm(true)}
+                >
+                  <ThumbUpIcon />
+                </IconButton>
               </Tooltip>
 
               <Tooltip title="Mark as Rejected">
@@ -135,7 +143,6 @@ function InterviewEntry(props) {
                   <ThumbDownIcon />
                 </IconButton>
               </Tooltip>
-
             </Stack>
           </Grid>
         </Grid>
@@ -146,15 +153,35 @@ function InterviewEntry(props) {
           onClose={handleOfferConfirmClose}
           aria-labelledby="offer-confirmation-modal"
         >
-          <Box sx={{...style, bgcolor: yellow[200]}}>
-            <Typography id="offer-confirm-modal-title" variant="h6" component="h2">
+          <Box sx={{ ...style, bgcolor: yellow[200] }}>
+            <Typography
+              id="offer-confirm-modal-title"
+              variant="h6"
+              component="h2"
+            >
               Received OFFER on this application?
             </Typography>
             <Stack direction="row" align="center" spacing={20}>
-              <Button id={`${props.interview._id}-offerBtn`} onClick={props.clickOfferBtn}> <MoodIcon /> YES!!!</Button>
+              <Button
+                id={`${props.interview._id}-offerBtn`}
+                // onClick={props.clickOfferBtn}
+                onClick={(e) => setOfferDatePop(true)}
+              >
+                {" "}
+                <MoodIcon /> YES!!!
+              </Button>
               <Button onClick={handleOfferConfirmClose}> Cancel</Button>
             </Stack>
           </Box>
+        </Modal>
+      ) : null}
+      {offerDatePop ? (
+        <Modal
+          open={offerDatePop}
+          onClose={handleOfferDateModalClose}
+          aria-labelledby="offer-date-modal"
+        >
+          <OfferDate />
         </Modal>
       ) : null}
       {rejPop ? (
@@ -168,7 +195,13 @@ function InterviewEntry(props) {
               Mark this application as Rejected?
             </Typography>
             <Stack direction="row" align="center" spacing={20}>
-              <Button id={`${props.interview._id}-itw-rejBtn`} onClick={props.clickRejBtn}> <SentimentVeryDissatisfiedIcon /> YES</Button>
+              <Button
+                id={`${props.interview._id}-itw-rejBtn`}
+                onClick={props.clickRejBtn}
+              >
+                {" "}
+                <SentimentVeryDissatisfiedIcon /> YES
+              </Button>
               <Button onClick={handleRejClose}> Cancel</Button>
             </Stack>
           </Box>
@@ -184,8 +217,8 @@ function InterviewEntry(props) {
     //   </span>{" "}
     //   <span className="time-stamp">(in {calDays} days)</span>
     //   <button
-        // id={`${props.interview._id}-offerBtn`}
-        // onClick={props.clickOfferBtn}
+    // id={`${props.interview._id}-offerBtn`}
+    // onClick={props.clickOfferBtn}
     //   >
     //     <FontAwesomeIcon icon={faFaceLaugh} />
     //     OFFER

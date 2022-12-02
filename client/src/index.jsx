@@ -32,14 +32,17 @@ import RejJobEntryCard from "./Components/RejJobEntryCard.jsx";
 
 const style1 = {
   verticalAlign: "top",
-  border: "1px solid",
+  border: "2px solid White",
   margin: "5px",
   backgroundColor: "white",
   maxWidth: "500",
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  maxHeight: "94vh",
+  maxHeight: "91vh",
+  borderRadius: "8px",
+  boxShadow: "2px 4px #ECFCFF",
+
 };
 const listContainerStyle = {
   verticalAlign: "top",
@@ -50,7 +53,7 @@ const listContainerStyle = {
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  maxHeight: "84.5vh",
+  maxHeight: "85vh",
   overflowY: "scroll",
   overflowX: "hidden",
 };
@@ -349,7 +352,7 @@ class App extends React.Component {
         <div className="row-1">
           <Box
             style={{
-              ...listContainerStyle,
+              ...style1,
               marginTop: "5px",
               marginRight: "10px",
             }}

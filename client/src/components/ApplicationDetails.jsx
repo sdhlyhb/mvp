@@ -13,6 +13,7 @@ import {
   TextField,
   styled,
 } from "@mui/material";
+import { yellow, blue, orange, green } from "@mui/material/colors";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import CancelIcon from "@mui/icons-material/Cancel";
 import PhoneForwardedIcon from "@mui/icons-material/PhoneForwarded";
@@ -20,8 +21,9 @@ import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import InterviewDate from "./InterviewDate.jsx";
 
 const titleStyles = {
-  fontFamily: "Roboto, sans-serif",
+  fontFamily: "Roboto, Arial, sans-serif",
   fontWeight: "550",
+  color: blue[800],
 };
 
 const Icons = styled(Box)(({ theme }) => ({
@@ -52,7 +54,15 @@ function ApplicationDetails(props) {
       props.clickedJob.interview_date
     ).toLocaleString();
   } else {
-    interviewDate = "NOT YET";
+    interviewDate = "N/A";
+  }
+
+  if (props.clickedJob.offer_date) {
+    var offerDate = new Date(
+      props.clickedJob.offer_date
+    ).toLocaleString();
+  } else {
+    offerDate = "N/A";
   }
 
   return (
@@ -84,10 +94,15 @@ function ApplicationDetails(props) {
             Click to view job post
           </Link>
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={4}>
           <Typography style={titleStyles}>Interview Date: </Typography>
           <Typography>{interviewDate} </Typography>
         </Grid>
+        <Grid item xs={4}>
+          <Typography style={titleStyles}>Offer Date: </Typography>
+          <Typography>{offerDate} </Typography>
+        </Grid>
+
         <Grid item xs={4}>
           <Typography style={titleStyles}>Status: </Typography>
           <Typography>{props.clickedJob.status} </Typography>
