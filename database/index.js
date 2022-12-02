@@ -66,6 +66,13 @@ const updateInterviewDate = (newDate, _id) =>
     { upsert: true }
   );
 
+const updateOfferDate = (newDate, _id) =>
+  Application.findOneAndUpdate(
+    { _id },
+    { $set: { offer_date: newDate } },
+    { upsert: true }
+  );
+
 const getAllInterviewingJobs = () =>
   Application.find({ status: "Interviewing" }).sort({ interview_date: 1 });
 

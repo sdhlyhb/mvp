@@ -84,6 +84,22 @@ app.patch("/api/allApplications/:_id/interview_date", (req, res) => {
     });
 });
 
+app.patch("/api/allApplications/:_id/offer_date", (req, res) => {
+  console.log("This is the PATCH req.body:", req.body);
+  const newDate = req.body.offerDate;
+  const { _id } = req.body;
+  return db
+    .updateOfferDate(newDate, _id)
+    .then((response) => {
+      console.log("Success Update offer date!");
+      res.status(201).send(response);
+    })
+    .catch((err) => {
+      console.log("Err updating offer date", err);
+      res.status(501).send(err);
+    });
+});
+
 app.delete("/api/allApplications/:_id", (req, res) => {
   console.log("This is req.body in DELETE:", req.body);
   const objToDelete = req.body;
