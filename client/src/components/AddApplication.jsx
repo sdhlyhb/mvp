@@ -34,13 +34,13 @@ class AddApplication extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      jobTitle: null,
-      companyName: null,
+      jobTitle: "",
+      companyName: "",
       startDate: dayjs(new Date().toISOString()),
       selectedOption: "", // job type
       locType: "On-site", // default
-      postUrl: null,
-      notes: null,
+      postUrl: "",
+      notes: "",
       alertOpen: false,
     };
     this.handleTitleInput = this.handleTitleInput.bind(this);
@@ -132,15 +132,14 @@ class AddApplication extends React.Component {
     });
   }
 
-  handleAlertOpen(e){
-    this.setState({alertOpen: true});
+  handleAlertOpen(e) {
+    this.setState({ alertOpen: true });
   }
 
   handleAlertClose(e) {
     this.setState({
       alertOpen: false,
-
-    })
+    });
   }
 
   render() {
@@ -291,11 +290,14 @@ class AddApplication extends React.Component {
             </Grid>
           </Box>
         </form>
-        <Snackbar open={this.state.alertOpen} autoHideDuration={6000} onClose={this.handleAlertClose}>
+        <Snackbar
+          open={this.state.alertOpen}
+          autoHideDuration={6000}
+          onClose={this.handleAlertClose}
+        >
           <MuiAlert
             elevation={6}
             variant="filled"
-            // onClose={this.props.handleAlertClose}
             severity="success"
             sx={{ width: "100%" }}
           >

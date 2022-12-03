@@ -27,7 +27,7 @@ import InterviewDate from "./Components/InterviewDate.jsx";
 import OfferList from "./Components/OfferList.jsx";
 import OfferJobEntryCard from "./Components/OfferJobCard.jsx";
 import InterviewingJobEntryCard from "./Components/InterviewingJobCard.jsx";
-import PendingJobEntryCard from "./Components/PendingJobEntryCard.jsx";
+import PendingEntry from "./Components/PendingEntry.jsx";
 import RejJobEntryCard from "./Components/RejJobEntryCard.jsx";
 
 const style1 = {
@@ -155,6 +155,7 @@ class App extends React.Component {
       .then((response) => {
         console.log("Sucess adding a new application!");
         this.displayApplications();
+        this.displayPending();
       })
       .catch((err) => console.log("Err adding a new application!"));
   }
@@ -240,10 +241,6 @@ class App extends React.Component {
         this.displayRejected();
       })
       .then(() => {
-        document.getElementById(`${_id}-listDiv`).className = "";
-
-        document.getElementById(`${_id}-listDiv`).classList.add("crossed-line");
-
         this.displayInterviews();
 
         this.displayApplications();
@@ -260,6 +257,7 @@ class App extends React.Component {
         console.log("Sucess update the status to interviewing!");
         this.displayApplications();
         this.displayInterviews();
+        this.displayPending();
       })
       .catch((err) => console.log("err updating status to interviewing!", err));
   }
@@ -280,26 +278,10 @@ class App extends React.Component {
 
         this.displayInterviews();
         this.displayApplications();
+        this.displayPending();
       })
       .catch((err) => console.log("err updating interview date!", err));
   }
-
-  // clickOfferBtn(e) {
-  //   const _id = e.currentTarget.id.split("-")[0];
-  //   const updateStatusData = { _id: `${_id}`, newStatus: "OFFER" };
-  //   axios
-  //     .patch(`/api/allApplications/:${_id}/status`, updateStatusData)
-  //     .then((response) => {
-  //       console.log("Sucess update the status to OFFER!");
-  //       this.displayOffers();
-  //     })
-  //     .then(() => {
-  //       this.displayInterviews();
-
-  //       this.displayApplications();
-  //     })
-  //     .catch((err) => console.log("err updating status to OFFER!", err));
-  // }
 
   search(keyword) {
     const allApplicationsObjs = this.state.allApplications;
@@ -308,7 +290,7 @@ class App extends React.Component {
     if (keyword.length < 2) {
       this.displayApplications();
     }
-    const filtered = allApplicationsObjs.filter(
+    const filtered = allApplicationsObjs?.filter(
       (obj) =>
         obj.job_title.toLowerCase().includes(keyword.toLowerCase()) ||
         obj.company_name.toLowerCase().includes(keyword.toLowerCase()) ||
@@ -436,16 +418,17 @@ class App extends React.Component {
               </Typography>
             </Grid>
             <Box style={{ ...listContainerStyle }}>
-              {/* {this.state.pending.map((app) => (
-                <PendingJobEntryCard
+              {this.state.pending.map((app) => (
+                <PendingEntry
                   key={app._id}
-                  interview={interview}
-                  clickRejBtn={props.clickRejBtn}
-                  clickOfferBtn={props.clickOfferBtn}
+                  curJob={app}
+                  companyName={app.company_name}
+                  jobTitle={app.job_title}
+                  timeStamp="xxxxdays"
                 />
-              ))} */}
+              ))}
 
-              <PendingJobEntryCard />
+              {/* <PendingJobEntryCard /> */}
             </Box>
           </Box>
 
@@ -463,7 +446,7 @@ class App extends React.Component {
                 clickRejBtn={this.clickRejBtn.bind(this)}
                 // clickOfferBtn={this.clickOfferBtn.bind(this)}
                 updateOfferDate={this.updateOfferDate.bind(this)}
-                updateToOffer = {this.updateToOffer.bind(this)}
+                updateToOffer={this.updateToOffer.bind(this)}
               />
             </Box>
           </Box>
