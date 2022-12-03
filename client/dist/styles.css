@@ -9,8 +9,9 @@ body {
 #main {
 
   background-color: #C7EEFF;
-  width: 99vw;
-  height: 100vh;
+  max-width: 99vw;
+  max-height: 100vh;
+  overflow: auto;
 
 }
 
@@ -131,7 +132,7 @@ img {
 
 .offer-date {
   margin: 20vh auto auto auto;
-  background-color: lightsalmon;
+  background-color: rgb(228, 199, 166);
   border-radius: 5px;
   padding: 25px;
   border: 1px solid #888;
@@ -174,46 +175,3 @@ img {
   background-color: rgb(74, 210, 237);
   color: rgb(113, 75, 21);
 }
-
-.time-stamp {
-  color: blue;
-  font-family:Georgia, 'Times New Roman', Times, serif
-
-}
-
-/* #close-icon {
-  display: flex;
-  z-index: 2;
-  position: absolute;
-  right: -40px;
-  top: -40px;
-
-} */
-
-
-/* list-header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-transform: uppercase;
-  font-weight: bold;
-}
-.list-header-main {
-  padding: 15px;
-  display: flex;
-  flex-direction: column;
-}
-.list-header-main-title {
-  text-align: center;
-  overflow: none;
-  text-overflow: ellipsis;
-  width: 152px;
-}
-.list-header-main-title > span {
-  margin-top: -4px;
-  margin-right: 6px;
-}
-.list-header-main-count {
-  font-size: 0.9rem;
-  text-align: center;
-} */

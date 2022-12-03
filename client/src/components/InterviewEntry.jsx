@@ -181,7 +181,13 @@ function InterviewEntry(props) {
           onClose={handleOfferDateModalClose}
           aria-labelledby="offer-date-modal"
         >
-          <OfferDate />
+          <Box>
+            <OfferDate
+              _id={props.interview._id}
+              updateOfferDate={props.updateOfferDate}
+              updateToOffer={props.updateToOffer}
+            />
+          </Box>
         </Modal>
       ) : null}
       {rejPop ? (

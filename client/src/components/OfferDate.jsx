@@ -6,12 +6,22 @@ import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 
-function OfferDate() {
+function OfferDate({ _id, updateToOffer, updateOfferDate }) {
   const [offerDate, setOfferDate] = useState(new Date());
   const [alertOpen, setAlertOpen] = useState(false);
-  const handleUpdateClick = (e) => {};
+
   const handleAlertOpen = (e) => setAlertOpen(true);
   const handleAlertClose = (e) => setAlertOpen(false);
+  const handleDateSelect = (date) => {
+    setOfferDate(date);
+    console.log("curr Date:", offerDate);
+  };
+  const handleUpdateClick = async (e) => {
+    e.preventDefault();
+    updateToOffer(e, _id);
+    updateOfferDate(_id, offerDate);
+    handleAlertOpen(e);
+  };
 
   return (
     <div className="offer-date">
@@ -19,7 +29,7 @@ function OfferDate() {
         <label>Offer Received Date</label>
         <DatePicker
           selected={offerDate}
-          onChange={(date) => setOfferDate(date)}
+          onChange={handleDateSelect}
           timeCaption="time"
           dateFormat="MMMM d, yyyy"
         />

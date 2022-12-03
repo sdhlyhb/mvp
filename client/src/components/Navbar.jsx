@@ -24,6 +24,7 @@ import DataPieChart from "./DataPieChart.jsx";
 const StyledToolbar = styled(Toolbar)({
   display: "flex",
   justifyContent: "space-between",
+  minWidth: "95%",
 });
 
 const Logo = styled("div")(({ theme }) => ({

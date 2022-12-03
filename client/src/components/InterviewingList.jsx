@@ -10,7 +10,8 @@ function InterviewingList(props) {
           key={interview._id}
           interview={interview}
           clickRejBtn={props.clickRejBtn}
-          clickOfferBtn={props.clickOfferBtn}
+          updateOfferDate={props.updateOfferDate}
+          updateToOffer = {props.updateToOffer}
         />
       ))}
     </>

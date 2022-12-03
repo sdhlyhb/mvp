@@ -98,5 +98,6 @@ module.exports = {
   saveOneShortcut,
   showAllShortcuts,
   deleteOneShortcutById,
-  getAllPending
+  getAllPending,
+  updateOfferDate
 };

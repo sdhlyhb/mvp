@@ -39,23 +39,21 @@ const style1 = {
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  maxHeight: "91vh",
+  height: "91vh",
   borderRadius: "8px",
-  boxShadow: "2px 4px #ECFCFF",
-
 };
 const listContainerStyle = {
   verticalAlign: "top",
   marginTop: "70px",
   backgroundColor: "white",
-  minWidth: "360px",
+  minWidth: "300px",
   maxWidth: "400px",
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  maxHeight: "85vh",
-  overflowY: "scroll",
-  overflowX: "hidden",
+  height: "85vh",
+  overflow: "auto",
+  scrollbarWidth: "thin",
 };
 
 const gridStyle = {
@@ -192,7 +190,7 @@ class App extends React.Component {
   updateNotes(_id, newNotes) {
     const updateData = { _id: `${_id}`, newNotes };
     axios
-      .patch(`/api/allApplications/:${_id}/notes`, updateData)
+      .patch(`/api/allApplications/${_id}/notes`, updateData)
       .then((response) => {
         console.log("Sucess updating the notes!", response); // reponse empty
         const updated = this.state.allApplications.filter(
@@ -218,17 +216,17 @@ class App extends React.Component {
     });
   }
 
-  clickCloseIcon(e) {
-    this.setState({
-      updatePopSeen: false,
-    });
-  }
+  // clickCloseIcon(e) {
+  //   this.setState({
+  //     updatePopSeen: false,
+  //   });
+  // }
 
   clickCloseDetailsIcon(e) {
     this.setState({
-      detailPopSeen: false,
+      // detailPopSeen: false,
       updatePopSeen: false,
-      interviewPopSeen: false,
+      // interviewPopSeen: false,
     });
   }
 
@@ -236,7 +234,7 @@ class App extends React.Component {
     const _id = e.currentTarget.id.split("-")[0];
     const updateStatusData = { _id: `${_id}`, newStatus: "Rejected" };
     axios
-      .patch(`/api/allApplications/:${_id}/status`, updateStatusData)
+      .patch(`/api/allApplications/${_id}/status`, updateStatusData)
       .then((response) => {
         console.log("Sucess update the status to rejected!");
         this.displayRejected();
@@ -257,15 +255,11 @@ class App extends React.Component {
     // const _id = e.currentTarget.id.split("-")[0];
     const updateStatusData = { _id: `${_id}`, newStatus: "Interviewing" };
     axios
-      .patch(`/api/allApplications/:${_id}/status`, updateStatusData)
+      .patch(`/api/allApplications/${_id}/status`, updateStatusData)
       .then((response) => {
         console.log("Sucess update the status to interviewing!");
         this.displayApplications();
         this.displayInterviews();
-
-        // this.setState({
-        //   interviewPopSeen: true,
-        // });
       })
       .catch((err) => console.log("err updating status to interviewing!", err));
   }
@@ -278,7 +272,7 @@ class App extends React.Component {
 
     axios
       .patch(
-        `/api/allApplications/:${_id}/interview_date`,
+        `/api/allApplications/${_id}/interview_date`,
         updateInterviewDateData
       )
       .then((response) => {
@@ -290,26 +284,22 @@ class App extends React.Component {
       .catch((err) => console.log("err updating interview date!", err));
   }
 
-  clickOfferBtn(e) {
-    const _id = e.currentTarget.id.split("-")[0];
-    const updateStatusData = { _id: `${_id}`, newStatus: "OFFER" };
-    axios
-      .patch(`/api/allApplications/:${_id}/status`, updateStatusData)
-      .then((response) => {
-        console.log("Sucess update the status to OFFER!");
-        this.displayOffers();
-      })
-      .then(() => {
-        this.displayInterviews();
+  // clickOfferBtn(e) {
+  //   const _id = e.currentTarget.id.split("-")[0];
+  //   const updateStatusData = { _id: `${_id}`, newStatus: "OFFER" };
+  //   axios
+  //     .patch(`/api/allApplications/:${_id}/status`, updateStatusData)
+  //     .then((response) => {
+  //       console.log("Sucess update the status to OFFER!");
+  //       this.displayOffers();
+  //     })
+  //     .then(() => {
+  //       this.displayInterviews();
 
-        this.displayApplications();
-        document.getElementById(`${_id}-listDiv`).className = "";
-        document
-          .getElementById(`${_id}-listDiv`)
-          .classList.add("offer-highlight");
-      })
-      .catch((err) => console.log("err updating status to OFFER!", err));
-  }
+  //       this.displayApplications();
+  //     })
+  //     .catch((err) => console.log("err updating status to OFFER!", err));
+  // }
 
   search(keyword) {
     const allApplicationsObjs = this.state.allApplications;
@@ -333,6 +323,36 @@ class App extends React.Component {
     this.setState({
       addNewAppPop: false,
     });
+  }
+
+  updateToOffer(e, _id) {
+    const updateStatusData = { _id: `${_id}`, newStatus: "OFFER" };
+    axios
+      .patch(`/api/allApplications/${_id}/status`, updateStatusData)
+      .then((response) => {
+        console.log("Sucess update the status to OFFER!");
+        this.displayApplications();
+        this.displayInterviews();
+        this.displayOffers();
+      })
+      .catch((err) => console.log("err updating status to OFFER!", err));
+  }
+
+  updateOfferDate(_id, offerDate) {
+    const updateOfferDateData = {
+      _id: `${_id}`,
+      offerDate,
+    };
+
+    axios
+      .patch(`/api/allApplications/${_id}/offer_date`, updateOfferDateData)
+      .then((response) => {
+        console.log("Sucess update the offer date!");
+        this.displayApplications();
+        this.displayInterviews();
+        this.displayOffers();
+      })
+      .catch((err) => console.log("err updating interview date!", err));
   }
 
   /** *********** rendering parts **************** */
@@ -441,7 +461,9 @@ class App extends React.Component {
               <InterviewingList
                 interviews={this.state.interviews}
                 clickRejBtn={this.clickRejBtn.bind(this)}
-                clickOfferBtn={this.clickOfferBtn.bind(this)}
+                // clickOfferBtn={this.clickOfferBtn.bind(this)}
+                updateOfferDate={this.updateOfferDate.bind(this)}
+                updateToOffer = {this.updateToOffer.bind(this)}
               />
             </Box>
           </Box>

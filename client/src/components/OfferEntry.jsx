@@ -22,6 +22,7 @@ function OfferEntry(props) {
   const applicationDate = new Date(
     props.offer.application_date
   ).toLocaleDateString();
+  const offerDate = new Date(props.offer.offer_date).toLocaleDateString();
   return (
     <Paper
       sx={{
@@ -84,7 +85,7 @@ function OfferEntry(props) {
                   fontStyle: "italic",
                 }}
               >
-                Offer received on xxxx day
+                Offer received on {offerDate}
               </Typography>
             </Grid>
           </Grid>
