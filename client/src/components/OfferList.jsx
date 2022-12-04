@@ -1,29 +1,15 @@
-import React from 'react';
+import React from "react";
 
-import OfferEntry from './OfferEntry.jsx';
+import OfferEntry from "./OfferEntry.jsx";
 
-const OfferList = (props) => {
+function OfferList(props) {
+  return (
+    <>
+      {props.offers.map((offer) => (
+        <OfferEntry key={offer._id} offer={offer} />
+      ))}
+    </>
+  );
+}
 
-  return(
-    <div className="offer-list">
-      <h3>OFFER List</h3>
-      {props.offers.map(offer => <OfferEntry
-        key={offer._id}
-        offer={offer}
-
-
-
-      />)}
-
-
-
-
-
-    </div>
-  )
-
-  }
-
-
-
-  export default OfferList;
+export default OfferList;

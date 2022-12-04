@@ -1,25 +1,221 @@
-import React from 'react';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { yellow, blue, orange, red, grey } from "@mui/material/colors";
+import {
+  IconButton,
+  Button,
+  Modal,
+  Box,
+  Grid,
+  Tooltip,
+  Typography,
+  Link,
+  TextField,
+  styled,
+  Paper,
+  Chip,
+  Stack,
+  Avatar
+} from "@mui/material";
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import AppShortcutIcon from '@mui/icons-material/AppShortcut';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+
+const style = {
+  margin: "2vh auto auto auto",
+  minWidth: 290,
+  maxWidth: 300,
+  maxHeight: 500,
+  bgcolor: grey[100],
+  p: 2,
+};
+const stackStyle = {
+    display: 'flex',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+    listStyle: 'none',
+    minHeight: 100,
+    p: 0.5,
+    m: 0,
+
+};
+
+const ListItem = styled('li')(({ theme }) => ({
+  margin: theme.spacing(0.5),
+}));
+
+const modalStyle = {
+  margin: "20vh auto auto auto",
+  minWidth: 300,
+  maxWidth: 600,
+  maxHeight: 500,
+  bgcolor: grey[200],
+  p:3,
+
+};
+
+function JobWebsites() {
+  const [shortcutUrls, setShortcutsUrls] = useState([]);
+  const [newShortcut, setNewShortcut] = useState("");
+  const [newKeywords, setNewKeywords] = useState("");
+  const [addPop, setAddPop] = useState(false);
+  const [open, setOpen] = useState(false);
+  const closeModal = (e) => {setAddPop(false)};
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
 
 
-const JobWebsites = (props) => {
-  let LinkedInUrl = 'https://www.linkedin.com/jobs/search/?distance=25.0&geoId=90000052&keywords=javascript';
-  let IndeedUrl = 'https://www.indeed.com/jobs?q=javascript&l=Atlanta%2C%20GA&sc=0kf%3Aexplvl(ENTRY_LEVEL)&vjk=af0f2c14e9c9cff0&advn=2324357231341452';
-  let GoogleUrl = 'https://careers.google.com/jobs/results/?distance=50&location=Atlanta,%20GA,%20USA&q=javascript';
-  let ZipRecruiterUrl = 'https://www.ziprecruiter.com/jobs-search?search=javascript&location=Atlanta,%20GA';
-  let baseUrls = [LinkedInUrl.split('/jobs')[0], IndeedUrl.split('/jobs')[0], GoogleUrl.split('/jobs')[0],ZipRecruiterUrl.split('/jobs')[0]]
+  const getUrls = async () => {
+    try {
+      const response = await axios.get(
+        "/api/shortcuts"
+      );
+      console.log("this is urls data:", response.data);
+      setShortcutsUrls(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getUrls();
+  }, [])
+
+
+
+
+  const handleSubmitUrl = async (e) => {
+    e.preventDefault();
+    const shotcutObj = {
+      search_url: newShortcut,
+      keywords: newKeywords,
+    };
+
+    try {
+      const response = await axios.post("/api/shortcuts", shotcutObj);
+      console.log("response:", response.data);
+      getUrls();
+      console.log("urls:", shortcutUrls);
+      setNewShortcut("");
+      setNewKeywords("");
+    } catch (err) {
+      console.log("Err adding new shortcut url!", err);
+    }
+  };
+
+  const deleteShortcutClick = async (e, objId) => {
+    e.preventDefault();
+    // const objId = e.currentTarget.id;
+    try {
+      const response = await axios.delete("/api/shortcuts/" + objId);
+      setShortcutsUrls(response.data);
+    } catch (err) {
+      console.log("Err deleting a shortcut record!", err);
+    }
+
+  }
+
+  const baseUrls = shortcutUrls?.map(urlObj => urlObj.search_url.split("/jobs")[0]);
+
   return (
-    <div className='search-shortcuts'>
-      <h3>Searching Shortcuts</h3>
-      <span><img src={baseUrls[0]+'/favicon.ico'}/><a href={LinkedInUrl} target='popup'>LinkedIn</a></span> {"   "}
-      <span><img src={baseUrls[1]+'/images/favicon.ico'}/><a href={IndeedUrl} target='popup'>Indeed</a></span>{"   "}
-      <span><img src={baseUrls[2]+'/favicon.ico'}/><a href={GoogleUrl} target='popup'>Google Careers</a></span>{"   "}
-      <span><img src={baseUrls[3]+'/favicon.ico'}/><a href={ZipRecruiterUrl} target='popup'>ZipRecruiter</a></span>
+    <>
+    <Paper sx ={style}>
+      <AppShortcutIcon sx={{ fontSize: 30 }}/>
+      <Typography sx={{ fontSize: 20 }} color="text.primary" gutterBottom>Searching Shortcuts</Typography>
+      <Paper sx={stackStyle} component="ul">
+      {baseUrls.map((url, i) => {
+
+        return (
+          <ListItem key={i}>
+            <Chip
+              variant="outlined"
+              color="primary"
+              label={shortcutUrls[i].keywords}
+              avatar={<Avatar alt="favcon" src={"//f5.allesedv.com/20/" + `${url}`} />}
+              onDelete={e => deleteShortcutClick(e, shortcutUrls[i]._id)}
+              component={Link}
+              target="_blank"
+              href={shortcutUrls[i].search_url}
+              sx={{
+                ':hover': {
+                bgcolor: blue[300], // theme.palette.primary.main
+                color: 'white',
+
+              }}}
+            />
+          </ListItem>
+        );
+      })}
+
+        </Paper>
+
+      <Tooltip title="Add a new shortcut url">
+          <IconButton onClick={e => setAddPop(true)}>
+            <AddCircleOutlineIcon
+              sx={{
+                fontSize: 30,
+                ':hover': {
+                color: blue[700],
+
+              }}}
+
+          /></IconButton>
+        </Tooltip>
+
+      {addPop
+        ? (
+          <Modal open={addPop} onClose={closeModal}>
+            <Paper sx={modalStyle} align="center">
+                <TextField
+                  style={{ backgroundColor: "white", width: 600,  }}
+                  multiline
+                  maxRows={10}
+                  placeholder="Enter the shortcut url..."
+                  value={newShortcut}
+                  onChange={(e) => {
+                    setNewShortcut(e.target.value);
+                  }} >
+
+                </TextField>
+                <TextField
+                  style={{ backgroundColor: "white", width: 600, marginTop: 20  }}
+                  multiline
+                  maxRows={10}
+                  placeholder="Enter the keywords of your search..."
+                  value={newKeywords}
+                  onChange={(e) => setNewKeywords(e.target.value)}
+                >
+
+                </TextField>
 
 
+              <Button variant="contained"
+               style={{  marginTop: 20  }}
+               onClick={(e) => {handleSubmitUrl(e); setOpen(true);}}>Add New Shortcut</Button>
 
-    </div>
-  )
+            </Paper>
+          </Modal>
+        )
+        : null
 
+
+      }
+
+    </Paper>
+    <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <MuiAlert elevation={6} variant="filled" onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+          Shortcut added!
+        </MuiAlert>
+      </Snackbar>
+    </>
+
+  );
 }
 
 export default JobWebsites;
