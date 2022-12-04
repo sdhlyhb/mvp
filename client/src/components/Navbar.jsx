@@ -65,7 +65,10 @@ function Navbar({ search, data}) {
   const [open, setOpen] = useState(false);
   const [searchKeywords, setSearchKeywords] = useState("");
   const [statsPop, setStatsPop] = useState(false);
-
+  const handleKeywordsChange = (e) => {
+    console.log("Cur keywords:", searchKeywords);
+    setSearchKeywords(e.target.value);
+  }
   const handleStatsClose = (e) => setStatsPop(false);
 
   useEffect(() => {
@@ -86,7 +89,7 @@ function Navbar({ search, data}) {
 
           <InputBase
             placeholder="search by keyword..."
-            onChange={(e) => setSearchKeywords(e.target.value)}
+            onChange={handleKeywordsChange}
             style={{ display: "hidden" }}
           />
         </Search>

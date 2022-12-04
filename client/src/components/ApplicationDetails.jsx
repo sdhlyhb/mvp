@@ -143,8 +143,6 @@ function ApplicationDetails(props) {
           <IconButton
             onClick={(e) => {
               setInterviewDatePop(true);
-              // props.clickInterviewBtn(e, props.clickedJob._id);
-
             }}
           >
             <PhoneForwardedIcon />

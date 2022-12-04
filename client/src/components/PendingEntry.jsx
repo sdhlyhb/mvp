@@ -3,11 +3,11 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import PendingActionsIcon from "@mui/icons-material/PendingActions";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import Stack from "@mui/material/Stack";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { orange, blue, green, red } from "@mui/material/colors";
-import { IconButton, Button, Modal, Box } from "@mui/material";
-import ApplicationDetails from "./ApplicationDetails.jsx";
+import { IconButton, Button, Modal, Box, Link } from "@mui/material";
 
 const style = {
   position: "absolute",
@@ -61,17 +61,14 @@ export default function PendingEntry({ curJob, companyName, jobTitle }) {
           </Stack>
         </Grid>
         <Grid item xs={12} sm container>
-          <Grid item xs container direction="column" spacing={1}>
+          <Grid item xs container direction="column" spacing={2}>
             <Grid item xs>
-              {/* <Typography
-                gutterBottom
-                style={{
-                  fontSize: "0.95rem",
-                  color: green[900],
-                }}
-              >
-                {jobTitle}
-              </Typography> */}
+              <OpenInNewIcon />
+              <Link href={curJob.job_url} underline="hover" target="_blank">
+                View Job Description
+              </Link>
+            </Grid>
+            <Grid item xs>
               <Typography
                 style={{
                   fontFamily: "Georgia",
