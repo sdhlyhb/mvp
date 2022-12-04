@@ -46,7 +46,7 @@ function OfferEntry(props) {
       }}
     >
       <Grid container spacing={1}>
-        <Grid item xs={2} align="center">
+        <Grid item xs={3} align="center">
           <Stack direction="column" alignItems="center" spacing={1}>
             <CelebrationIcon sx={{ color: orange[800] }} />
             <Typography
@@ -73,8 +73,8 @@ function OfferEntry(props) {
             </Grid>
           </Stack>
         </Grid>
-        <Grid item xs={10}>
-          <Box sx={{ width: "100%", p: 1 }}>
+        <Grid item xs={8}>
+          <Box sx={{ width: "90%", p: 1 }}>
             <Stepper activeStep={3} alternativeLabel>
               {steps.map((label, index) => (
                 <Step key={label}>

@@ -46,7 +46,7 @@ const listContainerStyle = {
   verticalAlign: "top",
   marginTop: "70px",
   backgroundColor: "white",
-  minWidth: "300px",
+  minWidth: "350px",
   maxWidth: "400px",
   display: "flex",
   flexDirection: "column",
@@ -74,12 +74,10 @@ class App extends React.Component {
       curJob: null,
       addNewAppPop: false,
       updatePopSeen: false,
-      // appToUpdate: null,
-      // appToUpdate_id: null,
+      searchKeywords:"",
       pending: [],
       rejected: [],
       interviews: [],
-      // interviewPopSeen: false,
       offers: [],
     };
   }
@@ -283,6 +281,10 @@ class App extends React.Component {
       .catch((err) => console.log("err updating interview date!", err));
   }
 
+  onChangeKeyword(e) {
+    this.setState({searchKeywords: e.target.value});
+  }
+
   search(keyword) {
     const allApplicationsObjs = this.state.allApplications;
     const displayedList = this.state.displayed;
@@ -343,6 +345,8 @@ class App extends React.Component {
     return (
       <div id="main">
         <Navbar
+          onChangeKeyword = {this.onChangeKeyword.bind(this)}
+          searchKeywords = {this.state.searchKeywords}
           search={this.search.bind(this)}
           data={[
             this.state.interviews.length,
@@ -370,9 +374,16 @@ class App extends React.Component {
 
           <Box style={{ ...style1 }}>
             <Grid style={{ ...gridStyle }}>
-              <Typography style={{ padding: "10px", fontWeight: "600" }}>
-                All applications: {this.state.allApplications.length}
-              </Typography>
+              {this.state.searchKeywords.length < 2
+              ? <Typography style={{ padding: "10px", fontWeight: "600" }}>
+              All applications: {this.state.allApplications.length}
+            </Typography>
+            : <Typography style={{ padding: "10px", fontWeight: "600" }}>
+            Filtered Applications: {this.state.displayed.length}
+          </Typography>
+
+              }
+
               <Tooltip title="Add an application">
                 <Fab
                   size="small"
@@ -482,59 +493,6 @@ class App extends React.Component {
             </Modal>
           ) : null}
         </div>
-
-        {/* <div className="row-1">
-          <Messages
-            applications={this.state.allApplications}
-            interviews={this.state.interviews}
-            rejects={this.state.rejected}
-            offers={this.state.offers}
-          />
-          <InterviewingList
-            interviews={this.state.interviews}
-            clickRejBtn={this.clickRejBtn.bind(this)}
-            clickOfferBtn={this.clickOfferBtn.bind(this)}
-          />
-          <OfferJobEntryCard />
-        </div>
-
-        <div className="row-2">
-          <JobWebsites />
-          <OfferList offers={this.state.offers} />
-        </div>
-
-        <div className="row-3">
-          <AddApplication handleAddition={this.addNewApplication.bind(this)} />
-          <AppliedList
-            jobApps={this.state.allApplications}
-            popDetails={this.clickApplication.bind(this)}
-            delete={this.deleteOne.bind(this)}
-            search={this.search.bind(this)}
-            onChangeKeyword={this.onChangeKeyword.bind(this)}
-            keyword={this.state.searchKey}
-            clickViewAllBtn={this.clickViewAllBtn.bind(this)}
-          />
-        </div>
-
-        {this.state.detailPopSeen ? (
-          <ApplicationDetails
-            clickedJob={this.state.curJob}
-            clickUpdateBtn={this.clickUpdateBtn.bind(this)}
-            clickRejBtn={this.clickRejBtn.bind(this)}
-            clickInterviewBtn={this.clickInterviewBtn.bind(this)}
-            clickCloseDetailsIcon={this.clickCloseDetailsIcon.bind(this)}
-            updateDetails={this.state.updatePopSeen}
-            updateNotes={this.updateNotes.bind(this)}
-          />
-        ) : null}
-
-        {this.state.interviewPopSeen ? (
-          <InterviewDate
-            updateInterviewDate={this.updateInterviewDate.bind(this)}
-            curJob={this.state.curJob}
-            close={this.clickCloseDetailsIcon.bind(this)}
-          />
-        ) : null} */}
       </div>
     );
   }
