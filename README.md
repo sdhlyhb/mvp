@@ -16,14 +16,27 @@ JobTrackr is a lightweight single-page web app to help job hunters manage and tr
 
 - Add new job application to track;
 - Review application details, edit notes
+
 ![add](https://user-images.githubusercontent.com/8715043/205565058-9c5dddf7-664a-4e00-8250-1450114b2039.gif)
 - Update pending applications status, update interview date
+
+![itw-date](https://user-images.githubusercontent.com/8715043/205567332-93f5d9d8-d7ac-4002-a2ae-068f79eb0fe1.gif)
 - Update interviewing application status and related dates.
 - Display timeline information for offers
+
+![rej](https://user-images.githubusercontent.com/8715043/205568923-f200f2d0-3c10-4e60-aaa0-7931dd978cab.gif)
 - Application metrics modal;
+
+![metrics](https://user-images.githubusercontent.com/8715043/205573398-df88a2e3-9ac7-4118-a19a-ed51423fb959.gif)
 - Application CSV data download
+
+![downloadcsv](https://user-images.githubusercontent.com/8715043/205575434-0b1f53dc-0668-44e3-b3a8-752e906dfe5e.gif)
 - Search applications by keywords
+
+![search](https://user-images.githubusercontent.com/8715043/205577478-d4cf1021-7c73-406f-b2ad-3ddb667f0b18.gif)
 - Add/Delete shortcuts for job search
+
+![shortcut](https://user-images.githubusercontent.com/8715043/205580153-6393a19a-0c52-4861-b498-afe8ea4389ee.gif)
 
 ## Work In Progress:
 
