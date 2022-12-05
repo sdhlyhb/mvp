@@ -2,6 +2,8 @@
 
 JobTrackr is a lightweight single-page web app to help job hunters manage and track their applications. This react-based application is supported by REST API and Mongo DB.
 
+![overview](https://user-images.githubusercontent.com/8715043/205561517-20d8faa9-6dad-464e-ae6f-eccbffb9f6f2.png)
+
 ## Tech Stack
 
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
