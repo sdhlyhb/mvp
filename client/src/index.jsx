@@ -240,6 +240,7 @@ class App extends React.Component {
       })
       .then(() => {
         this.displayInterviews();
+        this.displayPending();
 
         this.displayApplications();
       })

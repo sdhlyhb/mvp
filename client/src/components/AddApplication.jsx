@@ -115,9 +115,9 @@ class AddApplication extends React.Component {
     this.props.handleAddition(data);
     this.handleAlertOpen(e);
     this.setState({
-      job_title: "",
-      company_name: "",
-      job_url: "",
+      jobTitle: "",
+      companyName: "",
+      postUrl: "",
       notes: "",
     });
   }
@@ -125,9 +125,9 @@ class AddApplication extends React.Component {
   handleReset(e) {
     e.preventDefault();
     this.setState({
-      job_title: "",
-      company_name: "",
-      job_url: "",
+      jobTitle: "",
+      companyName: "",
+      postUrl: "",
       notes: "",
     });
   }
@@ -164,7 +164,7 @@ class AddApplication extends React.Component {
                   variant="outlined"
                   label="Job Title"
                   name="jobTitle"
-                  value={this.state.job_title}
+                  value={this.state.jobTitle}
                   onChange={this.handleTitleInput}
                 />
               </Grid>
@@ -173,7 +173,7 @@ class AddApplication extends React.Component {
                   variant="outlined"
                   label="Company"
                   name="Company"
-                  value={this.state.company_name}
+                  value={this.state.companyName}
                   onChange={this.handleCompanyNameInput}
                 />
               </Grid>
@@ -252,7 +252,7 @@ class AddApplication extends React.Component {
                   variant="outlined"
                   label="Job Post URL"
                   name="jobPostUrl"
-                  value={this.state.job_url}
+                  value={this.state.postUrl}
                   onChange={this.handlePostUrlInputChange}
                 />
               </Grid>
