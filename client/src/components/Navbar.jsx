@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import {
   AppBar,
   Avatar,
@@ -60,20 +61,20 @@ const style = {
   p: 3,
 };
 
-function Navbar({ onChangeKeyword, searchKeywords, search, data}) {
+function Navbar({ onChangeKeyword, searchKeywords, search, data }) {
   const today = new Date().toLocaleString("en-US");
   const [open, setOpen] = useState(false);
-  // const [searchKeywords, setSearchKeywords] = useState("");
   const [statsPop, setStatsPop] = useState(false);
-  // const handleKeywordsChange = (e) => {
-  //   console.log("Cur keywords:", searchKeywords);
-  //   setSearchKeywords(e.target.value);
-  // }
   const handleStatsClose = (e) => setStatsPop(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     search(searchKeywords);
   }, [searchKeywords]);
+
+  const logoutClick = (e) => {
+    navigate("/");
+  };
   return (
     <AppBar position="sticky">
       <StyledToolbar>
@@ -136,8 +137,8 @@ function Navbar({ onChangeKeyword, searchKeywords, search, data}) {
         }}
       >
         <MenuItem>Profile</MenuItem>
-        <MenuItem>My account</MenuItem>
-        <MenuItem>Logout</MenuItem>
+        {/* <MenuItem>My account</MenuItem> */}
+        <MenuItem onClick={logoutClick}>Logout</MenuItem>
       </Menu>
       <Modal open={statsPop} onClose={handleStatsClose}>
         <Box sx={style}>
@@ -149,7 +150,7 @@ function Navbar({ onChangeKeyword, searchKeywords, search, data}) {
             {" "}
             Your Metrics
           </Typography>
-          <DataPieChart data={data}/>
+          <DataPieChart data={data} />
         </Box>
       </Modal>
     </AppBar>
