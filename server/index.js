@@ -1,6 +1,7 @@
 const express = require("express");
 
 const app = express();
+const path = require("path");
 const db = require("../database/index.js");
 const helpers = require("../helperFns/helpers.js");
 
@@ -141,7 +142,6 @@ app.get("/api/pending", (req, res) =>
     })
 );
 
-
 app.get("/api/offers", (req, res) =>
   db
     .getAllOffers()
@@ -216,6 +216,10 @@ app.delete("/api/shortcuts/:id", (req, res) => {
       console.log("Err Deleting one shortcut!", err);
       res.status(500).send(err);
     });
+});
+
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/dist/index.html"));
 });
 
 const port = 3000;
