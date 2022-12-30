@@ -21,6 +21,14 @@ import SearchIcon from "@mui/icons-material/Search";
 import InsertChartIcon from "@mui/icons-material/InsertChart";
 import DownloadIcon from "@mui/icons-material/Download";
 import DataPieChart from "./DataPieChart.jsx";
+import { useAuthState } from "react-firebase-hooks/auth";
+import {
+  auth,
+  logout,
+  db,
+
+} from "../firebase";
+import { query, collection, getDocs, where } from "firebase/firestore";
 
 const StyledToolbar = styled(Toolbar)({
   display: "flex",
@@ -66,14 +74,35 @@ function Navbar({ onChangeKeyword, searchKeywords, search, data }) {
   const [open, setOpen] = useState(false);
   const [statsPop, setStatsPop] = useState(false);
   const handleStatsClose = (e) => setStatsPop(false);
+  const [user, loading, error] = useAuthState(auth);
+  const [name, setName] = useState("");
   const navigate = useNavigate();
+
+  const fetchUserName = async () => {
+    try {
+      const q = query(collection(db, "users"), where("uid", "==", user?.uid));
+      const doc = await getDocs(q);
+      const data = doc.docs[0].data();
+      setName(data.username);
+    } catch (err) {
+      console.error(err);
+      alert("An error occured while fetching user data");
+    }
+  };
+
+  useEffect(() => {
+    if (loading) return;
+    if (user) console.log(user);
+    if (!user) navigate("/");
+    fetchUserName();
+  }, [user, loading]);
 
   useEffect(() => {
     search(searchKeywords);
   }, [searchKeywords]);
 
   const logoutClick = (e) => {
-    navigate("/");
+    logout();
   };
   return (
     <AppBar position="sticky">
@@ -117,9 +146,11 @@ function Navbar({ onChangeKeyword, searchKeywords, search, data }) {
           <Avatar
             sx={{ width: 40, height: 40 }}
             src="xxxx.png"
-            alt="Serena"
+            alt={user?.email}
             onClick={(e) => setOpen(true)}
+
           />
+           {/* {JSON.stringify(user)} */}
         </Icons>
       </StyledToolbar>
       <Menu

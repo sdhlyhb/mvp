@@ -1,17 +1,17 @@
-import * as React from "react";
-import Avatar from "@mui/material/Avatar";
+import React, { useEffect, useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { updateProfile } from "firebase/auth";
+import { auth, registerWithEmailAndPassword } from "../../firebase";
 
 function Copyright(props) {
   return (
@@ -33,13 +33,27 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignUp() {
-  const handleSubmit = (event) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [user, loading, error] = useAuthState(auth);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (loading) return;
+    if (user) navigate("/");
+  }, [user, loading]);
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
+      username: data.get("username"),
       email: data.get("email"),
       password: data.get("password"),
     });
+    if (!username) alert("Please enter username!");
+    registerWithEmailAndPassword(username, email, password)
   };
 
   return (
@@ -76,8 +90,9 @@ export default function SignUp() {
                   required
                   fullWidth
                   id="username"
-                  label="username"
+                  label="Username"
                   autoFocus
+                  onChange={(e) => setUsername(e.target.value)}
                 />
               </Grid>
 
@@ -89,6 +104,7 @@ export default function SignUp() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -100,6 +116,7 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </Grid>
             </Grid>

@@ -1,17 +1,20 @@
-import * as React from "react";
-import Avatar from "@mui/material/Avatar";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useAuthState } from "react-firebase-hooks/auth";
+import {
+  auth,
+  logInWithEmailAndPassword,
+  signInWithGoogle,
+} from "../../firebase";
 
 function Copyright(props) {
   return (
@@ -33,6 +36,18 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [user, loading, error] = useAuthState(auth);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (loading) {
+      // trigger a loading screen:
+      return;
+    }
+    if (user) navigate("/home");
+  }, [user, loading]);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -40,6 +55,7 @@ export default function SignIn() {
       email: data.get("email"),
       password: data.get("password"),
     });
+    logInWithEmailAndPassword(email, password);
   };
 
   return (
@@ -96,6 +112,7 @@ export default function SignIn() {
                 name="email"
                 autoComplete="email"
                 autoFocus
+                onChange={(e) => setEmail(e.target.value)}
               />
               <TextField
                 margin="normal"
@@ -106,6 +123,7 @@ export default function SignIn() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={(e) => setPassword(e.target.value)}
               />
               <Button
                 type="submit"

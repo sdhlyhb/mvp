@@ -95,7 +95,7 @@ class HomePage extends React.Component {
     axios
       .get("/api/allApplications")
       .then((allJobs) => {
-        console.log("This is all the job applications:", allJobs.data);
+        // console.log("This is all the job applications:", allJobs.data);
         this.setState({
           allApplications: allJobs.data,
           displayed: allJobs.data,
