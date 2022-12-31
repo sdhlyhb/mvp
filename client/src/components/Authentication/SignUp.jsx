@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +10,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import { red, green } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { updateProfile } from "firebase/auth";
 import { auth, registerWithEmailAndPassword } from "../../firebase";
@@ -35,7 +37,9 @@ const theme = createTheme();
 export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [pwConfirm, setPwConfirm] = useState("");
   const [username, setUsername] = useState("");
+  const [pwMatch, setPwMatch] = useState(false);
   const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
 
@@ -53,8 +57,26 @@ export default function SignUp() {
       password: data.get("password"),
     });
     if (!username) alert("Please enter username!");
-    registerWithEmailAndPassword(username, email, password)
+    if (!pwConfirm) {
+      alert("Please re-enter your password to confirm!");
+    } else if (!pwMatch) {
+      alert("Please check your password confirmation!");
+    } else {
+      registerWithEmailAndPassword(username, email, password);
+    }
   };
+
+  const checkPWMatch = (pw1, pw2) => {
+    if (pw1 === pw2) {
+      setPwMatch(true);
+    } else {
+      setPwMatch(false);
+    }
+  };
+
+  useEffect(() => {
+    checkPWMatch(password, pwConfirm);
+  }, [pwConfirm]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -119,6 +141,32 @@ export default function SignUp() {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="confirmPW"
+                  label="Confirm Your Password"
+                  type="password"
+                  id="confirmPW"
+                  onChange={(e) => setPwConfirm(e.target.value)}
+                />
+              </Grid>
+              {password && pwConfirm && !pwMatch ? (
+                <Grid item xs>
+                  {" "}
+                  <Typography component="span" sx={{ color: red[700] }}>
+                    Passwords do not match, please re-enter!
+                  </Typography>{" "}
+                </Grid>
+              ) : password && pwConfirm && pwMatch ? (
+                <Grid item xs>
+                  {" "}
+                  <Typography component="span" sx={{ color: green[700] }}>
+                    Passwords matched!
+                  </Typography>{" "}
+                </Grid>
+              ) : null}
             </Grid>
             <Button
               type="submit"

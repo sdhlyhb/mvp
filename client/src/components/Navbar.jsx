@@ -87,16 +87,18 @@ function Navbar({ onChangeKeyword, searchKeywords, search, data }) {
       setName(data.name);
     } catch (err) {
       console.error(err);
-      alert("An error occured while fetching user data");
+      // alert("An error occured while fetching user data");
     }
   };
 
   useEffect(() => {
     if (loading) return;
-    if (user) console.log(user);
-    if (!user) navigate("/");
-    // return
-    fetchUserName();
+    if (user) {
+      console.log(user);
+      fetchUserName();
+    }
+    else if (!user) navigate("/");
+
   }, [user, loading]);
 
   useEffect(() => {
