@@ -70,7 +70,7 @@ const registerWithEmailAndPassword = async (username, email, password) => {
     const { user } = res;
     await addDoc(collection(db, "users"), {
       uid: user.uid,
-      username,
+      name: username,
       authProvider: "local",
       email,
     });

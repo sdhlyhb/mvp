@@ -83,7 +83,8 @@ function Navbar({ onChangeKeyword, searchKeywords, search, data }) {
       const q = query(collection(db, "users"), where("uid", "==", user?.uid));
       const doc = await getDocs(q);
       const data = doc.docs[0].data();
-      setName(data.username);
+      console.log("this is fetched name:", doc);
+      setName(data.name);
     } catch (err) {
       console.error(err);
       alert("An error occured while fetching user data");
@@ -94,6 +95,7 @@ function Navbar({ onChangeKeyword, searchKeywords, search, data }) {
     if (loading) return;
     if (user) console.log(user);
     if (!user) navigate("/");
+    // return
     fetchUserName();
   }, [user, loading]);
 
@@ -143,13 +145,17 @@ function Navbar({ onChangeKeyword, searchKeywords, search, data }) {
             </IconButton>
           </Tooltip>
 
-          <Avatar
+          <Tooltip title = {name}>
+            <Avatar
             sx={{ width: 40, height: 40 }}
             src="xxxx.png"
-            alt={user?.email}
+            alt={name}
             onClick={(e) => setOpen(true)}
 
           />
+          </Tooltip>
+
+
            {/* {JSON.stringify(user)} */}
         </Icons>
       </StyledToolbar>
