@@ -14,6 +14,7 @@ import {
   Button,
   Tooltip,
   Modal,
+  Grid,
 } from "@mui/material";
 import { orange, blue, grey } from "@mui/material/colors";
 
@@ -74,6 +75,8 @@ function Navbar({ onChangeKeyword, searchKeywords, search, data }) {
   const [open, setOpen] = useState(false);
   const [statsPop, setStatsPop] = useState(false);
   const handleStatsClose = (e) => setStatsPop(false);
+  const [profilePop, setProfilePop] = useState(false);
+  const handleProfileClose = (e) => setProfilePop(false);
   const [user, loading, error] = useAuthState(auth);
   const [name, setName] = useState("");
   const navigate = useNavigate();
@@ -156,9 +159,6 @@ function Navbar({ onChangeKeyword, searchKeywords, search, data }) {
 
           />
           </Tooltip>
-
-
-           {/* {JSON.stringify(user)} */}
         </Icons>
       </StyledToolbar>
       <Menu
@@ -175,8 +175,8 @@ function Navbar({ onChangeKeyword, searchKeywords, search, data }) {
           horizontal: "right",
         }}
       >
-        <MenuItem>Profile</MenuItem>
-        {/* <MenuItem>My account</MenuItem> */}
+        <MenuItem onClick={e => setProfilePop(true)
+        }>Profile</MenuItem>
         <MenuItem onClick={logoutClick}>Logout</MenuItem>
       </Menu>
       <Modal open={statsPop} onClose={handleStatsClose}>
@@ -190,6 +190,45 @@ function Navbar({ onChangeKeyword, searchKeywords, search, data }) {
             Your Metrics
           </Typography>
           <DataPieChart data={data} />
+        </Box>
+      </Modal>
+      <Modal open={profilePop} onClose={handleProfileClose}>
+        <Box sx={{...style }} align="center">
+      <Grid>
+          <Avatar
+            sx={{ width: 40, height: 40 }}
+            src="xxxx.png"
+            alt={name}
+            onClick={(e) => setOpen(true)}
+
+          />
+      </Grid>
+
+          <Typography
+            style={{ fontFamily: "Arial", fontWeight: "600", color:blue[900] }}
+            variant="h6"
+            component="h2"
+          >
+            {" "}
+            Username: {name},
+
+          </Typography>
+          <Typography
+            style={{ fontFamily: "Arial", fontWeight: "600" }}
+            variant="h6"
+            component="h2"
+          >
+            {" "}
+            Email: {user?.email}
+
+          </Typography>
+          <Typography
+            style={{ fontFamily: "Arial", fontWeight: "400", fontStyle: "Italic" }}
+          >
+            {" "}
+            Last Login at: {new Date(Number(user?.metadata.lastLoginAt)).toLocaleString()}
+
+          </Typography>
         </Box>
       </Modal>
     </AppBar>
