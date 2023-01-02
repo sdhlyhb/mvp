@@ -38,9 +38,16 @@ JobTrackr is a lightweight single-page web app to help job hunters manage and tr
 
 ![shortcut](https://user-images.githubusercontent.com/8715043/205580153-6393a19a-0c52-4861-b498-afe8ea4389ee.gif)
 
+- Firebase User Authentication: Register, Sign in and User profile modal
+
+![Register](https://user-images.githubusercontent.com/8715043/210201912-9904258a-6ec5-4b46-8f34-cc69e8e66766.gif)
+![SignIn](https://user-images.githubusercontent.com/8715043/210202226-6f22b729-7410-47d7-981a-4e9d86a4f5e3.gif)
+
+
 ## Work In Progress:
 
-- User Authentication
+- Backend Auth info update to let different users have their own records
+
 
 ## Installation:
 
