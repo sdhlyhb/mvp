@@ -10,6 +10,7 @@ JobTrackr is a lightweight single-page web app to help job hunters manage and tr
 ![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
 ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
 ![MUI](https://img.shields.io/badge/MUI-007FFF.svg?style=for-the-badge&logo=MUI&logoColor=white)
+![Firebase](https://img.shields.io/badge/Firebase-3679e3.svg?style=for-the-badge&logo=Firebase&logoColor=FFCA28)
 
 
 ## Features:
