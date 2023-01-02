@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import {
   AppBar,
   Avatar,
@@ -13,6 +14,7 @@ import {
   Button,
   Tooltip,
   Modal,
+  Grid,
 } from "@mui/material";
 import { orange, blue, grey } from "@mui/material/colors";
 
@@ -20,6 +22,14 @@ import SearchIcon from "@mui/icons-material/Search";
 import InsertChartIcon from "@mui/icons-material/InsertChart";
 import DownloadIcon from "@mui/icons-material/Download";
 import DataPieChart from "./DataPieChart.jsx";
+import { useAuthState } from "react-firebase-hooks/auth";
+import {
+  auth,
+  logout,
+  db,
+
+} from "../firebase";
+import { query, collection, getDocs, where } from "firebase/firestore";
 
 const StyledToolbar = styled(Toolbar)({
   display: "flex",
@@ -60,20 +70,47 @@ const style = {
   p: 3,
 };
 
-function Navbar({ onChangeKeyword, searchKeywords, search, data}) {
+function Navbar({ onChangeKeyword, searchKeywords, search, data }) {
   const today = new Date().toLocaleString("en-US");
   const [open, setOpen] = useState(false);
-  // const [searchKeywords, setSearchKeywords] = useState("");
   const [statsPop, setStatsPop] = useState(false);
-  // const handleKeywordsChange = (e) => {
-  //   console.log("Cur keywords:", searchKeywords);
-  //   setSearchKeywords(e.target.value);
-  // }
   const handleStatsClose = (e) => setStatsPop(false);
+  const [profilePop, setProfilePop] = useState(false);
+  const handleProfileClose = (e) => setProfilePop(false);
+  const [user, loading, error] = useAuthState(auth);
+  const [name, setName] = useState("");
+  const navigate = useNavigate();
+
+  const fetchUserName = async () => {
+    try {
+      const q = query(collection(db, "users"), where("uid", "==", user?.uid));
+      const doc = await getDocs(q);
+      const data = doc.docs[0].data();
+      console.log("this is fetched name:", doc);
+      setName(data.name);
+    } catch (err) {
+      console.error(err);
+      // alert("An error occured while fetching user data");
+    }
+  };
+
+  useEffect(() => {
+    if (loading) return;
+    if (user) {
+      console.log(user);
+      fetchUserName();
+    }
+    else if (!user) navigate("/");
+
+  }, [user, loading]);
 
   useEffect(() => {
     search(searchKeywords);
   }, [searchKeywords]);
+
+  const logoutClick = (e) => {
+    logout();
+  };
   return (
     <AppBar position="sticky">
       <StyledToolbar>
@@ -113,12 +150,15 @@ function Navbar({ onChangeKeyword, searchKeywords, search, data}) {
             </IconButton>
           </Tooltip>
 
-          <Avatar
+          <Tooltip title = {name}>
+            <Avatar
             sx={{ width: 40, height: 40 }}
             src="xxxx.png"
-            alt="Serena"
+            alt={name}
             onClick={(e) => setOpen(true)}
+
           />
+          </Tooltip>
         </Icons>
       </StyledToolbar>
       <Menu
@@ -135,9 +175,9 @@ function Navbar({ onChangeKeyword, searchKeywords, search, data}) {
           horizontal: "right",
         }}
       >
-        <MenuItem>Profile</MenuItem>
-        <MenuItem>My account</MenuItem>
-        <MenuItem>Logout</MenuItem>
+        <MenuItem onClick={e => setProfilePop(true)
+        }>Profile</MenuItem>
+        <MenuItem onClick={logoutClick}>Logout</MenuItem>
       </Menu>
       <Modal open={statsPop} onClose={handleStatsClose}>
         <Box sx={style}>
@@ -149,7 +189,46 @@ function Navbar({ onChangeKeyword, searchKeywords, search, data}) {
             {" "}
             Your Metrics
           </Typography>
-          <DataPieChart data={data}/>
+          <DataPieChart data={data} />
+        </Box>
+      </Modal>
+      <Modal open={profilePop} onClose={handleProfileClose}>
+        <Box sx={{...style }} align="center">
+      <Grid>
+          <Avatar
+            sx={{ width: 40, height: 40 }}
+            src="xxxx.png"
+            alt={name}
+            onClick={(e) => setOpen(true)}
+
+          />
+      </Grid>
+
+          <Typography
+            style={{ fontFamily: "Arial", fontWeight: "600", color:blue[900] }}
+            variant="h6"
+            component="h2"
+          >
+            {" "}
+            Username: {name},
+
+          </Typography>
+          <Typography
+            style={{ fontFamily: "Arial", fontWeight: "600" }}
+            variant="h6"
+            component="h2"
+          >
+            {" "}
+            Email: {user?.email}
+
+          </Typography>
+          <Typography
+            style={{ fontFamily: "Arial", fontWeight: "400", fontStyle: "Italic" }}
+          >
+            {" "}
+            Last Login at: {new Date(Number(user?.metadata.lastLoginAt)).toLocaleString()}
+
+          </Typography>
         </Box>
       </Modal>
     </AppBar>
